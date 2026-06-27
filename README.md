@@ -31,12 +31,12 @@
 25. [Load Balancers](#25-load-balancers)
 26. [Message Queues and Event-Driven Architecture](#26-message-queues-and-event-driven-architecture)
 27. [API Gateway and Rate Limiting](#27-api-gateway-and-rate-limiting)
-28. [SQL vs NoSQL — Comprehensive Comparison](#28-sql-vs-nosql---comprehensive-comparison)
+28. [SQL vs NoSQL — Comprehensive Comparison](#28-sql-vs-nosql--comprehensive-comparison)
 29. [Database Indexes](#29-database-indexes)
 30. [Proxy and Reverse Proxy](#30-proxy-and-reverse-proxy)
 31. [Microservices vs Monolith](#31-microservices-vs-monolith)
 32. [Real-time Communication](#32-real-time-communication)
-33. [Distributed Transactions — SAGA and 2PC](#33-distributed-transactions---saga-and-2pc)
+33. [Distributed Transactions — SAGA and 2PC](#33-distributed-transactions--saga-and-2pc)
 34. [Bloom Filters](#34-bloom-filters)
 35. [Service Discovery](#35-service-discovery)
 
@@ -1356,7 +1356,7 @@ When follower opens app -> reads pre-built feed instantly (O(1))
 - ❌ 1 post * 500 followers = 500 writes per post
 - ❌ **Celebrity problem:** 1 post * 60M followers = 60M writes (hours of lag)
 
-### Fan-out on Read (Pull Model)
+#### Fan-out on Read (Pull Model)
 Don't pre-build feeds. When a user opens the app, query all followed accounts:
 
 ```
@@ -1934,11 +1934,11 @@ Data in tables with rows and columns. **Strict schema** enforced at write time (
 
 ```sql
 CREATE TABLE orders (
-    id BIGINT PRIMARY KEY KEY,
+    id BIGINT PRIMARY KEY,
     user_id BIGINT REFERENCES users(id),
-    total DECIMAL(10,2) NOT NULL,
+    total DECIMAL(10, 2) NOT NULL,
     status VARCHAR(20),
-    created_at TIMESTAMP
+    created_at TIMESTAMP 
 );
 ```
 
