@@ -121,8 +121,6 @@ Don't just pick one — reason through trade-offs step by step:
 
 ---
 
-Interview trap: A candidate who always says "horizontal scaling" without justification sounds rehearsed. The one who says "vertical first, but here's how I'd architect for horizontal" sounds experienced.
-
 ## 3. Failover Strategies
 
 ### What is Failover?
