@@ -498,3 +498,317 @@ Does your app require strong consistency?
 
 ### What is Caching?
 Storing frequently accessed data **closer to the consumer** (in faster storage like RAM) to reduce latency and backend load.
+```
+Without Cache:                With Cache:
+User -> DB (50ms)            User -> Cache (0.5ms) -> Cache Hit
+                              User -> DB (50ms)     -> Cache Miss (then populate cache)
+```
+### Cache Hit vs. Cache Miss
+- **Cache Hit** - data found in cache -> fast response
+- **Cache Miss** - data not in cache -> fetch from source, then store in cache
+- **Hit Rate** = hits / (hits + misses) - aim for > 90%
+
+### Where to Cache
+
+| Layer | Example | Latency |
+| :--- | :--- | :--- |
+| **CPU L1/L2/L3** | Hardware cache | < 1 ns |
+| **In-memory (app)** | Java HashMap | ~ 1 µs |
+| **Distributed cache** | Redis, Memcached | ~ 0.5 ms |
+| **CDN** | CloudFront, Cloudflare | ~ 10-50 ms |
+| **Database query cache** | MySQL query cache | ~ 1-5 ms |
+
+### Caching Patterns
+
+#### Cache-Aside (Lazy Loading)
+```
+1. App checks cache
+2. Cache miss -> app fetches from DB
+3. App writes result to cache
+4. Future requests hit cache
+```
+
+#### Write-Through
+```
+1. App writes to cache AND DB simultaneously
+2. Cache is always in sync
+3. Slightly slower writes, but no stale data
+```
+
+#### Write-Back (Write-Behind)
+```
+1. App writes to cache only
+2. Cache asynchronously writes to DB later
+3. Fast writes, risk of data loss if cache crashes
+```
+
+#### Cache Invalidation on Write (Most Common Fix for Stale Data)
+```
+Admin updates product price -> write to DB -> DELETE product:123 from Redis
+Next read -> cache miss -> fetches fresh data from DB -> re-caches it
+```
+- ✅ Simple, always correct after one miss
+- ✅ No risk of data loss (DB is always the source of truth)
+- ❌ One cache miss per update (acceptable when writes are rare)
+- **Best for**: Product prices, user profiles, config values
+
+### How to Think About Which Pattern to Use
+```
+Data changes rarely + correctness critical?
+└──> Cache Invalidation on Write (delete key on every update)
+
+Data changes frequently + write speed matters?
+└──> Write-Through (always write to cache + DB together)
+
+Ultra-high write throughput, some loss acceptable?
+└──> Write-Back (counters, IoT sensor data)
+
+Data has a natural expiry window?
+└──> TTL (stock prices, exchange rates, weather)
+
+Don't know access patterns upfront?
+└──> Cache-Aside / Lazy Loading (default safe choice)
+```
+
+> **Interview pattern:** When asked "the website showed a stale price after an update", the answer is always **Cache Invalidation on Write** - not Write-Back (which is riskier) and not just TTL (which leaves stale data for minutes).
+
+### Real-Life Scenario
+> **Twitter's home timeline** is pre-computed and cached per user in Redis. When you open Twitter, it reads from the cache (microseconds), not from a complex SQL join across billions of tweets (seconds). The cache is updated when people follow tweets.
+
+## 9. Caching Technologies
+
+### Redis
+An in-memory data structure store supporting strings, hashes, lists, sets, sorted sets, streams.
+```bash
+# Redis basics
+SET user:1001:name "Alice"         # Store
+GET user:1001:name                 # Retrieve -> "Alice"
+SETEX session:abc123 3600 "user_1" # Store with TTL (1 hour)
+INCR page:views:home               # Atomic counter
+ZADD leaderboard 9500 "Alice"      # Sorted set (leaderboards)
+```
+
+**Use cases:** Sessions, leaderboards, pub/sub, rate limiting, queues
+
+### Memcached
+Simple, high-performance, distributed memory caching. Only supports key-value strings.
+```java
+XMemcachedClient client = new XMemcachedClientBuilder("localhost:11211").build();
+client.set("user_1001", 3600, serializedUserData);
+Object result = client.get("user_1001");
+```
+**Use cases:** Simple object caching, when you don't need Redis's advanced features
+
+### Redis vs. Memcached
+
+| Feature | Redis | Memcached |
+| :--- | :--- | :--- |
+| **Data structures** | Rich (lists, sets, etc.) | Key-value only |
+| **Persistence** | Yes (RDB, AOF) | No |
+| **Replication** | Yes | No |
+| **Clustering** | Yes (Redis Cluster) | Limited |
+| **Pub/Sub** | Yes | No |
+| **Lua scripting** | Yes | No |
+
+### Varnish (HTTP Cache)
+Sits in front of your web server, caches full HTTP responses.
+```
+Browser -> Varnish -> Web Server
+           ↑ Returns cached HTML/JSON
+```
+
+**Use cases:** Caching entire API responses or web pages
+
+### Real-Life Scenario
+> **Instagram** uses both Redis and Memcached at massive scale. Redis handles the social graph (who follows whom) and Memcached caches serialized Python objects (user profiles, media metadata) as a last resort.
+
+## 10. Eviction Strategies for Caching
+
+When a cache is **full**, old entries must be removed to make room for new ones. The strategy determines which entries are evicted.
+
+### LRU — Least Recently Used
+Evicts the entry that hasn't been accessed for the longest time.
+```
+Cache (capacity: 3):
+[A, B, C] -> Access D -> evict A (oldest) -> [B, C, D]
+```
+
+**Best for:** General-purpose caching, web sessions
+**Used by:** Redis (default policy), many CPU caches
+
+### LFU — Least Frequently Used
+Evicts the entry with the fewest total accesses.
+```
+Cache: A(accessed 10x), B(accessed 2x), C(accessed 1x)
+Add D -> evict C (least frequent) -> [A, B, D]
+```
+
+**Best for:** When popular items should stay forever
+**Pitfall:** New items are always at risk of eviction before they get popular
+
+### FIFO — First In, First Out
+Evicts the oldest inserted entry, regardless of usage.
+
+```
+Queue: [A, B, C] -> Add D -> evict A -> [B, C, D]
+```
+
+**Simple but rarely optimal** — a heavily used old item gets evicted unfairly.
+
+### TTL — Time To Live
+Each entry expires after a set duration.
+
+```java
+jedis.setex("product:123", 300, productJson); // expires in 5 minutes
+```
+
+**Best for:** Data that becomes stale (stock prices, weather, exchange rates)
+
+### Random Replacement
+Evicts a random entry. Surprisingly effective and CPU-cheap.
+
+### MRU — Most Recently Used
+Evicts the most recently used entry. Counterintuitive but useful when old data is more likely to be accessed again (e.g., rotating through a dataset once).
+
+### Summary Table
+
+| Strategy | Evicts | Best For |
+| :--- | :--- | :--- |
+| **LRU** | Least recently accessed | General purpose |
+| **LFU** | Least frequently accessed | Popularity-based caching |
+| **FIFO** | Oldest inserted | Simple queues |
+| **TTL** | Expired entries | Time-sensitive data |
+| **Random** | Random entry | Low overhead needs |
+| **MRU** | Most recently accessed | Cyclical access patterns |
+
+### Real-Life Scenario
+> **Redis** with maxmemory-policy allkeys-lru will automatically evict the least recently used keys when it hits its memory limit. A news website using Redis to cache articles would naturally keep today's top stories in cache (frequently accessed) while yesterday's stories are evicted.
+
+> **Browser cache** uses TTL: Cache-Control: max-age=86400 tells the browser to keep a CSS file for 24 hours before re-fetching.
+
+## 11. Content Distribution Networks (CDNs)
+
+### What is a CDN?
+A CDN is a geographically distributed network of servers (Points of Presence / PoPs) that delivers content to users from the nearest location.
+
+```
+Without CDN:
+User in Tokyo ------------------------------> Origin Server (New York) [200ms]
+
+With CDN:
+User in Tokyo -> CDN PoP (Tokyo) -> Origin (only on cache miss) [10ms]
+```
+
+### How CDNs Work
+1. User requests https://cdn.example.com/logo.png
+2. DNS resolves to nearest CDN PoP (based on Anycast routing)
+3. CDN checks its cache -> Cache Hit -> returns immediately
+4. Cache Miss -> CDN fetches from origin, caches it, returns to user
+5. Next user in same region -> instant cache hit
+
+### What CDNs Cache
+- **Static assets:** Images, CSS, JS, fonts, videos
+- **Dynamic content:** Some CDNs (Cloudflare Workers, Lambda@Edge) run code at the edge
+- **API responses:** With appropriate cache headers
+
+### Popular CDNs
+
+| CDN | Known For |
+| :--- | :--- |
+| **Cloudflare** | Security + performance, free tier |
+| **AWS CloudFront** | Deep AWS integration |
+| **Akamai** | Enterprise, oldest CDN |
+| **Fastly** | Real-time purging, Varnish-based |
+| **Google Cloud CDN** | GCP integration |
+
+### Real-Life Scenario
+> **Netflix** uses their own CDN called Open Connect. They place servers inside ISP data centers (Comcast, AT&T, etc.). When you stream a popular show, the data never leaves the ISP's network — it comes from a server physically near you. This is why Netflix can stream 4K to 200M+ subscribers simultaneously.
+
+> **Spotify** uses CDNs to distribute song files. The MP3 file for "Blinding Lights" is cached at hundreds of PoPs globally. The first person to stream it in Lagos triggers a fetch from origin; everyone after gets it from the Lagos PoP.
+
+### CDN Cache Invalidation
+```bash
+# AWS CloudFront invalidation
+aws cloudfront create-invalidation \
+  --distribution-id E1234 \
+  --paths "/images/*" "/css/main.css"
+```
+
+## 12. Resiliency: Introduction
+
+### What is Resiliency?
+The ability of a system to absorb failures and recover to normal operation, minimizing impact on users.
+
+```
+Fragile System: Failure -> System Down -> Users affected
+Resilient System: Failure -> Degraded Mode -> Auto-recover -> Users barely notice
+```
+
+### Key Resiliency Concepts
+
+| Concept | Definition |
+| :--- | :--- |
+| **Fault Tolerance** | System continues working despite component failures |
+| **Graceful Degradation** | System offers reduced functionality instead of failing entirely |
+| **Self-Healing** | System detects and corrects faults automatically |
+| **Redundancy** | Duplicate components so failure of one doesn't cause outage |
+
+### Resiliency vs. Reliability vs. Availability
+- **Reliability** - probability that system works correctly over time
+- **Availability** - percentage of time system is operational
+- **Resiliency** - how well system handles and recovers from failure
+
+```
+Availability = Uptime / (Uptime + Downtime)
+
+99%    = ~3.65 days downtime/year
+99.9%  = ~8.7 hours downtime/year
+99.99% = ~52 minutes downtime/year (four nines)
+99.999% = ~5 minutes downtime/year  (five nines)
+```
+
+### Real-Life Scenario
+> During the **2021 Facebook outage**, a configuration change caused all Facebook's data centers to withdraw their BGP routes. The entire system went down for ~6 hours. This was a resiliency failure — a single misconfiguration cascaded globally.
+
+## 13. Designing for Resiliency
+
+### Key Patterns
+
+#### Circuit Breaker
+Stops calling a failing service to give it time to recover - like an electrical circuit breaker.
+```
+States:
+CLOSED    -> requests flow normally
+OPEN      -> requests fail fast (no calls to broken service)
+HALF-OPEN -> test if service recovered, then close or reopen
+
+Failure threshold hit
+CLOSED ------------------------> OPEN
+  ^                               |
+  |                               v
+  |                        Timeout expires
+  |                               |
+  |                               v
+  +--- success? ------ HALF-OPEN <-+
+  |                      |
+  +--- failure? ---------+
+```
+
+**Libraries:** Netflix Hystrix, Resilience4j, Polly (.NET)
+
+### Retry with Exponential Backoff
+```java
+public <T> T callWithRetry(Callable<T> fn, int maxRetries) throws Exception {
+    for (int attempt = 0; attempt < maxRetries; attempt++) {
+        try {
+            return fn.call();
+        } catch (TransientException e) {
+            double wait = Math.pow(2, attempt) + Math.random(); // // jitter
+            Thread.sleep((long)(wait * 1000));
+        }
+    }
+    throw new MaxRetriesExceededException();
+}
+```
+**Jitter** prevents the **thundering herd** problem where all retries hit the server simultaneously.
+
