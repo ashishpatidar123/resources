@@ -56,7 +56,7 @@ To solve this, LMAX open-sourced the **Disruptor**, a lock-free concurrency fram
 
 ## Resources for Further Deep Diving
 
-* **Video:** [GOTO 2015 • The LMAX Architecture • Martin Thompson](https://www.google.com/search?q=https://www.youtube.com/watch%3Fv%3DUvE389P6Er4) - The creator of the Disruptor explaining mechanical sympathy.
+* **Video:** [GOTO 2015 • The LMAX Architecture • Martin Thompson](https://www.youtube.com/watch?v=Qho1QNbXBso) - The creator of the Disruptor explaining mechanical sympathy.
 * **Article:** [Understanding the LMAX Disruptor](https://lmax-exchange.github.io/disruptor/disruptor.html) - The official technical paper from LMAX.
 * **Article:** [False Sharing and Cache Line Padding](https://sanjeev.pages.dev/false-sharing-cache-line-padding/) - Deep dive into how cache coherency protocols work at the hardware level.
 
