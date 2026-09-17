@@ -1235,22 +1235,21 @@ vector<pair<int, int>>& bridges, vector<int>& articulationPoints) {
 > **Multi-edge Caveat**:  When graph has parallel edges, track edge instead of parent node. 
 
 ```cpp
-void findBridgesMultigraph(vector<vector<int, int>>& graph, int n, 
-                    vector<pair<int, int >>& bridges) {
+void findBridgesMultigraph(vector<vector<pair<int, int>>>& graph, int n, vector<pair<int, int>>& bridges) {
     vector<int> disc(n, -1);
     vector<int> low(n, -1);
     int timer = 0;
-
+    
     function <void(int, int)> dfs = [&](int u, int parentEdge) {
         disc[u] = low[u] = timer++;
         for (auto [v, eid] : graph[u]) {
-            if (disc[v] == -1) { // If v is not visited
+            if (disc[v] == -1) { 
                 dfs(v, eid);
                 low[u] = min(low[u], low[v]);
                 if (low[v] > disc[u]) {
                     bridges.push_back({u, v});
                 }
-            } else if (eid != parentEdge) { // Update low value of u for parent function calls.
+            } else if (eid != parentEdge) { 
                 low[u] = min(low[u], disc[v]);
             }
         }
@@ -1573,21 +1572,19 @@ cout << d.maxFlow(0,5) << endl; // Output: 19
 ```cpp
 int bipartiteViaFlow(int leftN, int rightN, vector<pair<int,int>>& edges){
     int totalN = leftN + rightN + 2;
-    int S = total-2;
-    int T = total-1;
-
+    int S = totalN - 2; 
+    int T = totalN - 1;
     Dinic d(totalN);
-
     for(int i = 0; i < leftN; i++){
-        d.addEdge(S, i, 1);
+        d.add_edge(S, i, 1);
     }
     for(int i = 0; i < rightN; i++){
-        d.addEdge(leftN + i, T, 1);
+        d.add_edge(leftN + i, T, 1);
     }
     for(auto &edge : edges){
         int u = edge.first;
         int v = edge.second;
-        d.addEdge(u, leftN + v, 1);
+        d.add_edge(u, leftN + v, 1);
     }
     return d.max_flow(S, T);
 }
@@ -1632,10 +1629,9 @@ struct LCA{
             if(parent[i] == -1) up[i][0] = i;
             else up[i][0] = parent[i];
         }
-
         for(int k = 1; k < LOG; k++){
             for(int v = 0; v < n; v++){
-                up[v][k] = up[k-1][up[v][k-1]];
+                up[v][k] = up[ up[v][k-1] ][ k-1 ];
             }
         }
     }
@@ -2050,8 +2046,7 @@ return best;
 // Instead of running Dijkstra from each of k sources:
 // Add virtual node n, connect to each source with edge weight 0
 // Run single Dijkstra from the virtual node
-vector<int> multiSourceDijkstra(
-    vector<vector<pair<int,int>>>& graph, vector<int>& sources, int n) {
+vector<int> multiSourceDijkstra(vector<vector<pair<int,int>>> graph, vector<int>& sources, int n) {
     graph.push_back({}); // virtual node at index n
     for (int s : sources) graph[n].push_back({s, 0});
     return dijkstra(graph, n, n+1);
@@ -2171,13 +2166,12 @@ string treeCanonical(vector<vector<int>>& graph, int root, int parent) {
 ---
 
 ### 15.11 Important Theorems & Facts for Interviews
-
 | Theorem | Statement |
 | --- | --- |
 | **Handshaking Lemma** | Sum of all degrees = $2E$ (undirected) |
 | **Euler's Formula** | For connected planar graph: $V - E + F = 2$ |
 | **König's Theorem** | Bipartite: max matching = min vertex cover |
-| **Hall's Theorem** | Bipartite graph has perfect matching iff for all $S \subseteq L: |
+| **Hall's Theorem** | Bipartite graph has perfect matching iff for all $S \subseteq L$: $\vert N(S) \vert \ge \vert S \vert$ |
 | **Menger's Theorem** | Max disjoint paths = min vertex cut |
 | **Ford-Fulkerson** | Max flow = min cut |
 | **Dilworth's Theorem** | Min chain cover = max antichain in poset |
@@ -2311,46 +2305,34 @@ void solveGrid(vector<string>& grid) {
 > **How to think:** Read the problem $\rightarrow$ identify the graph type $\rightarrow$ identify what's being asked $\rightarrow$ match to a pattern $\rightarrow$ pick the algorithm.
 
 ### 17.1 Step-by-Step Decision Flowchart
-
-* **"Is X reachable from Y?" / "How many groups?"** $\rightarrow$ Connectivity: DFS / BFS / Union-Find
+* **"Is X reachable from Y?" / "How many groups?"** → Connectivity: DFS / BFS / Union-Find
 * **"Shortest / Minimum cost path?"**
-* Unweighted $\rightarrow$ BFS
-* Weights 0 or 1 $\rightarrow$ 0-1 BFS (deque)
-* Non-negative weights? $\rightarrow$ Dijkstra
-* Negative weights? $\rightarrow$ Bellman-Ford / SPFA
-* All pairs? $\rightarrow$ Floyd-Warshall (dense) / Johnson's (sparse)
-* DAG? $\rightarrow$ Topo sort + DP (fastest: $O(V+E)$)
-
-
-* **"Maximize the minimum value along a path?" (max-min path)** $\rightarrow$ Multi-source BFS + DSU (descending) / Modified Dijkstra (max-heap) / Binary Search + BFS
-* **"Minimize the maximum value along a path?" (min-max path)** $\rightarrow$ DSU (ascending sort) / Modified Dijkstra (min-heap on bottleneck) / Binary Search + BFS
-* **"Ordering / scheduling with dependencies?"** $\rightarrow$ Topological Sort (Kahn's BFS or DFS)
+  * Unweighted → BFS
+  * Weights 0 or 1 → 0-1 BFS (deque)
+  * Non-negative weights? → Dijkstra
+  * Negative weights? → Bellman-Ford / SPFA
+  * All pairs? → Floyd-Warshall (dense) / Johnson's (sparse)
+  * DAG? → Topo sort + DP (fastest: $O(V+E)$)
+* **"Maximize the minimum value along a path?" (max-min path)** → Multi-source BFS + DSU (descending) / Modified Dijkstra (max-heap) / Binary Search + BFS
+* **"Minimize the maximum value along a path?" (min-max path)** → DSU (ascending sort) / Modified Dijkstra (min-heap on bottleneck) / Binary Search + BFS
+* **"Ordering / scheduling with dependencies?"** → Topological Sort (Kahn's BFS or DFS)
 * **"Detect cycle?"**
-* Undirected $\rightarrow$ DFS (parent tracking) / Union-Find
-* Directed $\rightarrow$ 3-color DFS / Kahn's (if topo order size < n $\rightarrow$ cycle)
-
-
-* **"Connect all nodes with minimum cost?"** $\rightarrow$ MST $\rightarrow$ Kruskal (sparse, edge list) / Prim (dense, adj list)
+  * Undirected → DFS (parent tracking) / Union-Find
+  * Directed → 3-color DFS / Kahn's (if topo order size < n → cycle)
+* **"Connect all nodes with minimum cost?"** → MST → Kruskal (sparse, edge list) / Prim (dense, adj list)
 * **"Critical edges / nodes whose removal disconnects?"**
-* Edges $\rightarrow$ Bridges (Tarjan)
-* Nodes $\rightarrow$ Articulation Points (Tarjan)
-
-
+  * Edges → Bridges (Tarjan)
+  * Nodes → Articulation Points (Tarjan)
 * **"Maximum flow / minimum cut / matching?"**
-* General flow $\rightarrow$ Dinic's / Edmonds-Karp
-* Bipartite matching $\rightarrow$ Hopcroft-Karp / Hungarian / Flow reduction
-
-
-* **"Strongly connected components?"** $\rightarrow$ Tarjan's SCC / Kosaraju's
-* **"Traverse every edge exactly once?"** $\rightarrow$ Eulerian Path/Circuit $\rightarrow$ Hierholzer's
-* **"Visit every node exactly once (minimum cost)?"** $\rightarrow$ Hamiltonian / TSP $\rightarrow$ Bitmask DP ($n \le 20$)
+  * General flow → Dinic's / Edmonds-Karp
+  * Bipartite matching → Hopcroft-Karp / Hungarian / Flow reduction
+* **"Strongly connected components?"** → Tarjan's SCC / Kosaraju's
+* **"Traverse every edge exactly once?"** → Eulerian Path/Circuit → Hierholzer's
+* **"Visit every node exactly once (minimum cost)?"** → Hamiltonian / TSP → Bitmask DP ($n \le 20$)
 * **"Tree path / subtree queries?"**
-* LCA $\rightarrow$ Binary Lifting / Euler Tour + RMQ
-* Path queries $\rightarrow$ HLD + Segment Tree
-* Subtree queries $\rightarrow$ Euler Tour + BIT/Segment Tree
-
-
-
+  * LCA → Binary Lifting / Euler Tour + RMQ
+  * Path queries → HLD + Segment Tree
+  * Subtree queries → Euler Tour + BIT/Segment Tree
 ---
 
 ### 17.2 Pattern Recognition by Problem Keywords
