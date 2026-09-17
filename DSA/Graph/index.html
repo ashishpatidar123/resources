@@ -1,0 +1,5745 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../..">
+      
+      
+        <link rel="next" href="../../OS/Hardware%20Mechanical%20Sympathy/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Graph Algorithms: Complete DSA Interview & Competitive Programming Guide > 💫 - Resources</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#graph-algorithms-complete-dsa-interview-competitive-programming-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Resources" class="md-header__button md-logo" aria-label="Resources" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Resources
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Graph Algorithms: Complete DSA Interview &amp; Competitive Programming Guide &gt; 💫
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Resources" class="md-nav__button md-logo" aria-label="Resources" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Resources
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DSA
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graph Algorithms: Complete DSA Interview &amp; Competitive Programming Guide &gt; 💫
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graph Algorithms: Complete DSA Interview &amp; Competitive Programming Guide &gt; 💫
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table of Contents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-graph-fundamentals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Graph Fundamentals
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Graph Fundamentals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is a Graph?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#types-of-graphs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Types of Graphs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-terminology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Terminology
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complexity-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complexity Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-graph-representations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Graph Representations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Graph Representations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adjacency-list-preferred-for-sparse-graphs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adjacency List (preferred for sparse graphs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adjacency-matrix-for-dense-graphs-floyd-warshall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adjacency Matrix (for dense graphs, Floyd-Warshall)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edge-list-for-kruskals-mst" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Edge List (for Kruskal's MST)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implicit-graph-grid-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implicit Graph (grid problems)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-dfs-depth-first-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. DFS (Depth-first Search)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. DFS (Depth-first Search)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Algorithms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dfs-with-entryexit-times-critical-for-many-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DFS with Entry/Exit Times (critical for many algorithms)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dfs-tree-edge-classification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DFS Tree Edge Classification
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applications-of-dfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Applications of DFS
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-bfs-breadth-first-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. BFS (Breadth-First Search)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. BFS (Breadth-First Search)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Algorithm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bfs-for-shortest-path-unweighted" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BFS for Shortest Path (unweighted)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-source-bfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-Source BFS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bfs-level-by-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BFS Level-by-Level
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#0-1-bfs-edges-with-weight-0-or-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0-1 BFS (edges with weight 0 or 1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-cycle-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Cycle Detection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Cycle Detection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#undirected-graph-dfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Undirected Graph - DFS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#undirected-graph-union-find-preferred-for-edge-list-input" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Undirected Graph - Union-Find (preferred for edge-list input)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#directed-graph-dfs-with-3-color-marking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Directed Graph - DFS with 3-Color Marking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finding-the-actual-cycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Finding the Actual Cycle
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-topological-sort" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Topological Sort
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Topological Sort">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kahns-algorithm-bfs-in-degree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kahn's Algorithm (BFS / In-degree)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dfs-based-topological-sort" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DFS-Based Topological Sort
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#classic-interview-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Classic Interview Problems
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-shortest-path-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Shortest Path Algorithms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Shortest Path Algorithms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-dijkstras-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Dijkstra's Algorithm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-bellman-ford-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Bellman-Ford Algorithm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-floyd-warshall-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 Floyd-Warshall Algorithm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-johnsons-algorithm-all-pairs-for-sparse-graphs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 Johnson's Algorithm (All-Pairs for Sparse Graphs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#75-comparison-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.5 Comparison Table
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-minimum-spanning-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Minimum Spanning Tree
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Minimum Spanning Tree">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-kruskals-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 Kruskal's Algorithm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-prims-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 Prim's Algorithm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-mst-variants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 MST Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84-mst-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4 MST Applications
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-union-find-dsu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Union-Find (DSU)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Union-Find (DSU)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#full-implementation-with-all-optimizations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Full Implementation with All Optimizations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dsu-with-rollback-for-offline-queries-no-path-compression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DSU with Rollback (for offline queries, no path compression)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#weighted-dsu-for-edge-differencespotentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Weighted DSU (for edge differences/potentials)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-connected-components-scc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Connected Components &amp; SCC
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Connected Components &amp; SCC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#undirected-connected-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Undirected Connected Components
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strongly-connected-components-scc-directed-graphs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strongly Connected Components (SCC) — Directed Graphs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-bridges-articulation-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Bridges &amp; Articulation Points
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Bridges &amp; Articulation Points">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tarjans-bridge-ap-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tarjan's Bridge &amp; AP Algorithms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bridge-tree-block-cut-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bridge Tree (Block-Cut Tree)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-bipartite-graphs-matching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Bipartite Graphs &amp; Matching
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. Bipartite Graphs &amp; Matching">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bipartite-check-2-coloring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bipartite Check (2-coloring)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maximum-bipartite-matching-hungrarian-augmenting-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Maximum Bipartite Matching - Hungrarian (Augmenting Paths)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hopcroft-karp-oe-sqrtv-bipartite-matching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hopcroft-KARP (O(E * sqrt(V)) bipartite matching)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-network-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Network Flow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. Network Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131-ford-fulkerson-edmonds-karp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.1 Ford Fulkerson / Edmonds-Karp
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132-dinics-algorithms-ovve-much-faster-in-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.2 Dinic's Algorithms (O(VVE) - much faster in practice)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133-network-flow-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.3 Network Flow Applications
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-tree-algorithms-on-graphs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Tree Algorithms on Graphs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14. Tree Algorithms on Graphs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141-lowest-common-ancestor-lca-binary-lifting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.1 Lowest Common Ancestor (LCA) - Binary Lifting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142-euler-tour-flattening-a-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.2 Euler Tour (Flattening a Tree)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#143-heavy-light-decomposition-hld" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.3 Heavy-Light Decomposition (HLD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#144-centroid-decomposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.4 Centroid Decomposition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#145-tree-dp-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.5 Tree DP Patterns
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-advanced-competitive-programming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Advanced &amp; Competitive Programming
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="15. Advanced &amp; Competitive Programming">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#151-eulerian-path-circuit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.1 Eulerian Path &amp; Circuit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#152-hamiltonian-path-tsp-bitmask-dp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.2 Hamiltonian Path &amp; TSP (Bitmask DP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#153-graph-coloring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.3 Graph Coloring
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#155-bidirectional-dijkstra-snippet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.5 Bidirectional Dijkstra (Snippet)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#156-virtual-nodes-trick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.6 Virtual Nodes Trick
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#157-parallel-bfs-simultaneous-bfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.7 Parallel BFS / Simultaneous BFS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#158-dsu-on-tree-small-to-large-merging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.8 DSU on Tree (Small-to-Large Merging)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#159-shortest-path-in-dag-dp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.9 Shortest Path in DAG (DP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1510-graph-hashing-isomorphism" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.10 Graph Hashing / Isomorphism
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1511-important-theorems-facts-for-interviews" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.11 Important Theorems &amp; Facts for Interviews
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-patterns-templates-cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Patterns, Templates &amp; Cheat Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="16. Patterns, Templates &amp; Cheat Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#161-interview-problem-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.1 Interview Problem Patterns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#162-grid-graph-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.2 Grid Graph Template
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#163-common-mistakes-fixes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.3 Common Mistakes &amp; Fixes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#164-complexity-quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.4 Complexity Quick Reference
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#166-top-30-leetcode-graph-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.6 Top 30 LeetCode Graph Problems
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-algorithm-selection-decision-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. Algorithm Selection Decision Framework
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="17. Algorithm Selection Decision Framework">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#171-step-by-step-decision-flowchart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17.1 Step-by-Step Decision Flowchart
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#172-pattern-recognition-by-problem-keywords" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17.2 Pattern Recognition by Problem Keywords
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#173-identifying-the-graph-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17.3 Identifying the Graph Type
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#174-the-binary-search-bfsdfs-meta-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17.4 The "Binary Search + BFS/DFS" Meta-Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#175-the-dsu-sort-meta-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17.5 The "DSU + Sort" Meta-Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#176-the-modified-dijkstra-meta-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17.6 The "Modified Dijkstra" Meta-Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#177-multi-source-bfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17.7 Multi-Source BFS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#178-quick-decision-table-i-see-x-i-think-y" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17.8 Quick Decision Table: "I see X, I think Y"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../OS/Hardware%20Mechanical%20Sympathy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware Mechanical Sympathy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Others
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Others
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Others/PostgreSQL%20Internals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PostgreSQL Internals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    System Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../System%20Design/System%20Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design Concepts: A Comprehensive Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table of Contents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-graph-fundamentals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Graph Fundamentals
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Graph Fundamentals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is a Graph?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#types-of-graphs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Types of Graphs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-terminology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Terminology
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complexity-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complexity Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-graph-representations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Graph Representations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Graph Representations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adjacency-list-preferred-for-sparse-graphs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adjacency List (preferred for sparse graphs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adjacency-matrix-for-dense-graphs-floyd-warshall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adjacency Matrix (for dense graphs, Floyd-Warshall)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edge-list-for-kruskals-mst" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Edge List (for Kruskal's MST)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implicit-graph-grid-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implicit Graph (grid problems)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-dfs-depth-first-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. DFS (Depth-first Search)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. DFS (Depth-first Search)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Algorithms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dfs-with-entryexit-times-critical-for-many-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DFS with Entry/Exit Times (critical for many algorithms)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dfs-tree-edge-classification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DFS Tree Edge Classification
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applications-of-dfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Applications of DFS
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-bfs-breadth-first-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. BFS (Breadth-First Search)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. BFS (Breadth-First Search)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Algorithm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bfs-for-shortest-path-unweighted" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BFS for Shortest Path (unweighted)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-source-bfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-Source BFS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bfs-level-by-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BFS Level-by-Level
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#0-1-bfs-edges-with-weight-0-or-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0-1 BFS (edges with weight 0 or 1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-cycle-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Cycle Detection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Cycle Detection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#undirected-graph-dfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Undirected Graph - DFS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#undirected-graph-union-find-preferred-for-edge-list-input" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Undirected Graph - Union-Find (preferred for edge-list input)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#directed-graph-dfs-with-3-color-marking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Directed Graph - DFS with 3-Color Marking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finding-the-actual-cycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Finding the Actual Cycle
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-topological-sort" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Topological Sort
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Topological Sort">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kahns-algorithm-bfs-in-degree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kahn's Algorithm (BFS / In-degree)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dfs-based-topological-sort" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DFS-Based Topological Sort
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#classic-interview-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Classic Interview Problems
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-shortest-path-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Shortest Path Algorithms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Shortest Path Algorithms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-dijkstras-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Dijkstra's Algorithm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-bellman-ford-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Bellman-Ford Algorithm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-floyd-warshall-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 Floyd-Warshall Algorithm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-johnsons-algorithm-all-pairs-for-sparse-graphs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 Johnson's Algorithm (All-Pairs for Sparse Graphs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#75-comparison-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.5 Comparison Table
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-minimum-spanning-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Minimum Spanning Tree
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Minimum Spanning Tree">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-kruskals-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 Kruskal's Algorithm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-prims-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 Prim's Algorithm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-mst-variants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 MST Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84-mst-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4 MST Applications
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-union-find-dsu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Union-Find (DSU)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Union-Find (DSU)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#full-implementation-with-all-optimizations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Full Implementation with All Optimizations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dsu-with-rollback-for-offline-queries-no-path-compression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DSU with Rollback (for offline queries, no path compression)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#weighted-dsu-for-edge-differencespotentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Weighted DSU (for edge differences/potentials)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-connected-components-scc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Connected Components &amp; SCC
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Connected Components &amp; SCC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#undirected-connected-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Undirected Connected Components
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strongly-connected-components-scc-directed-graphs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strongly Connected Components (SCC) — Directed Graphs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-bridges-articulation-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Bridges &amp; Articulation Points
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Bridges &amp; Articulation Points">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tarjans-bridge-ap-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tarjan's Bridge &amp; AP Algorithms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bridge-tree-block-cut-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bridge Tree (Block-Cut Tree)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-bipartite-graphs-matching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Bipartite Graphs &amp; Matching
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. Bipartite Graphs &amp; Matching">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bipartite-check-2-coloring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bipartite Check (2-coloring)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maximum-bipartite-matching-hungrarian-augmenting-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Maximum Bipartite Matching - Hungrarian (Augmenting Paths)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hopcroft-karp-oe-sqrtv-bipartite-matching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hopcroft-KARP (O(E * sqrt(V)) bipartite matching)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-network-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Network Flow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. Network Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131-ford-fulkerson-edmonds-karp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.1 Ford Fulkerson / Edmonds-Karp
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132-dinics-algorithms-ovve-much-faster-in-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.2 Dinic's Algorithms (O(VVE) - much faster in practice)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133-network-flow-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.3 Network Flow Applications
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-tree-algorithms-on-graphs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Tree Algorithms on Graphs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14. Tree Algorithms on Graphs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141-lowest-common-ancestor-lca-binary-lifting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.1 Lowest Common Ancestor (LCA) - Binary Lifting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142-euler-tour-flattening-a-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.2 Euler Tour (Flattening a Tree)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#143-heavy-light-decomposition-hld" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.3 Heavy-Light Decomposition (HLD)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#144-centroid-decomposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.4 Centroid Decomposition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#145-tree-dp-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.5 Tree DP Patterns
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-advanced-competitive-programming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Advanced &amp; Competitive Programming
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="15. Advanced &amp; Competitive Programming">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#151-eulerian-path-circuit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.1 Eulerian Path &amp; Circuit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#152-hamiltonian-path-tsp-bitmask-dp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.2 Hamiltonian Path &amp; TSP (Bitmask DP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#153-graph-coloring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.3 Graph Coloring
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#155-bidirectional-dijkstra-snippet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.5 Bidirectional Dijkstra (Snippet)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#156-virtual-nodes-trick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.6 Virtual Nodes Trick
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#157-parallel-bfs-simultaneous-bfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.7 Parallel BFS / Simultaneous BFS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#158-dsu-on-tree-small-to-large-merging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.8 DSU on Tree (Small-to-Large Merging)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#159-shortest-path-in-dag-dp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.9 Shortest Path in DAG (DP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1510-graph-hashing-isomorphism" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.10 Graph Hashing / Isomorphism
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1511-important-theorems-facts-for-interviews" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.11 Important Theorems &amp; Facts for Interviews
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-patterns-templates-cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Patterns, Templates &amp; Cheat Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="16. Patterns, Templates &amp; Cheat Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#161-interview-problem-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.1 Interview Problem Patterns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#162-grid-graph-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.2 Grid Graph Template
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#163-common-mistakes-fixes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.3 Common Mistakes &amp; Fixes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#164-complexity-quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.4 Complexity Quick Reference
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#166-top-30-leetcode-graph-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.6 Top 30 LeetCode Graph Problems
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-algorithm-selection-decision-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. Algorithm Selection Decision Framework
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="17. Algorithm Selection Decision Framework">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#171-step-by-step-decision-flowchart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17.1 Step-by-Step Decision Flowchart
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#172-pattern-recognition-by-problem-keywords" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17.2 Pattern Recognition by Problem Keywords
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#173-identifying-the-graph-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17.3 Identifying the Graph Type
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#174-the-binary-search-bfsdfs-meta-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17.4 The "Binary Search + BFS/DFS" Meta-Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#175-the-dsu-sort-meta-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17.5 The "DSU + Sort" Meta-Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#176-the-modified-dijkstra-meta-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17.6 The "Modified Dijkstra" Meta-Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#177-multi-source-bfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17.7 Multi-Source BFS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#178-quick-decision-table-i-see-x-i-think-y" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17.8 Quick Decision Table: "I see X, I think Y"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="graph-algorithms-complete-dsa-interview-competitive-programming-guide">Graph Algorithms: Complete DSA Interview &amp; Competitive Programming Guide &gt; 💫</h1>
+<blockquote>
+<p>Covers fundamentals → advanced → competitive programming level. Code in C++17.</p>
+</blockquote>
+<hr />
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li><a href="#1-graph-fundamentals">Graph Fundamentals</a></li>
+<li><a href="#2-graph-representations">Graph Representations</a></li>
+<li><a href="#3-dfs-depth-first-search">DFS (Depth-First Search)</a></li>
+<li><a href="#4-bfs-breadth-first-search">BFS (Breadth-First Search)</a></li>
+<li><a href="#5-cycle-detection">Cycle Detection</a></li>
+<li><a href="#6-topological-sort">Topological Sort</a></li>
+<li><a href="#7-shortest-path-algorithms">Shortest Path Algorithms</a></li>
+<li><a href="#8-minimum-spanning-tree">Minimum Spanning Tree</a></li>
+<li><a href="#9-union-find-dsu">Union-Find (DSU)</a></li>
+<li><a href="#10-connected-components--scc">Connected Components &amp; SCC</a></li>
+<li><a href="#11-bridges--articulation-points">Bridges &amp; Articulation Points</a></li>
+<li><a href="#12-bipartite-graphs--matching">Bipartite Graphs &amp; Matching</a></li>
+<li><a href="#13-network-flow">Network Flow</a></li>
+<li><a href="#14-tree-algorithms-on-graphs">Tree Algorithms on Graphs</a></li>
+<li><a href="#15-advanced--competitive-programming">Advanced &amp; Competitive Programming</a></li>
+<li><a href="#16-patterns-templates--cheat-sheet">Patterns, Templates &amp; Cheat Sheet</a></li>
+<li><a href="#17-algorithm-selection-decision-framework">Algorithm Selection Decision Framework</a></li>
+</ol>
+<hr />
+<h2 id="1-graph-fundamentals">1. Graph Fundamentals</h2>
+<h3 id="what-is-a-graph">What is a Graph?</h3>
+<p>A graph G = (V, E), where 'V' = vertices (nodes) and 'E' = edges (connections).</p>
+<h3 id="types-of-graphs">Types of Graphs</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Undirected</strong></td>
+<td>Edges have no direction</td>
+<td>Social network friendships</td>
+</tr>
+<tr>
+<td><strong>Directed (Digraph)</strong></td>
+<td>Edges have direction</td>
+<td>Twitter follows</td>
+</tr>
+<tr>
+<td><strong>Weighted</strong></td>
+<td>Edges have costs</td>
+<td>Road distances</td>
+</tr>
+<tr>
+<td><strong>Unweighted</strong></td>
+<td>All edges equal</td>
+<td>Grid mazes</td>
+</tr>
+<tr>
+<td><strong>DAG</strong></td>
+<td>Directed Acyclic Graph</td>
+<td>Task dependencies</td>
+</tr>
+<tr>
+<td><strong>Tree</strong></td>
+<td>Connected acyclic undirected</td>
+<td>File system</td>
+</tr>
+<tr>
+<td><strong>Bipartite</strong></td>
+<td>2-colorable, no odd cycles</td>
+<td>Job-applicant matching</td>
+</tr>
+<tr>
+<td><strong>Complete (Kn)</strong></td>
+<td>Every pair connected</td>
+<td>n(n-1)/2 edges</td>
+</tr>
+<tr>
+<td><strong>Planar</strong></td>
+<td>Can draw without edge crossings</td>
+<td>Maps</td>
+</tr>
+<tr>
+<td><strong>Sparse</strong></td>
+<td>E ≈ V</td>
+<td>Road networks</td>
+</tr>
+<tr>
+<td><strong>Dense</strong></td>
+<td>E ≈ V²</td>
+<td>Social graphs</td>
+</tr>
+</tbody>
+</table>
+<h3 id="key-terminology">Key Terminology</h3>
+<ul>
+<li><strong>Degree</strong>: Number of edges incident to a vertex</li>
+<li>In-degree / Out-degree for directed graphs</li>
+<li><strong>Path</strong>: Sequence of vertices where consecutive pairs are connected by edges</li>
+<li><strong>Simple Path</strong>: No repeated vertices</li>
+<li><strong>Cycle</strong>: Path that starts and ends at same vertex</li>
+<li><strong>Connected Graph</strong>: Every vertex reachable from every other (undirected)</li>
+<li><strong>Strongly Connected</strong>: Every vertex reachable from every other in directed graph</li>
+<li><strong>Bridge</strong>: Edge whose removal disconnects the graph</li>
+<li><strong>Articulation Point</strong>: Vertex whose removal disconnects the graph</li>
+<li><strong>Euler Path</strong>: Visits every <strong>edge</strong> exactly once</li>
+<li><strong>Hamiltonian Path</strong>: Visits every <strong>vertex</strong> exactly once</li>
+<li><strong>Diameter</strong>: Longest shortest path between any two vertices</li>
+</ul>
+<h3 id="complexity-overview">Complexity Overview</h3>
+<table>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Time</th>
+<th>Space</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DFS/BFS</td>
+<td>O(V+E)</td>
+<td>O(V)</td>
+</tr>
+<tr>
+<td>Dijkstra (heap)</td>
+<td>O((V+E) log V)</td>
+<td>O(V)</td>
+</tr>
+<tr>
+<td>Bellman-Ford</td>
+<td>O(VE)</td>
+<td>O(V)</td>
+</tr>
+<tr>
+<td>Floyd-Warshall</td>
+<td>O(V³)</td>
+<td>O(V²)</td>
+</tr>
+<tr>
+<td>Kruskal's MST</td>
+<td>O(E log E)</td>
+<td>O(V)</td>
+</tr>
+<tr>
+<td>Prim's MST (heap)</td>
+<td>O((V+E) log V)</td>
+<td>O(V)</td>
+</tr>
+<tr>
+<td>Topological Sort</td>
+<td>O(V+E)</td>
+<td>O(V)</td>
+</tr>
+<tr>
+<td>Tarjan's SCC</td>
+<td>O(V+E)</td>
+<td>O(V)</td>
+</tr>
+<tr>
+<td>Dinic's Flow</td>
+<td>O(V² E)</td>
+<td>O(V+E)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2-graph-representations">2. Graph Representations</h2>
+<h3 id="adjacency-list-preferred-for-sparse-graphs">Adjacency List (preferred for sparse graphs)</h3>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+// Unweighted adjacency list
+vector&lt;vector&lt;int&gt;&gt; graph(n);
+graph[0].push_back(1);
+graph[0].push_back(2);
+
+// Weighted adjacency list: graph[u] = {v, w}
+vector&lt;vector&lt;pair&lt;int, int&gt;&gt;&gt; wgraph(n);
+wgraph[0].push_back({1, 5});
+wgraph[0].push_back({2, 3});
+
+// Build from edge list
+void buildGraph(int n, vector&lt;pair&lt;int,int&gt;&gt;&amp; edges,
+                vector&lt;vector&lt;int&gt;&gt;&amp; g, bool directed=false) {
+    g.assign(n, {});
+    for (auto [u, v] : edges) {
+        g[u].push_back(v);
+        if (!directed) g[v].push_back(u);
+    }
+}
+
+void buildWeighted(int n, vector&lt;tuple&lt;int,int,int&gt;&gt;&amp; edges,
+                   vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt;&amp; g, bool directed=false) {
+    g.assign(n, {});
+    for (auto [u, v, w] : edges) {
+        g[u].push_back({v, w});
+        if (!directed) g[v].push_back({u, w});
+    }
+}
+</code></pre>
+<h3 id="adjacency-matrix-for-dense-graphs-floyd-warshall">Adjacency Matrix (for dense graphs, Floyd-Warshall)</h3>
+<pre><code class="language-cpp">const int INF = 1e9;
+
+vector&lt;vector&lt;int&gt;&gt; buildMatrix(int n, vector&lt;tuple&lt;int,int,int&gt;&gt;&amp; edges,
+                               bool directed=false) {
+    vector&lt;vector&lt;int&gt;&gt; mat(n, vector&lt;int&gt;(n, INF));
+    for (int i = 0; i &lt; n; i++) mat[i][i] = 0;
+    for (auto [u, v, w] : edges) {
+        mat[u][v] = min(mat[u][v], w);
+        if (!directed) mat[v][u] = min(mat[v][u], w);
+    }
+    return mat;
+}
+</code></pre>
+<h3 id="edge-list-for-kruskals-mst">Edge List (for Kruskal's MST)</h3>
+<pre><code class="language-cpp">// {weight, u, v} - sort by weight for Kruskal's
+vector&lt;tuple&lt;int,int,int&gt;&gt; edges; // {w, u, v}
+sort(edges.begin(), edges.end());
+</code></pre>
+<h3 id="implicit-graph-grid-problems">Implicit Graph (grid problems)</h3>
+<pre><code class="language-cpp">const int DIRS[4][2] = {{0,1},{0,-1},{1,0},{-1,0}};
+const int DIRS8[8][2] = {{0,1},{0,-1},{1,0},{-1,0},{1,1},{1,-1},{-1,1},{-1,-1}};
+
+vector&lt;pair&lt;int,int&gt;&gt; neighbors(int r, int c, int rows, int cols) {
+    vector&lt;pair&lt;int,int&gt;&gt; res;
+    for (auto&amp; d : DIRS) {
+        int nr = r+d[0], nc = c+d[1];
+        if (nr &gt;= 0 &amp;&amp; nr &lt; rows &amp;&amp; nc &gt;= 0 &amp;&amp; nc &lt; cols)
+            res.push_back({nr, nc});
+    }
+    return res;
+}
+</code></pre>
+<h2 id="3-dfs-depth-first-search">3. DFS (Depth-first Search)</h2>
+<h3 id="core-algorithms">Core Algorithms</h3>
+<pre><code class="language-cpp">// Recursive DFS
+void dfsRecursive(vector&lt;vector&lt;int&gt;&gt;&amp; graph, int node, vector&lt;bool&gt;&amp; visited) {
+    visited[node] = true;
+    for (int nb : graph[node])
+        if (!visited[nb])
+            dfsRecursive(graph, nb, visited);
+}
+
+// Iterative DFS
+vector&lt;int&gt; dfsIterative(vector&lt;vector&lt;int&gt;&gt;&amp; graph, int start) {
+    int n = graph.size();
+    vector&lt;bool&gt; visited(n, false);
+    vector&lt;int&gt; order;
+    stack&lt;int&gt; st;
+    st.push(start);
+    while (!st.empty()) {
+        int node = st.top(); st.pop();
+        if (visited[node]) continue;
+        visited[node] = true;
+        order.push_back(node);
+        for (int nb : graph[node]) // push reverse for left-to-right order
+            if (!visited[nb]) st.push(nb);
+    }
+    return order;
+}
+</code></pre>
+<h3 id="dfs-with-entryexit-times-critical-for-many-algorithms">DFS with Entry/Exit Times (critical for many algorithms)</h3>
+<pre><code class="language-cpp">void dfsTimestamps(vector&lt;vector&lt;int&gt;&gt;&amp; graph, int n,
+                   vector&lt;int&gt;&amp; tin, vector&lt;int&gt;&amp; tout) {
+    tin.assign(n, -1); tout.assign(n, -1);
+    int timer = 0;
+    vector&lt;bool&gt; visited(n, false);
+
+    function&lt;void(int)&gt; dfs = [&amp;](int u) {
+        visited[u] = true;
+        tin[u] = timer++;
+        for (int v : graph[u])
+            if (!visited[v]) dfs(v);
+        tout[u] = timer++;
+    };
+
+    for (int i = 0; i &lt; n; i++)
+        if (!visited[i]) dfs(i);
+}
+</code></pre>
+<h3 id="dfs-tree-edge-classification">DFS Tree Edge Classification</h3>
+<p>During DFS on a directed graph, edges fall into:</p>
+<ul>
+<li>
+<p><strong>Tree Edge:</strong> leads to unvisited node</p>
+</li>
+<li>
+<p><strong>Back Edge:</strong> leads to ancestor → indicates cycle</p>
+</li>
+<li>
+<p><strong>Forward Edge:</strong> leads to descendant (already visited, tout[v] &lt; tout[u])</p>
+</li>
+<li>
+<p><strong>Cross Edge:</strong> leads to node in different subtree</p>
+</li>
+</ul>
+<pre><code class="language-cpp">// 0=WHITE(unvisited), 1=GRAY(in stack), 2=BLACK(done)
+vector&lt;pair&lt;int,int&gt;&gt; classifyEdges(vector&lt;vector&lt;int&gt;&gt;&amp; graph, int n) {
+    vector&lt;int&gt; color(n, 0);
+    vector&lt;pair&lt;int,int&gt;&gt; backEdges;
+
+    function&lt;void(int)&gt; dfs = [&amp;](int u) {
+        color[u] = 1; // GRAY
+        for (int v : graph[u]) {
+            if (color[v] == 0) dfs(v); // tree edge
+            else if (color[v] == 1) backEdges.push_back({u, v}); // back edge = cycle
+        }
+        color[u] = 2; // BLACK
+    };
+    // ... loop over all nodes to call dfs(i) if color[i] == 0
+}
+</code></pre>
+<h3 id="applications-of-dfs">Applications of DFS</h3>
+<ul>
+<li>Path existence check</li>
+<li>Connected components</li>
+<li>Cycle detection</li>
+<li>Topological sort</li>
+<li>SCC (Kosaraju, Tarjan)</li>
+<li>Bridges and articulation points</li>
+<li>Maze solving</li>
+<li>Flood fill</li>
+</ul>
+<h2 id="4-bfs-breadth-first-search">4. BFS (Breadth-First Search)</h2>
+<h3 id="core-algorithm">Core Algorithm</h3>
+<pre><code class="language-cpp">vector&lt;int&gt; bfs(vector&lt;vector&lt;int&gt;&gt;&amp; graph, int start) {
+    int n = graph.size();
+    vector&lt;bool&gt; visited(n, false);
+    vector&lt;int&gt; order;
+    queue&lt;int&gt; q;
+    visited[start] = true;
+    q.push(start);
+    while (!q.empty()) {
+        int node = q.front(); q.pop();
+        order.push_back(node);
+        for (int nb : graph[node])
+            if (!visited[nb]) { visited[nb] = true; q.push(nb); }
+    }
+    return order;
+}
+</code></pre>
+<h3 id="bfs-for-shortest-path-unweighted">BFS for Shortest Path (unweighted)</h3>
+<pre><code class="language-cpp">pair&lt;int, vector&lt;int&gt;&gt; bfsShortest(vector&lt;vector&lt;int&gt;&gt;&amp; graph, int start, int end) {
+    int n = graph.size();
+    vector&lt;int&gt; dist(n, -1), parent(n, -1);
+    dist[start] = 0;
+    queue&lt;int&gt; q;
+    q.push(start);
+    while (!q.empty()) {
+        int node = q.front(); q.pop();
+        if (node == end) {
+            vector&lt;int&gt; path;
+            for (int v = end; v != -1; v = parent[v]) path.push_back(v);
+            reverse(path.begin(), path.end());
+            return {dist[end], path};
+        }
+        for (int nb : graph[node])
+            if (dist[nb] == -1) {
+                dist[nb] = dist[node] + 1;
+                parent[nb] = node;
+                q.push(nb);
+            }
+    }
+    return {-1, {}}; // unreachable
+}
+</code></pre>
+<h3 id="multi-source-bfs">Multi-Source BFS</h3>
+<pre><code class="language-cpp">// Start BFS from multiple sources simultaneously
+vector&lt;vector&lt;int&gt;&gt; multiSourceBFS(vector&lt;string&gt;&amp; grid,
+                                   vector&lt;pair&lt;int,int&gt;&gt;&amp; sources) {
+    int rows = grid.size(), cols = grid[0].size();
+    vector&lt;vector&lt;int&gt;&gt; dist(rows, vector&lt;int&gt;(cols, -1));
+    queue&lt;pair&lt;int,int&gt;&gt; q;
+    for (auto [r, c] : sources) { dist[r][c] = 0; q.push({r, c}); }
+    while (!q.empty()) {
+        auto [r, c] = q.front(); q.pop();
+        for (auto [nr, nc] : neighbors(r, c, rows, cols))
+            if (dist[nr][nc] == -1 &amp;&amp; grid[nr][nc] != '#') {
+                dist[nr][nc] = dist[r][c] + 1;
+                q.push({nr, nc});
+            }
+    }
+    return dist;
+}
+</code></pre>
+<h3 id="bfs-level-by-level">BFS Level-by-Level</h3>
+<pre><code class="language-cpp">vector&lt;vector&lt;int&gt;&gt; bfsLevels(vector&lt;vector&lt;int&gt;&gt;&amp; graph, int start) {
+    int n = graph.size();
+    vector&lt;bool&gt; visited(n, false);
+    visited[start] = true;
+    vector&lt;vector&lt;int&gt;&gt; levels;
+    vector&lt;int&gt; current = {start};
+    while (!current.empty()) {
+        levels.push_back(current);
+        vector&lt;int&gt; next;
+        for (int node : current) {
+            for (int nb : graph[node])
+                if (!visited[nb]) { visited[nb] = true; next.push_back(nb); }
+        }
+        current = next;
+    }
+    return levels;
+}
+</code></pre>
+<h3 id="0-1-bfs-edges-with-weight-0-or-1">0-1 BFS (edges with weight 0 or 1)</h3>
+<pre><code class="language-cpp">vector&lt;int&gt; bfs01(vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt;&amp; graph, int start, int n) {
+    vector&lt;int&gt; dist(n, INT_MAX);
+    dist[start] = 0;
+    deque&lt;int&gt; dq;
+    dq.push_back(start);
+    while (!dq.empty()) {
+        int u = dq.front(); dq.pop_front();
+        for (auto [v, w] : graph[u]) {
+            if (dist[u] + w &lt; dist[v]) {
+                dist[v] = dist[u] + w;
+                if (w == 0) dq.push_front(v); // free edge -&gt; front
+                else dq.push_back(v);        // cost-1 -&gt; back
+            }
+        }
+    }
+    return dist;
+}
+</code></pre>
+<blockquote>
+<p><strong>When to use 0-1 BFS?</strong> When edge weights are only 0 or 1. Runs in O(V+E), faster than Dijkstra's O((V+E) log V).</p>
+</blockquote>
+<h2 id="5-cycle-detection">5. Cycle Detection</h2>
+<h3 id="undirected-graph-dfs">Undirected Graph - DFS</h3>
+<pre><code class="language-cpp">bool hasCycleUndirected(vector&lt;vector&lt;int&gt;&gt;&amp; graph, int n) {
+    vector&lt;bool&gt; visited(n, false);
+    function&lt;bool(int, int)&gt; dfs = [&amp;](int u, int parent) -&gt; bool {
+        visited[u] = true;
+        for (int v : graph[u]) {
+            if (!visited[v]) { if (dfs(v, u)) return true; }
+            else if (v != parent) return true; // back edge -&gt; cycle
+        }
+        return false;
+    };
+    for (int i = 0; i &lt; n; i++)
+        if (!visited[i] &amp;&amp; dfs(i, -1)) return true;
+    return false;
+}
+</code></pre>
+<h3 id="undirected-graph-union-find-preferred-for-edge-list-input">Undirected Graph - Union-Find (preferred for edge-list input)</h3>
+<pre><code class="language-cpp">bool hasCycleUF(int n, vector&lt;pair&lt;int,int&gt;&gt;&amp; edges) {
+    vector&lt;int&gt; parent(n);
+    iota(parent.begin(), parent.end(), 0);
+    function&lt;int(int)&gt; find = [&amp;](int x) -&gt; int {
+        while (parent[x] != x) { parent[x] = parent[parent[x]]; x = parent[x]; }
+        return x;
+    };
+    for (auto [u, v] : edges) {
+        int pu = find(u); int pv = find(v);
+        if (pu == pv) return true; // same component -&gt; cycle
+        parent[pu] = pv;
+    }
+    return false;
+}
+</code></pre>
+<h3 id="directed-graph-dfs-with-3-color-marking">Directed Graph - DFS with 3-Color Marking</h3>
+<pre><code class="language-cpp">bool hasCycleDirected(vector&lt;vector&lt;int&gt;&gt;&amp; graph, int n) {
+    vector&lt;int&gt; color(n, 0); // 0=white, 1=gray, 2=black
+    function&lt;bool(int)&gt; dfs = [&amp;](int u) -&gt; bool {
+        color[u] = 1;
+        for (int v : graph[u]) {
+            if (color[v] == 1) return true; // back edge
+            if (color[v] == 0 &amp;&amp; dfs(v)) return true;
+        }
+        color[u] = 2;
+        return false;
+    };
+    for (int i = 0; i &lt; n; i++)
+        if (color[i] == 0 &amp;&amp; dfs(i)) return true;
+    return false;
+}
+</code></pre>
+<h3 id="finding-the-actual-cycle">Finding the Actual Cycle</h3>
+<pre><code class="language-cpp">vector&lt;int&gt; findCycle(vector&lt;vector&lt;int&gt;&gt;&amp; graph, int n) {
+    vector&lt;int&gt; color(n, 0), parent(n, -1);
+    int cycleStart = -1;
+
+    function&lt;void(int)&gt; dfs = [&amp;](int u) {
+        if (cycleStart != -1) return;
+        color[u] = 1;
+        for (int v : graph[u]) {
+            if (cycleStart != -1) return;
+            if (color[v] == 1) { cycleStart = v; parent[v] = u; return; }
+            if (color[v] == 0) { parent[v] = u; dfs(v); }
+        }
+        color[u] = 2;
+    };
+
+    for (int i = 0; i &lt; n &amp;&amp; cycleStart == -1; i++)
+        if (color[i] == 0) dfs(i);
+
+    if (cycleStart == -1) return {};
+    vector&lt;int&gt; cycle;
+    for (int v = cycleStart; ; v = parent[v]) {
+        cycle.push_back(v);
+        if (parent[v] == cycleStart) break;
+    }
+    cycle.push_back(cycleStart);
+    reverse(cycle.begin(), cycle.end());
+    return cycle;
+}
+</code></pre>
+<h2 id="6-topological-sort">6. Topological Sort</h2>
+<blockquote>
+<p>Only valid for <strong>DAGs</strong> (Directed Acyclic Graphs). Produces linear ordering where for every edge u→v, u appears before v.</p>
+</blockquote>
+<h3 id="kahns-algorithm-bfs-in-degree">Kahn's Algorithm (BFS / In-degree)</h3>
+<pre><code class="language-cpp">vector&lt;int&gt; topoSortKahn(vector&lt;vector&lt;int&gt;&gt;&amp; graph, int n) {
+    vector&lt;int&gt; inDeg(n, 0);
+    for (int u = 0; u &lt; n; u++)
+        for (int v : graph[u]) inDeg[v]++;
+
+    queue&lt;int&gt; q;
+    for (int i = 0; i &lt; n; i++) if (inDeg[i] == 0) q.push(i);
+    vector&lt;int&gt; order;
+
+    while (!q.empty()) {
+        int u = q.front(); q.pop();
+        order.push_back(u);
+        for (int v : graph[u])
+            if (--inDeg[v] == 0) q.push(v);
+    }
+
+    return (int)order.size() == n ? order : vector&lt;int&gt;{}; // empty = cycle
+}
+</code></pre>
+<h3 id="dfs-based-topological-sort">DFS-Based Topological Sort</h3>
+<pre><code class="language-cpp">
+vector&lt;int&gt; topoSortDFS(vector&lt;vector&lt;int&gt;&gt;&amp; graph, int n) {
+    vector&lt;bool&gt; visited(n, false);
+    vector&lt;int&gt; order;
+
+    function&lt;void(int)&gt; dfs = [&amp;](int u) {
+        visited[u] = true;
+        for (int v : graph[u])
+            if (!visited[v]) dfs(v);
+        order.push_back(u); // add AFTER all descendants
+    };
+
+    for (int i = 0; i &lt; n; i++)
+        if (!visited[i]) dfs(i);
+
+    reverse(order.begin(), order.end());
+    return order;
+}
+</code></pre>
+<h3 id="classic-interview-problems">Classic Interview Problems</h3>
+<p><strong>Course Schedule (LeetCode 207/210)</strong></p>
+<pre><code class="language-cpp">bool canFinish(int n, vector&lt;pair&lt;int,int&gt;&gt;&amp; prereqs) {
+    vector&lt;vector&lt;int&gt;&gt; graph(n);
+    for (auto [a, b] : prereqs) graph[b].push_back(a);
+    return (int)topoSortKahn(graph, n).size() == n;
+}
+
+vector&lt;int&gt; findOrder(int n, vector&lt;pair&lt;int,int&gt;&gt;&amp; prereqs) {
+    vector&lt;vector&lt;int&gt;&gt; graph(n);
+    for (auto [a, b] : prereqs) graph[b].push_back(a);
+    return topoSortKahn(graph, n);
+}
+</code></pre>
+<p><strong>Alien Dictionary (LeetCode 269)</strong></p>
+<pre><code class="language-cpp">string alienOrder(vector&lt;string&gt;&amp; words) {
+    map&lt;char,set&lt;char&gt;&gt; graph;
+    map&lt;char,int&gt; inDeg;
+    for (auto&amp; w : words) for (char c : w) inDeg[c] = 0;
+
+    for (int i = 0; i + 1 &lt; (int)words.size(); i++) {
+        string&amp; w1 = words[i], &amp;w2 = words[i+1];
+        int len = min(w1.size(), w2.size());
+        if (w1.size() &gt; w2.size() &amp;&amp; w1.substr(0,len) == w2.substr(0,len)) return &quot;&quot;;
+        for (int j = 0; j &lt; (int)len; j++) {
+            if (w1[j] != w2[j]) {
+                if (!graph[w1[j]].count(w2[j])) { graph[w1[j]].insert(w2[j]); inDeg[w2[j]]++; }
+                break;
+            }
+        }
+    }
+
+    queue&lt;char&gt; q;
+    for (auto [c, d] : inDeg) if (d == 0) q.push(c);
+    string result;
+    while (!q.empty()) {
+        char c = q.front(); q.pop();
+        result += c;
+        for (char nb : graph[c]) if (--inDeg[nb] == 0) q.push(nb);
+    }
+    return (int)result.size() == (int)inDeg.size() ? result : &quot;&quot;;
+}
+</code></pre>
+<h2 id="7-shortest-path-algorithms">7. Shortest Path Algorithms</h2>
+<h3 id="71-dijkstras-algorithm">7.1 Dijkstra's Algorithm</h3>
+<blockquote>
+<p><strong>Use when:</strong> Non-negative edge weights. Single source.</p>
+</blockquote>
+<pre><code class="language-cpp">vector&lt;int&gt; dijkstra(vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt;&amp; graph, int start, int n) {
+    vector&lt;int&gt; dist(n, INT_MAX);
+    dist[start] = 0;
+    priority_queue&lt;pair&lt;int,int&gt;, vector&lt;pair&lt;int,int&gt;&gt;, greater&lt;&gt;&gt; pq;
+    pq.push({0, start});
+    while (!pq.empty()) {
+        auto [d, u] = pq.top(); pq.pop();
+        if (d &gt; dist[u]) continue; // stale entry
+        for (auto [v, w] : graph[u]) {
+            if (dist[u] + w &lt; dist[v]) {
+                dist[v] = dist[u] + w;
+                pq.push({dist[v], v});
+            }
+        }
+    }
+    return dist;
+}
+
+// With path reconstruction
+pair&lt;int, vector&lt;int&gt;&gt; dijkstraPath(
+    vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt;&amp; graph, int start, int end, int n) {
+    vector&lt;int&gt; dist(n, INT_MAX), prev(n, -1);
+    dist[start] = 0;
+    priority_queue&lt;pair&lt;int,int&gt;, vector&lt;pair&lt;int,int&gt;&gt;, greater&lt;&gt;&gt; pq;
+    pq.push({0, start});
+    while (!pq.empty()) {
+        auto [d, u] = pq.top(); pq.pop();
+        if (u == end) break;
+        if (d &gt; dist[u]) continue;
+        for (auto [v, w] : graph[u]) {
+            if (dist[u] + w &lt; dist[v]) {
+                dist[v] = dist[u] + w;
+                prev[v] = u;
+                pq.push({dist[v], v});
+            }
+        }
+    }
+    if (dist[end] == INT_MAX) return {-1, {}};
+    vector&lt;int&gt; path;
+    for (int v = end; v != -1; v = prev[v]) path.push_back(v);
+    reverse(path.begin(), path.end());
+    return {dist[end], path};
+}
+</code></pre>
+<p><strong>Dijkstra on Grid</strong></p>
+<pre><code class="language-cpp">int dijkstraGrid(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+    int rows = grid.size(), cols = grid[0].size();
+    vector&lt;vector&lt;int&gt;&gt; dist(rows, vector&lt;int&gt;(cols, INT_MAX));
+    dist[0][0] = grid[0][0];
+    priority_queue&lt;tuple&lt;int,int,int&gt;, vector&lt;tuple&lt;int,int,int&gt;&gt;, greater&lt;&gt;&gt; pq;
+    pq.push({grid[0][0], 0, 0});
+    while (!pq.empty()) {
+        auto [d, r, c] = pq.top(); pq.pop();
+        if (d &gt; dist[r][c]) continue;
+        for (auto [nr, nc] : neighbors(r, c, rows, cols)) {
+            int nd = d + grid[nr][nc];
+            if (nd &lt; dist[nr][nc]) { dist[nr][nc] = nd; pq.push({nd, nr, nc}); }
+        }
+    }
+    return dist[rows-1][cols-1];
+}
+</code></pre>
+<h3 id="72-bellman-ford-algorithm">7.2 Bellman-Ford Algorithm</h3>
+<blockquote>
+<p><strong>Use when:</strong> Negative edge weights, detect negative cycles. Single source.</p>
+</blockquote>
+<pre><code class="language-cpp">
+vector&lt;int&gt; bellmanFord(int n, vector&lt;tuple&lt;int,int,int&gt;&gt;&amp; edges, int start) {
+    vector&lt;int&gt; dist(n, INT_MAX);
+    dist[start] = 0;
+
+    for (int iter = 0; iter &lt; n-1; iter++) {
+        bool updated = false;
+        for (auto [u, v, w] : edges) {
+            if (dist[u] != INT_MAX &amp;&amp; dist[u] + w &lt; dist[v]) {
+                dist[v] = dist[u] + w; updated = true;
+            }
+        }
+        if (!updated) break; // early termination
+    }
+
+    // Check for negative cycles
+    for (auto [u, v, w] : edges) {
+        if (dist[u] != INT_MAX &amp;&amp; dist[u] + w &lt; dist[v])
+            return {}; // negative cycle exists
+    }
+    return dist;
+}
+</code></pre>
+<p><strong>SPFA (Shortest Path Faster Algorithm)</strong> - Bellman-Ford with queue optimization:</p>
+<pre><code class="language-cpp">vector&lt;int&gt; spfa(vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt;&amp; graph, int start, int n) {
+    vector&lt;int&gt; dist(n, INT_MAX);
+    vector&lt;bool&gt; inQueue(n, false);
+    vector&lt;int&gt; cnt(n, 0);
+    dist[start] = 0;
+    deque&lt;int&gt; q;
+    q.push_back(start); inQueue[start] = true;
+
+    while (!q.empty()) {
+        int u = q.front(); q.pop_front();
+        inQueue[u] = false;
+        for (auto [v, w] : graph[u]) {
+            if (dist[u] + w &lt; dist[v]) {
+                dist[v] = dist[u] + w;
+                if (!inQueue[v]) {
+                    q.push_back(v); inQueue[v] = true;
+                    if (++cnt[v] &gt;= n) return {}; // negative cycle
+                }
+            }
+        }
+    }
+    return dist;
+}
+</code></pre>
+<h3 id="73-floyd-warshall-algorithm">7.3 Floyd-Warshall Algorithm</h3>
+<blockquote>
+<p><strong>Use when:</strong> All-pairs shortest path. Small graph (V ≤ 500). Handles negative edges (not negative cycles).</p>
+</blockquote>
+<pre><code class="language-cpp">vector&lt;vector&lt;int&gt;&gt; floydWarshall(int n, vector&lt;tuple&lt;int,int,int&gt;&gt;&amp; edges) {
+    const int INF = 1e9;
+    vector&lt;vector&lt;int&gt;&gt; dist(n, vector&lt;int&gt;(n, INF));
+    for (int i = 0; i &lt; n; i++) dist[i][i] = 0;
+    for (auto [u, v, w] : edges) {
+        dist[u][v] = min(dist[u][v], w);
+        dist[v][u] = min(dist[v][u], w); // remove for directed
+    }
+    for (int k = 0; k &lt; n; k++)
+        for (int i = 0; i &lt; n; i++)
+            for (int j = 0; j &lt; n; j++)
+                if (dist[i][k] != INF &amp;&amp; dist[k][j] != INF)
+                    dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
+
+    // Negative cycle check: dist[i][i] &lt; 0
+    for (int i = 0; i &lt; n; i++) if (dist[i][i] &lt; 0) return {};
+    return dist;
+}
+</code></pre>
+<h3 id="74-johnsons-algorithm-all-pairs-for-sparse-graphs">7.4 Johnson's Algorithm (All-Pairs for Sparse Graphs)</h3>
+<blockquote>
+<p><strong>Combines Bellman-Ford + Dijkstra.</strong> Time: O(V² log V + VE). Better than Floyd-Warshall when E &lt;&lt; V².</p>
+</blockquote>
+<pre><code class="language-cpp">vector&lt;vector&lt;int&gt;&gt; johnsons(int n, vector&lt;tuple&lt;int,int,int&gt;&gt; edges) {
+    // Step 1: Add virtual node n, connect to all vertices with weight 0
+    for (int v = 0; v &lt; n; v++) edges.push_back({n, v, 0});
+
+    // Step 2: Bellman-Ford from virtual node to get potentials h[]
+    vector&lt;int&gt; h = bellmanFord(n+1, edges, n);
+    if (h.empty()) return {}; // negative cycle
+
+    // Step 3: Re-weight edges: w'(u,v) = w(u,v) + h[u] - h[v]
+    vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt; rw(n);
+    for (auto [u, v, w] : edges)
+    if (u &lt; n &amp;&amp; v &lt; n) rw[u].push_back({v, w + h[u] - h[v]});
+
+    // Step 4: Dijkstra from each vertex, adjust back
+    vector&lt;vector&lt;int&gt;&gt; allDist;
+    for (int s = 0; s &lt; n; s++) {
+        auto d = dijkstra(rw, s, n);
+        vector&lt;int&gt; row(n);
+        for (int v = 0; v &lt; n; v++)
+        row[v] = (d[v] == INT_MAX) ? INT_MAX : d[v] - h[s] + h[v];
+        allDist.push_back(row);
+    }
+    return allDist;
+}
+</code></pre>
+<h3 id="75-comparison-table">7.5 Comparison Table</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Algorithm</th>
+<th style="text-align: left;">Edge Weights</th>
+<th style="text-align: left;">Graph Type</th>
+<th style="text-align: left;">Time Complexity</th>
+<th style="text-align: left;">Primary Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>BFS</strong></td>
+<td style="text-align: left;">Unweighted</td>
+<td style="text-align: left;">Any</td>
+<td style="text-align: left;">$O(V+E)$</td>
+<td style="text-align: left;">Unweighted shortest path</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>0-1 BFS</strong></td>
+<td style="text-align: left;">0 or 1</td>
+<td style="text-align: left;">Any</td>
+<td style="text-align: left;">$O(V+E)$</td>
+<td style="text-align: left;">0/1 weighted edges</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Dijkstra</strong></td>
+<td style="text-align: left;">Non-negative</td>
+<td style="text-align: left;">Any</td>
+<td style="text-align: left;">$O((V+E) \log V)$</td>
+<td style="text-align: left;">Standard weighted SSSP</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Bellman-Ford</strong></td>
+<td style="text-align: left;">Any</td>
+<td style="text-align: left;">Any</td>
+<td style="text-align: left;">$O(VE)$</td>
+<td style="text-align: left;">Negative edges / detect cycles</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>SPFA</strong></td>
+<td style="text-align: left;">Any</td>
+<td style="text-align: left;">Any</td>
+<td style="text-align: left;">$O(VE)$ (worst)</td>
+<td style="text-align: left;">Faster Bellman-Ford (avg case)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Floyd-Warshall</strong></td>
+<td style="text-align: left;">Any</td>
+<td style="text-align: left;">Dense</td>
+<td style="text-align: left;">$O(V^3)$</td>
+<td style="text-align: left;">All-pairs, small graphs</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Johnson's</strong></td>
+<td style="text-align: left;">Any</td>
+<td style="text-align: left;">Sparse</td>
+<td style="text-align: left;">$O(V^2 \log V + VE)$</td>
+<td style="text-align: left;">All-pairs, sparse graphs</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="8-minimum-spanning-tree">8. Minimum Spanning Tree</h2>
+<blockquote>
+<p>MST: A spanning tree of minimum total edge weight. V-1 edges, connects all vertices, no cycles.</p>
+</blockquote>
+<p><strong>Key Property:</strong> For any cut of the graph, the minimum weight crossing edge is in the MST (Cut Property).</p>
+<h3 id="81-kruskals-algorithm">8.1 Kruskal's Algorithm</h3>
+<blockquote>
+<p>Sort edges by weight, greedily add if no cyle (use DSU)</p>
+</blockquote>
+<pre><code class="language-cpp">pair&lt;int, vector&lt;tuple&lt;int,int,int&gt;&gt;&gt; kruskal(
+    int n, vector&lt;tuple&lt;int,int,int&gt;&gt; edges) { // {w, u, v}
+
+    sort(edges.begin(), edges.end());
+
+    vector&lt;int&gt; parent(n), rnk(n, 0);
+    iota(parent.begin(), parent.end(), 0);
+
+    function&lt;int(int)&gt; find = [&amp;](int x) -&gt; int {
+        while (parent[x] != x) {
+            parent[x] = parent[parent[x]];
+            x = parent[x];
+        }
+        return x;
+    };
+
+    auto unite = [&amp;](int x, int y) -&gt; bool {
+        int px = find(x), py = find(y);
+        if (px == py) return false;
+
+        if (rnk[px] &lt; rnk[py]) swap(px, py);
+        parent[py] = px;
+        if (rnk[px] == rnk[py]) rnk[px]++;
+
+        return true;
+    };
+
+    int mstCost = 0;
+    vector&lt;tuple&lt;int,int,int&gt;&gt; mstEdges;
+
+    for (auto [w, u, v] : edges) {
+        if (unite(u, v)) {
+            mstCost += w;
+            mstEdges.push_back({u, v, w});
+
+            if ((int)mstEdges.size() == n - 1)
+                break;
+        }
+    }
+
+    return {mstCost, mstEdges};
+}
+</code></pre>
+<hr />
+<h3 id="82-prims-algorithm">8.2 Prim's Algorithm</h3>
+<blockquote>
+<p>Grow MST from a starting vertex. Better for dense graphs.</p>
+</blockquote>
+<pre><code class="language-cpp">pair&lt;int, vector&lt;tuple&lt;int,int,int&gt;&gt;&gt; prim(
+    vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt;&amp; graph,
+    int n,
+    int start = 0) {
+
+    vector&lt;bool&gt; visited(n, false);
+    vector&lt;int&gt; minEdge(n, INT_MAX), parent(n, -1);
+
+    minEdge[start] = 0;
+
+    priority_queue&lt;
+        pair&lt;int,int&gt;,
+        vector&lt;pair&lt;int,int&gt;&gt;,
+        greater&lt;&gt;
+    &gt; pq;
+
+    pq.push({0, start});
+
+    int mstCost = 0;
+    vector&lt;tuple&lt;int,int,int&gt;&gt; mstEdges;
+
+    while (!pq.empty()) {
+
+        auto [cost, u] = pq.top();
+        pq.pop();
+
+        if (visited[u]) continue;
+
+        visited[u] = true;
+        mstCost += cost;
+
+        if (parent[u] != -1)
+            mstEdges.push_back({parent[u], u, cost});
+
+        for (auto [v, w] : graph[u]) {
+
+            if (!visited[v] &amp;&amp; w &lt; minEdge[v]) {
+
+                minEdge[v] = w;
+                parent[v] = u;
+
+                pq.push({w, v});
+            }
+        }
+    }
+
+    return {mstCost, mstEdges};
+}
+</code></pre>
+<hr />
+<h3 id="83-mst-variants">8.3 MST Variants</h3>
+<p><strong>Maximum Spanning Tree</strong>: Negate all weights, run Kruskal's/Prim's.</p>
+<p><strong>Second Minimum Spanning Tree</strong></p>
+<ol>
+<li>Find MST.</li>
+<li>For each non-MST edge (u, v, w): find max edge on path u → v in MST, try replacing it.</li>
+<li>Best replacement = second MST.</li>
+</ol>
+<p><strong>Minimum Bottleneck Spanning Tree</strong>: Same as MST (provably).</p>
+<p><strong>Steiner Tree</strong> (NP-hard in general): Connect a subset of vertices with minimum total weight.</p>
+<h3 id="84-mst-applications">8.4 MST Applications</h3>
+<ul>
+<li>Network design (minimum cable cost)</li>
+<li>Cluster analysis (remove k−1 heaviest MST edges → k clusters)</li>
+<li>Approximation for TSP (2-approximation)</li>
+<li>Image segmentation</li>
+</ul>
+<hr />
+<h2 id="9-union-find-dsu">9. Union-Find (DSU)</h2>
+<blockquote>
+<p>Most powerful data structure for connectivity queries and cycle detection.</p>
+</blockquote>
+<h3 id="full-implementation-with-all-optimizations">Full Implementation with All Optimizations</h3>
+<pre><code class="language-cpp">struct DSU {
+
+    vector&lt;int&gt; parent, rnk, sz;
+    int components;
+
+    DSU(int n)
+        : parent(n), rnk(n, 0), sz(n, 1), components(n) {
+        iota(parent.begin(), parent.end(), 0);
+    }
+
+    int find(int x) {
+
+        int root = x;
+
+        while (parent[root] != root)
+            root = parent[root];
+
+        while (parent[x] != root) {
+            int next = parent[x];
+            parent[x] = root;
+            x = next;
+        }
+
+        return root;
+    }
+
+    bool unite(int x, int y){
+        int px = find(x), py = find(y);
+        if(px == py) return false;
+        if(rnk[px] &lt; rnk[py]) swap(px, py);
+        parent[py] = px;
+        sz[px] += sz[py];
+        if(rnk[px] == rnk[py]) rnk[px]++;
+        components--;
+        return true;
+    }
+
+    bool connected(int x, int y) {return find(x) == find(y); }
+    int componentSize(int x) {return sz[find(x)]; }
+
+};
+</code></pre>
+<h3 id="dsu-with-rollback-for-offline-queries-no-path-compression">DSU with Rollback (for offline queries, no path compression)</h3>
+<pre><code class="language-cpp">struct DSURollback {
+    vector&lt;int&gt; parent, rnk;
+    vector&lt;tuple&lt;int,int,int,int&gt;&gt; history; // (py, oldParent, px, oldRank)
+
+    DSURollback(int n) : parent(n), rnk(n, 0) {
+        iota(parent.begin(), parent.end(), 0);
+    }
+
+    int find(int x) {
+        while (parent[x] != x) x = parent[x]; // no path compression
+        return x;
+    }
+
+    bool unite(int x, int y) {
+        int px = find(x), py = find(y);
+        if (px == py) return false;
+        if (rnk[px] &lt; rnk[py]) swap(px, py);
+        history.push_back({py, parent[py], px, rnk[px]});
+        parent[py] = px;
+        if (rnk[px] == rnk[py]) rnk[px]++;
+        return true;
+    }
+
+    void rollback(){
+        auto [py, oldPy, px, oldRnk] = history.back(); history.pop_back();
+        parent[py] = oldPy;
+        rnk[px] = oldRnk;
+    }
+};
+</code></pre>
+<h3 id="weighted-dsu-for-edge-differencespotentials">Weighted DSU (for edge differences/potentials)</h3>
+<pre><code class="language-cpp">struct WeightedDSU {
+    vector&lt;int&gt; parent;
+    vector&lt;long long&gt; weight;   // weight[x] = dist from x to parent
+
+    WeightedDSU(int n) : parent(n), weight(n, 0) {
+        iota(parent.begin(), parent.end(), 0);
+    }
+
+    pair&lt;int, long long&gt; find(int x) {
+        if (parent[x] == x)
+            return {x, 0};
+
+        auto [root, w] = find(parent[x]);
+        parent[x] = root;
+        weight[x] += w;
+
+        return {root, weight[x]};
+    }
+
+    bool unite(int x, int y, long long w) {   // weight[x] - weight[y] = w
+        auto [rx, wx] = find(x);
+        auto [ry, wy] = find(y);
+
+        if (rx == ry)
+            return wx - wy == w;   // check consistency
+
+        parent[rx] = ry;
+        weight[rx] = wy - wx + w;
+
+        return true;
+    }
+};
+</code></pre>
+<hr />
+<h2 id="10-connected-components-scc">10. Connected Components &amp; SCC</h2>
+<h3 id="undirected-connected-components">Undirected Connected Components</h3>
+<pre><code class="language-cpp">int countComponents(vector&lt;vector&lt;int&gt;&gt;&amp; graph, int n) {
+
+    vector&lt;bool&gt; visited(n, false);
+    int count = 0;
+
+    function&lt;void(int)&gt; dfs = [&amp;](int u) {
+        visited[u] = true;
+        for (int v : graph[u])
+            if (!visited[v])
+                dfs(v);
+    };
+
+    for (int i = 0; i &lt; n; i++) {
+        if (!visited[i]) {
+            dfs(i);
+            count++;
+        }
+    }
+
+    return count;
+}
+</code></pre>
+<h3 id="strongly-connected-components-scc-directed-graphs">Strongly Connected Components (SCC) — Directed Graphs</h3>
+<p><strong>Kosaraju's Algorithm (two DFS passes)</strong></p>
+<pre><code class="language-cpp">vector&lt;vector&lt;int&gt;&gt; kosaraju(vector&lt;vector&lt;int&gt;&gt;&amp; graph, int n) {
+
+    // Step 1: DFS on original graph, push by finish time
+    vector&lt;bool&gt; visited(n, false);
+    vector&lt;int&gt; order;
+
+    function&lt;void(int)&gt; dfs1 = [&amp;](int u) {
+        visited[u] = true;
+        for (int v : graph[u])
+            if (!visited[v])
+                dfs1(v);
+
+        order.push_back(u);
+    };
+
+    for (int i = 0; i &lt; n; i++)
+        if (!visited[i])
+            dfs1(i);
+
+    // Step 2: Build reverse graph
+    vector&lt;vector&lt;int&gt;&gt; rev(n);
+
+    for (int u = 0; u &lt; n; u++)
+        for (int v : graph[u])
+            rev[v].push_back(u);
+
+    // Step 3: DFS on reverse graph in reverse finish order
+    fill(visited.begin(), visited.end(), false);
+
+    vector&lt;vector&lt;int&gt;&gt; sccs;
+
+    function&lt;void(int, vector&lt;int&gt;&amp;)&gt; dfs2 =
+        [&amp;](int u, vector&lt;int&gt;&amp; comp) {
+            visited[u] = true;
+            comp.push_back(u);
+
+            for (int v : rev[u])
+                if (!visited[v])
+                    dfs2(v, comp);
+        };
+
+    for (int i = n - 1; i &gt;= 0; i--) {
+        if (!visited[order[i]]) {
+            sccs.push_back({});
+            dfs2(order[i], sccs.back());
+        }
+    }
+
+    return sccs;
+}
+</code></pre>
+<p><strong>Tarjan's Algorithm</strong> (single DFS pass — preferred)</p>
+<pre><code class="language-cpp">vector&lt;vector&lt;int&gt;&gt; tarjanSCC(vector&lt;vector&lt;int&gt;&gt;&amp; graph, int n) {
+
+    vector&lt;int&gt; idx(n, -1), low(n, 0);
+    vector&lt;bool&gt; onStack(n, false);
+    stack&lt;int&gt; st;
+
+    vector&lt;vector&lt;int&gt;&gt; sccs;
+    int timer = 0;
+
+    function&lt;void(int)&gt; strongconnect = [&amp;](int v) {
+
+        idx[v] = low[v] = timer++;
+
+        st.push(v);
+        onStack[v] = true;
+
+        for (int w : graph[v]) {
+
+            if (idx[w] == -1) {
+                strongconnect(w);
+                low[v] = min(low[v], low[w]);
+            }
+            else if (onStack[w]) {
+                low[v] = min(low[v], idx[w]);
+            }
+        }
+
+        if (low[v] == idx[v]) {   // root of SCC
+
+            sccs.push_back({});
+
+            while (true) {
+
+                int w = st.top();
+                st.pop();
+
+                onStack[w] = false;
+                sccs.back().push_back(w);
+
+                if (w == v)
+                    break;
+            }
+        }
+    };  
+
+    for (int v = 0; v &lt; n; v++)
+        if (idx[v] == -1)
+            strongconnect(v);
+
+    return sccs;
+}
+</code></pre>
+<blockquote>
+<p><strong>Condensation Graph:</strong> After finding SCCs, build a DAG where each SCC is a node. This DAG can be topologically sorted.</p>
+</blockquote>
+<pre><code class="language-cpp">pair&lt;vector&lt;vector&lt;int&gt;&gt;, vector&lt;int&gt;&gt; condensation(
+    vector&lt;vector&lt;int&gt;&gt;&amp; graph,
+    int n) {
+
+    auto sccs = tarjanSCC(graph, n);
+
+    vector&lt;int&gt; compId(n);
+
+    for (int i = 0; i &lt; (int)sccs.size(); i++)
+        for (int v : sccs[i])
+            compId[v] = i;
+
+    int k = sccs.size();
+
+    vector&lt;set&lt;int&gt;&gt; dagSet(k);
+
+    for (int u = 0; u &lt; n; u++)
+        for (int v : graph[u])
+            if (compId[u] != compId[v])
+                dagSet[compId[u]].insert(compId[v]);
+
+    vector&lt;vector&lt;int&gt;&gt; dag(k);
+
+    for (int i = 0; i &lt; k; i++)
+        dag[i].assign(dagSet[i].begin(), dagSet[i].end());
+
+    return {dag, compId};
+}
+</code></pre>
+<hr />
+<h2 id="11-bridges-articulation-points">11. Bridges &amp; Articulation Points</h2>
+<blockquote>
+<p><strong>Bridges:</strong> Edge (u, v) whose removal increases the number of connected components.
+<strong>Articulation Points:</strong> Vertex whose removal increases the number of connected components.</p>
+</blockquote>
+<h3 id="tarjans-bridge-ap-algorithms">Tarjan's Bridge &amp; AP Algorithms</h3>
+<pre><code class="language-cpp">void findBridgesAndAPs(vector&lt;vector&lt;int&gt;&gt;&amp; graph, int n, 
+vector&lt;pair&lt;int, int&gt;&gt;&amp; bridges, vector&lt;int&gt;&amp; articulationPoints) {
+    vector&lt;int&gt; disc(n, -1), low(n, -1), parent(n, -1);
+    vector&lt;bool&gt; ap(n, false);
+    int time = 0;
+
+    function&lt;void(int)&gt; dfs = [&amp;](int u) {
+        disc[u] = low[u] = ++time;
+        int children = 0;
+
+        for (int v : graph[u]) {
+            if (disc[v] == -1) {
+                children++;
+                parent[v] = u;
+                dfs(v);
+
+                low[u] = min(low[u], low[v]);
+
+                if (low[v] &gt; disc[u]) {
+                    bridges.push_back({u, v});
+                }
+
+                if (parent[u] == -1 &amp;&amp; children &gt; 1) {
+                    articulationPoints.push_back(u);
+                }
+                if (parent[u] != -1 &amp;&amp; low[v] &gt;= disc[u]) {
+                    articulationPoints.push_back(u);
+                }
+            } else if (v != parent[u]) {
+                low[u] = min(low[u], disc[v]);
+            }
+        }
+    };
+
+    for (int i = 0; i &lt; n; i++) {
+        if (disc[i] == -1) {
+            dfs(i);
+        }
+    }
+    for (int i = 0; i &lt; n; i++) {
+        if (ap[i]) {
+            articulationPoints.push_back(i);
+        }
+    }
+}
+</code></pre>
+<blockquote>
+<p><strong>Multi-edge Caveat</strong>:  When graph has parallel edges, track edge instead of parent node. </p>
+</blockquote>
+<pre><code class="language-cpp">void findBridgesMultigraph(vector&lt;vector&lt;pair&lt;int, int&gt;&gt;&gt;&amp; graph, int n, vector&lt;pair&lt;int, int&gt;&gt;&amp; bridges) {
+    vector&lt;int&gt; disc(n, -1);
+    vector&lt;int&gt; low(n, -1);
+    int timer = 0;
+
+    function &lt;void(int, int)&gt; dfs = [&amp;](int u, int parentEdge) {
+        disc[u] = low[u] = timer++;
+        for (auto [v, eid] : graph[u]) {
+            if (disc[v] == -1) { 
+                dfs(v, eid);
+                low[u] = min(low[u], low[v]);
+                if (low[v] &gt; disc[u]) {
+                    bridges.push_back({u, v});
+                }
+            } else if (eid != parentEdge) { 
+                low[u] = min(low[u], disc[v]);
+            }
+        }
+    };
+    for (int i = 0; i &lt; n; ++i) {
+        if (disc[i] == -1) {
+            dfs(i, -1);
+        }
+    }
+}
+</code></pre>
+<h3 id="bridge-tree-block-cut-tree">Bridge Tree (Block-Cut Tree)</h3>
+<p>The bridge tree contracts each 2-edge-connected component into a single node, resulting in a tree. Useful for:
+- Counting bridges on a path
+- Finding if adding an edge creates a 2-edge-connected graph</p>
+<hr />
+<h2 id="12-bipartite-graphs-matching">12. Bipartite Graphs &amp; Matching</h2>
+<h3 id="bipartite-check-2-coloring">Bipartite Check (2-coloring)</h3>
+<pre><code class="language-cpp">bool isBipartite(vector&lt;vector&lt;int&gt;&gt;&amp; graph) {
+    int n = graph.size();
+    vector&lt;int&gt; color(n, -1); // -1 means uncolored
+
+    for (int i = 0; i &lt; n; ++i) {
+        if(color[i] != -1) continue; // Skip already colored nodes
+
+        // Not colored yet
+        queue&lt;int&gt; q;
+        q.push(i);
+        color[i] = 0; // Color the first node with color 0
+
+        while (!q.empty()) {
+            int node = q.front();
+            q.pop();
+
+            for (int neighbor : graph[node]) {
+                if (color[neighbor] == -1) { // If the neighbor is not colored
+                    color[neighbor] = 1 - color[node]; // Color with opposite color
+                    q.push(neighbor);
+                } else if (color[neighbor] == color[node]) { // If the neighbor has the same color
+                    return false; // Not bipartite
+                }
+            }
+        }
+
+    }
+    return true; // Graph is bipartite
+}
+</code></pre>
+<h3 id="maximum-bipartite-matching-hungrarian-augmenting-paths">Maximum Bipartite Matching -  Hungrarian (Augmenting Paths)</h3>
+<pre><code class="language-cpp">int maxBipartiteMatching(vector&lt;vector&lt;int&gt;&gt;&amp; graph, int leftN, int rightN) {
+
+    vector&lt;int&gt; matchL(leftN, -1); // Initialize all left nodes as unmatched
+    vector&lt;int&gt; matchR(rightN, -1);// Initialize all right nodes as unmatched
+
+    function&lt;bool(int, vector&lt;bool&gt;&amp;)&gt; tryAugment = [&amp;](int u, vector&lt;bool&gt;&amp; seen)  -&gt; bool {
+        for (int v : graph[u]) {
+            if (!seen[v]) {
+                seen[v] = true;
+                if (matchR[v] &lt; 0 || tryAugment(matchR[v], seen)) {
+                    matchL[u] = v;
+                    matchR[v] = u;
+                    return true;
+                }
+            }
+        }
+        return false;
+    };
+    int result = 0;
+    for (int u = 0; u &lt; leftN; u++) {
+        vector&lt;bool&gt; seen(rightN, false);
+        if (tryAugment(u, seen)) {
+            result++;
+        }
+    }
+    return result;
+}
+</code></pre>
+<blockquote>
+<p><strong>Konig's Theorem:</strong> In bipartite graphs, max matching = min vertex cover.
+<strong>Dilworth's Theorem:</strong> Min path cover in DAG = n - max matching.</p>
+</blockquote>
+<h3 id="hopcroft-karp-oe-sqrtv-bipartite-matching">Hopcroft-KARP (O(E * sqrt(V)) bipartite matching)</h3>
+<pre><code class="language-cpp">int hopcroftKarp(vector&lt;vector&lt;int&gt;&gt;&amp;graph, int leftN, int rightN){
+    vector&lt;int&gt; matchL(leftN, -1), matchR(rightN, -1);
+    vector&lt;int&gt; dist(leftN);
+
+    auto bfs = [&amp;]() -&gt; bool{
+        fill(dist.begin(), dist.end(), INT_MAX);
+        queue&lt;int&gt; q;
+        for (int u = 0; u &lt; leftN; u++) {
+            if (matchL[u] == -1) {
+                dist[u] = 0;
+                q.push(u);
+            } else {
+                dist[u] = INT_MAX;
+            }
+        }
+
+        bool foundAugmentingPath = false;
+
+        while (!q.empty()) {
+            int u = q.front();
+            q.pop();
+
+            for (int v : graph[u]) {
+                if (matchR[v] == -1) {
+                    foundAugmentingPath = true;
+                } else if (dist[matchR[v]] == INT_MAX) {
+                    dist[matchR[v]] = dist[u] + 1;
+                    q.push(matchR[v]);
+                }
+            }
+        }
+
+        return foundAugmentingPath;
+    };
+
+    function&lt;bool(int)&gt; dfs = [&amp;](int u) -&gt; bool {
+        for (int v : graph[u]) {
+            if (matchR[v] == -1 || (dist[matchR[v]] == dist[u] + 1 &amp;&amp; dfs(matchR[v]))) {
+                matchL[u] = v;
+                matchR[v] = u;
+                return true;
+            }
+        }
+        dist[u] = INT_MAX;
+        return false;
+    };
+
+    int matching = 0;
+    while (bfs()) {
+        for (int u = 0; u &lt; leftN; u++) {
+            if (matchL[u] == -1 &amp;&amp; dfs(u)) {
+                matching++;
+            }
+        }
+    }
+    return matching;
+}
+</code></pre>
+<hr />
+<h2 id="13-network-flow">13. Network Flow</h2>
+<blockquote>
+<p><strong>Max-Flow</strong>: Maximum amount of flow that can be pushed from source <code>s</code> to sink <code>t</code>.
+<strong>Min-Cuts</strong>: Minimum capacity set of edges whose removal disconnects <code>s</code> from <code>t</code>.
+<strong>Max-Flow = Min-Cuts</strong> (Ford-Fulkerson Therorem)</p>
+</blockquote>
+<h3 id="131-ford-fulkerson-edmonds-karp">13.1 Ford Fulkerson / Edmonds-Karp</h3>
+<pre><code class="language-cpp">struct MaxFlow{
+    int n;
+    vector&lt;vector&lt;int&gt;&gt; cap, adj;
+
+    MaxFlow(int n): n(n), cap(n, vector&lt;int&gt;(n)), adj(n) {}
+
+    void add_edge(int u, int v, int c){
+        cap[u][v] += c;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+
+    bool bfs(int s, int t, vector&lt;int&gt;&amp; parent){
+        fill(parent.begin(), parent.end(), -1);
+        parent[s] = s;
+        queue&lt;int&gt; q;
+        q.push(s);
+        while(!q.empty()){
+            int u = q.front(); q.pop();
+            for(int v: adj[u]){
+                if(parent[v] == -1 &amp;&amp; cap[u][v] &gt; 0){
+                    parent[v] = u;
+                    if(v == t) return true;
+                    q.push(v);
+                }
+            }
+        }
+        return false;
+    }
+
+    int maxFlow(int s, int t){
+        vector&lt;int&gt; parent(n);
+        int flow = 0;
+        while(bfs(s, t, parent)){
+            int path_flow = INT_MAX;
+            for(int v = t; v != s; v = parent[v]){
+                int u = parent[v];
+                path_flow = min(path_flow, cap[u][v]);
+            }
+            for(int v = t; v != s; v = parent[v]){
+                int u = parent[v];
+                cap[u][v] -= path_flow;
+                cap[v][u] += path_flow;
+            }
+            flow += path_flow;
+        }
+        return flow;
+    }
+};
+</code></pre>
+<h3 id="132-dinics-algorithms-ovve-much-faster-in-practice">13.2 Dinic's Algorithms (O(V<em>V</em>E) - much faster in practice)</h3>
+<pre><code class="language-cpp">struct Dinic{
+    struct Edge{
+        int to, cap, rev;
+    };
+    int n;
+
+    vector&lt;vector&lt;Edge&gt;&gt; graph;
+    vector&lt;int&gt; level, iter;
+
+    Dinic(int n): n(n), graph(n), level(n), iter(n) {}
+
+    void add_edge(int from, int to, int cap){
+        graph[from].push_back({to, cap, (int)graph[to].size()});
+        graph[to].push_back({from, 0, (int)graph[from].size() - 1});
+    }
+
+    bool bfs(int s, int t){
+        fill(level.begin(), level.end(), -1);
+        queue&lt;int&gt; que;
+        level[s] = 0;
+        que.push(s);
+        while(!que.empty()){
+            int v = que.front(); que.pop();
+            for(auto &amp;e : graph[v]){
+                if(e.cap &gt; 0 &amp;&amp; level[e.to] &lt; 0){
+                    level[e.to] = level[v] + 1;
+                    que.push(e.to);
+                }
+            }
+        }
+        return level[t] != -1;
+    }
+
+    int dfs(int v, int t, int f){
+        if(v == t) return f;
+        for(int &amp;i = iter[v]; i &lt; (int)graph[v].size(); i++){
+            Edge &amp;e = graph[v][i];
+            if(e.cap &gt; 0 &amp;&amp; level[v] &lt; level[e.to]){
+                int d = dfs(e.to, t, min(f, e.cap));
+                if(d &gt; 0){
+                    e.cap -= d;
+                    graph[e.to][e.rev].cap += d;
+                    return d;
+                }
+            }
+        }
+        return 0;
+    }
+
+    int max_flow(int s, int t){
+        int flow = 0;
+        while(bfs(s, t)){
+            fill(iter.begin(), iter.end(), 0);
+            int f;
+            while((f = dfs(s, t, INT_MAX)) &gt; 0){
+                flow += f;
+            }
+        }
+        return flow;
+    }
+
+    vector&lt;bool&gt; min_cut(int s){
+        vector&lt;bool&gt; visited(n, false);
+        queue&lt;int&gt; que;
+        que.push(s);
+        visited[s] = true;
+        while(!que.empty()){
+            int v = que.front(); que.pop();
+            for(auto &amp;e : graph[v]){
+                if(e.cap &gt; 0 &amp;&amp; !visited[e.to]){
+                    visited[e.to] = true;
+                    que.push(e.to);
+                }
+            }
+        }
+        return visited;
+    }
+};
+</code></pre>
+<p><strong>*Usage:</strong></p>
+<pre><code class="language-cpp">Dinic d(6);
+d.addEdge(0,1,10); d.addEdge(0,2,10);
+d.addEdge(1,3,4); d.addEdge(1,4,8);
+d.addEdge(2,4,9); d.addEdge(3,5,10); d.addEdge(4,5,10);
+cout &lt;&lt; d.maxFlow(0,5) &lt;&lt; endl; // Output: 19
+</code></pre>
+<h3 id="133-network-flow-applications">13.3 Network Flow Applications</h3>
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Reduction to Max Flow</th>
+<th>Complexity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bipartite Matching</td>
+<td>Construct a flow network with source connected to left partition and sink connected to right partition, edges represent possible matches.</td>
+<td>O(E√V)</td>
+</tr>
+<tr>
+<td>Edge Disjoint Paths</td>
+<td>Construct a flow network where each edge has capacity 1, find max flow from source to sink.</td>
+<td>O(E√V)</td>
+</tr>
+<tr>
+<td>Vertex Disjoint Paths</td>
+<td>Split each vertex into two vertices connected by an edge of capacity 1, find max flow.</td>
+<td>O(E√V)</td>
+</tr>
+<tr>
+<td>Circulation with Demands</td>
+<td>Transform the problem into a flow network with lower and upper bounds on edges, check if max flow equals total demand.</td>
+<td>O(E√V)</td>
+</tr>
+<tr>
+<td>Project Selection</td>
+<td>Construct a flow network where projects are nodes, edges represent dependencies, and capacities represent profits or costs.</td>
+<td>O(E√V)</td>
+</tr>
+<tr>
+<td>Baseball Elimination</td>
+<td>Construct a flow network where teams are nodes, edges represent games left to play, and capacities represent possible wins.</td>
+<td>O(E√V)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Bipartite Matching via Flow:</strong></p>
+<pre><code class="language-cpp">int bipartiteViaFlow(int leftN, int rightN, vector&lt;pair&lt;int,int&gt;&gt;&amp; edges){
+    int totalN = leftN + rightN + 2;
+    int S = totalN - 2; 
+    int T = totalN - 1;
+    Dinic d(totalN);
+    for(int i = 0; i &lt; leftN; i++){
+        d.add_edge(S, i, 1);
+    }
+    for(int i = 0; i &lt; rightN; i++){
+        d.add_edge(leftN + i, T, 1);
+    }
+    for(auto &amp;edge : edges){
+        int u = edge.first;
+        int v = edge.second;
+        d.add_edge(u, leftN + v, 1);
+    }
+    return d.max_flow(S, T);
+}
+</code></pre>
+<hr />
+<h2 id="14-tree-algorithms-on-graphs">14. Tree Algorithms on Graphs</h2>
+<h3 id="141-lowest-common-ancestor-lca-binary-lifting">14.1 Lowest Common Ancestor (LCA) - Binary Lifting</h3>
+<blockquote>
+<p><strong>LCA(u,v)</strong> Deepest node that is an ancestor of both u and v.</p>
+</blockquote>
+<pre><code class="language-cpp">struct LCA{
+    int n, LOG = 20;
+    vector&lt;vector&lt;int&gt;&gt; up;
+
+    LCA(int n): n(n), depth(n, 0), up(n, vector&lt;int&gt;(LOG)) {}
+
+    void build(const vector&lt;vector&lt;int&gt;&gt;&amp; graph, int root = 0){
+        vector&lt;int&gt;parent(n, -1);
+        vector&lt;bool&gt;visited(n, false);
+        queue&lt;int&gt;q;
+        q.push(root);
+        visited[root] = true;
+
+        while(!q.empty()){
+            int u = q.front();
+            q.pop();
+            for(int v: graph[u]){
+                if(!visited[v]){
+                    visited[v] = true;
+                    depth[v] = depth[u] + 1;
+                    parent[v] = u;
+                    q.push(v);
+                }
+            }
+        }
+
+        for(int i = 0; i &lt; n; i++){
+            if(parent[i] == -1) up[i][0] = i;
+            else up[i][0] = parent[i];
+        }
+        for(int k = 1; k &lt; LOG; k++){
+            for(int v = 0; v &lt; n; v++){
+                up[v][k] = up[ up[v][k-1] ][ k-1 ];
+            }
+        }
+    }
+
+    int lca(int u, int v){
+        if(depth[u] &lt; depth[v]) swap(u, v);
+        for(int k = LOG - 1; k &gt;= 0; k--){
+            if(depth[u] - (1 &lt;&lt; k) &gt;= depth[v]){
+                u = up[u][k];
+            }
+        }
+        if(u == v) return u;
+        for(int k = LOG - 1; k &gt;= 0; k--){
+            if(up[u][k] != up[v][k]){
+                u = up[u][k];
+                v = up[v][k];
+            }
+        }
+        return up[u][0];
+    }
+
+    int distance(int u, int v){
+        int ancestor = lca(u, v);
+        return depth[u] + depth[v] - 2 * depth[ancestor];
+    }
+
+    int kth_ancestor(int u, int k){
+        for(int i = 0; i &lt; LOG; i++){
+            if((k&gt;&gt;i  &amp; 1)){
+                u = up[i][u];
+            }
+        }
+        return u;
+    }
+};
+</code></pre>
+<h3 id="142-euler-tour-flattening-a-tree">14.2 Euler Tour (Flattening a Tree)</h3>
+<blockquote>
+<p>Converts tree problem to range problems (use with segment trees).</p>
+</blockquote>
+<pre><code class="language-cpp">void eulerTour(vector&lt;vector&lt;int&gt;&gt;&amp; graph, int root, int n, 
+               vector&lt;int&gt;&amp; tin, vector&lt;int&gt;&amp; tout, vector&lt;int&gt;&amp; order) {
+    tin.assign(n, 0); tout.assign(n, 0);
+    int timer = 0;
+    function&lt;void(int, int)&gt; dfs = [&amp;](int u, int par) {
+        tin[u] = timer++;
+        order.push_back(u);
+        for (int v : graph[u]) if (v != par) dfs(v, u);
+        tout[u] = timer - 1;
+    };
+    dfs(root, -1);
+}
+
+// Check if v is ancestor of u
+bool isAncestor(vector&lt;int&gt;&amp; tin, vector&lt;int&gt;&amp; tout, int u, int v) {
+    return tin[v] &lt;= tin[u] &amp;&amp; tout[u] &lt;= tout[v];
+}
+
+</code></pre>
+<hr />
+<h3 id="143-heavy-light-decomposition-hld">14.3 Heavy-Light Decomposition (HLD)</h3>
+<pre><code class="language-cpp">struct HLD {
+    int n, curPos = 0;
+    vector&lt;int&gt; sz, depth, parent, heavy, head, pos;
+
+    HLD(int n) : n(n), sz(n, 1), depth(n, 0), parent(n, -1),
+                 heavy(n, -1), head(n, 0), pos(n, 0) {}
+
+    void build(vector&lt;vector&lt;int&gt;&gt;&amp; graph, int root = 0) {
+        // Iterative DFS to compute sizes and heavy children
+        stack&lt;pair&lt;int, pair&lt;int, bool&gt;&gt;&gt; stk;
+        stk.push({root, {-1, false}});
+        while (!stk.empty()) {
+            auto [u, pp] = stk.top(); stk.pop();
+            auto [p, processed] = pp;
+            if (processed) {
+                for (int v : graph[u]) if (v != p) {
+                    sz[u] += sz[v];
+                    if (heavy[u] == -1 || sz[v] &gt; sz[heavy[u]]) heavy[u] = v;
+                }
+            } else {
+                parent[u] = p;
+                stk.push({u, {p, true}});
+                for (int v : graph[u]) if (v != p) {
+                    depth[v] = depth[u] + 1;
+                    stk.push({v, {u, false}});
+                }
+            }
+        }
+
+        // Assign positions along chains
+        function&lt;void(int, int)&gt; decompose = [&amp;](int u, int h) {
+            head[u] = h; pos[u] = curPos++;
+            if (heavy[u] != -1) decompose(heavy[u], h);
+            for (int v : graph[u])
+                if (v != parent[u] &amp;&amp; v != heavy[u]) decompose(v, v);
+        };
+        decompose(root, root);
+    }
+
+    // Query over path u-&gt;v using a segment tree query function seg_query(l, r)
+    template&lt;typename F&gt;
+    int pathQuery(int u, int v, F seg_query) {
+        int result = 0;
+        while (head[u] != head[v]) {
+            if (depth[head[u]] &lt; depth[head[v]]) swap(u, v);
+            result += seg_query(pos[head[u]], pos[u]);
+            u = parent[head[u]];
+        }
+        if (depth[u] &gt; depth[v]) swap(u, v);
+        result += seg_query(pos[u], pos[v]);
+        return result;
+    }
+};
+
+</code></pre>
+<h3 id="144-centroid-decomposition">14.4 Centroid Decomposition</h3>
+<blockquote>
+<p>Recursively find centroid (removal splits tree into parts ≤ n/2).</p>
+</blockquote>
+<pre><code class="language-cpp">vector&lt;int&gt; centroidDecomp(vector&lt;vector&lt;int&gt;&gt;&amp; graph, int n) {
+    vector&lt;int&gt; sz(n, 1), centPar(n, -1);
+    vector&lt;bool&gt; removed(n, false);
+
+    function&lt;void(int, int)&gt; getSize = [&amp;](int u, int p) {
+        sz[u] = 1;
+        for (int v : graph[u]) if (v != p &amp;&amp; !removed[v]) { getSize(v, u); sz[u] += sz[v]; }
+    };
+
+    function&lt;int(int, int, int)&gt; getCentroid = [&amp;](int u, int p, int ts) -&gt; int {
+        for (int v : graph[u])
+            if (v != p &amp;&amp; !removed[v] &amp;&amp; sz[v] &gt; ts/2)
+                return getCentroid(v, u, ts);
+        return u;
+    };
+
+    function&lt;void(int, int)&gt; decompose = [&amp;](int u, int pc) {
+        getSize(u, -1);
+        int c = getCentroid(u, -1, sz[u]);
+        centPar[c] = pc;
+        removed[c] = true;
+        for (int v : graph[c]) if (!removed[v]) decompose(v, c);
+    };
+
+    decompose(0, -1);
+    return centPar;
+}
+
+</code></pre>
+<hr />
+<h3 id="145-tree-dp-patterns">14.5 Tree DP Patterns</h3>
+<p><strong>Tree Diameter</strong></p>
+<pre><code class="language-cpp">int treeDiameter(vector&lt;vector&lt;int&gt;&gt;&amp; graph, int n) {
+    int diameter = 0;
+    function&lt;int(int, int)&gt; dfs = [&amp;](int u, int p) -&gt; int {
+        int max1 = 0, max2 = 0;
+        for (int v : graph[u]) if (v != p) {
+            int d = dfs(v, u) + 1;
+            if (d &gt; max1) { max2 = max1; max1 = d; } else if (d &gt; max2) max2 = d;
+        }
+        diameter = max(diameter, max1 + max2);
+        return max1;
+    };
+    dfs(0, -1);
+    return diameter;
+}
+
+</code></pre>
+<p><strong>Tree DP - Max Independent Set on Tree</strong></p>
+<pre><code class="language-cpp">int maxIndependentSet(vector&lt;vector&lt;int&gt;&gt;&amp; graph, int n, int root=0) {
+    // dp[u][0] = max when u NOT selected, dp[u][1] = max when u IS selected
+    vector&lt;array&lt;int, 2&gt;&gt; dp(n, {0, 1});
+    function&lt;void(int, int)&gt; dfs = [&amp;](int u, int p) {
+        for (int v : graph[u]) if (v != p) {
+            dfs(v, u);
+            dp[u][0] += max(dp[v][0], dp[v][1]);
+            dp[u][1] += dp[v][0];
+        }
+    };
+    dfs(root, -1);
+    return max(dp[root][0], dp[root][1]);
+}
+
+</code></pre>
+<p><strong>Re-rooting Technique</strong></p>
+<pre><code class="language-cpp">vector&lt;int&gt; reroot(vector&lt;vector&lt;int&gt;&gt;&amp; graph, int n) {
+    vector&lt;int&gt; down(n, 0), ans(n, 0);
+    function&lt;void(int, int)&gt; dfs1 = [&amp;](int u, int p) {
+        for (int v : graph[u]) if (v != p) { dfs1(v, u); down[u] += down[v] + 1; }
+    };
+    function&lt;void(int, int, int)&gt; dfs2 = [&amp;](int u, int p, int fromParent) {
+        ans[u] = down[u] + fromParent;
+        for (int v : graph[u]) if (v != p) {
+            int contrib = ans[u] - (down[v] + 1);
+            dfs2(v, u, contrib + (n - 1 - down[v]));
+        }
+    };
+    dfs1(0, -1);
+    dfs2(0, -1, 0);
+    return ans;
+}
+
+</code></pre>
+<hr />
+<h2 id="15-advanced-competitive-programming">15. Advanced &amp; Competitive Programming</h2>
+<h3 id="151-eulerian-path-circuit">15.1 Eulerian Path &amp; Circuit</h3>
+<ul>
+<li><strong>Eulerian Circuit:</strong> Visit every edge exactly once, return to start.</li>
+<li><strong>Eulerian Path:</strong> Visit every edge exactly once.</li>
+</ul>
+<p><strong>Conditions:</strong></p>
+<ul>
+<li><strong>Undirected Circuit:</strong> All vertices have even degree + connected.</li>
+<li><strong>Undirected Path:</strong> Exactly 2 vertices with odd degree + connected.</li>
+<li><strong>Directed Circuit:</strong> In-degree = out-degree for all vertices.</li>
+<li><strong>Directed Path:</strong> Exactly one vertex with out-in=1 (start), one with in-out=1 (end).</li>
+</ul>
+<p><strong>Hierholzer's Algorithm - $O(E)$</strong></p>
+<blockquote>
+<p>Pass a copy of the adjacency lists.</p>
+</blockquote>
+<pre><code class="language-cpp">vector&lt;int&gt; hierholzer(vector&lt;vector&lt;int&gt;&gt; adj, int start, bool directed=false) {
+    stack&lt;int&gt; stk;
+    vector&lt;int&gt; circuit;
+    stk.push(start);
+    while (!stk.empty()) {
+        int u = stk.top();
+        if (!adj[u].empty()) {
+            int v = adj[u].back(); adj[u].pop_back();
+            if (!directed) {
+                auto it = find(adj[v].begin(), adj[v].end(), u);
+                if (it != adj[v].end()) adj[v].erase(it);
+            }
+            stk.push(v);
+        } else {
+            circuit.push_back(u);
+            stk.pop();
+        }
+    }
+    reverse(circuit.begin(), circuit.end());
+    return circuit;
+}
+
+</code></pre>
+<hr />
+<h3 id="152-hamiltonian-path-tsp-bitmask-dp">15.2 Hamiltonian Path &amp; TSP (Bitmask DP)</h3>
+<blockquote>
+<p><strong>TSP:</strong> Find minimum cost Hamiltonian cycle. NP-hard in general.
+<strong>DP with bitmask:</strong> $O(2^N \cdot N^2)$ - feasible for $N \le 20$.</p>
+</blockquote>
+<pre><code class="language-cpp">// dp[mask][i] = min cost to visit nodes in mask, ending at i
+int tsp(vector&lt;vector&lt;int&gt;&gt;&amp; dist, int n) {
+    const int INF = 1e9;
+    vector&lt;vector&lt;int&gt;&gt; dp(1&lt;&lt;n, vector&lt;int&gt;(n, INF));
+    dp[1][0] = 0; // start at node 0
+    for (int mask = 0; mask &lt; (1&lt;&lt;n); mask++) {
+        for (int u = 0; u &lt; n; u++) {
+            if (dp[mask][u] == INF || !(mask&gt;&gt;u &amp; 1)) continue;
+            for (int v = 0; v &lt; n; v++) {
+                if (mask&gt;&gt;v &amp; 1) continue;
+                int nm = mask | (1&lt;&lt;v);
+                dp[nm][v] = min(dp[nm][v], dp[mask][u] + dist[u][v]);
+            }
+        }
+    }
+    int full = (1&lt;&lt;n)-1, ans = INF;
+    for (int i = 1; i &lt; n; i++)
+        if (dp[full][i] != INF) ans = min(ans, dp[full][i] + dist[i][0]);
+    return ans;
+}
+
+// Reconstruct TSP path
+vector&lt;int&gt; tspPath(vector&lt;vector&lt;int&gt;&gt;&amp; dist, int n) {
+    const int INF = 1e9;
+    vector&lt;vector&lt;int&gt;&gt; dp(1&lt;&lt;n, vector&lt;int&gt;(n, INF));
+    vector&lt;vector&lt;int&gt;&gt; par(1&lt;&lt;n, vector&lt;int&gt;(n, -1));
+    dp[1][0] = 0;
+    for (int mask = 0; mask &lt; (1&lt;&lt;n); mask++) {
+        for (int u = 0; u &lt; n; u++) {
+            if (dp[mask][u] == INF || !(mask&gt;&gt;u &amp; 1)) continue;
+            for (int v = 0; v &lt; n; v++) {
+                if (mask&gt;&gt;v &amp; 1) continue;
+                int nm = mask | (1&lt;&lt;v), nd = dp[mask][u] + dist[u][v];
+                if (nd &lt; dp[nm][v]) { dp[nm][v] = nd; par[nm][v] = u; }
+            }
+        }
+    }
+    int full = (1&lt;&lt;n)-1, last = 1;
+    for (int i = 2; i &lt; n; i++)
+        if (dp[full][i] + dist[i][0] &lt; dp[full][last] + dist[last][0]) last = i;
+    vector&lt;int&gt; path;
+    for (int mask = full, cur = last; cur != 0; ) {
+        path.push_back(cur);
+        int p = par[mask][cur]; mask ^= (1&lt;&lt;cur); cur = p;
+    }
+    path.push_back(0);
+    reverse(path.begin(), path.end());
+    return path;
+}
+
+</code></pre>
+<hr />
+<h3 id="153-graph-coloring">15.3 Graph Coloring</h3>
+<p><strong>Greedy Coloring</strong> (not optimal, but $O(V+E)$):</p>
+<pre><code class="language-cpp">pair&lt;vector&lt;int&gt;,int&gt; greedyColoring(vector&lt;vector&lt;int&gt;&gt;&amp; graph, int n) {
+    vector&lt;int&gt; color(n, -1);
+    for (int u = 0; u &lt; n; u++) {
+        set&lt;int&gt; used;
+        for (int v : graph[u]) if (color[v] != -1) used.insert(color[v]);
+        int c = 0;
+        while (used.count(c)) c++;
+        color[u] = c;
+    }
+    return {color, *max_element(color.begin(), color.end()) + 1};
+}
+
+</code></pre>
+<p><strong>Check if k-colorable</strong> (backtracking):</p>
+<pre><code class="language-cpp">bool isKColorable(vector&lt;vector&lt;int&gt;&gt;&amp; graph, int n, int k) {
+    vector&lt;int&gt; color(n, 0);
+    function&lt;bool(int)&gt; backtrack = [&amp;](int u) -&gt; bool {
+        if (u == n) return true;
+        for (int c = 1; c &lt;= k; c++) {
+            bool ok = true;
+            for (int v : graph[u]) if (color[v] == c) { ok = false; break; }
+            if (ok) {
+                color[u] = c;
+                if (backtrack(u + 1)) return true;
+                color[u] = 0;
+            }
+        }
+        return false;
+    };
+    return backtrack(0);
+}
+
+</code></pre>
+<hr />
+<h3 id="155-bidirectional-dijkstra-snippet">15.5 Bidirectional Dijkstra (Snippet)</h3>
+<pre><code class="language-cpp">// ... (start of function hidden)
+while (!pqF.empty() || !pqB.empty()) {
+    if (!pqF.empty()) {
+        auto [d, u] = pqF.top(); pqF.pop();
+        if (!visF[u]) {
+            visF[u] = true;
+            if (visB[u]) best = min(best, distF[u] + distB[u]);
+            for (auto [v, w] : graph[u])
+                if (distF[u] + w &lt; distF[v]) { distF[v] = distF[u] + w; pqF.push({distF[v], v}); }
+        }
+    }
+    if (!pqB.empty()) {
+        auto [d, u] = pqB.top(); pqB.pop();
+        if (!visB[u]) {
+            visB[u] = true;
+            if (visF[u]) best = min(best, distF[u] + distB[u]);
+            for (auto [v, w] : revGraph[u])
+                if (distB[u] + w &lt; distB[v]) { distB[v] = distB[u] + w; pqB.push({distB[v], v}); }
+        }
+    }
+    if (!pqF.empty() &amp;&amp; !pqB.empty() &amp;&amp; pqF.top().first + pqB.top().first &gt;= best) break;
+}
+return best;
+
+</code></pre>
+<hr />
+<h3 id="156-virtual-nodes-trick">15.6 Virtual Nodes Trick</h3>
+<blockquote>
+<p>Add a virtual source/sink connected to multiple nodes to reduce multiple Dijkstra calls to one.</p>
+</blockquote>
+<pre><code class="language-cpp">// Instead of running Dijkstra from each of k sources:
+// Add virtual node n, connect to each source with edge weight 0
+// Run single Dijkstra from the virtual node
+vector&lt;int&gt; multiSourceDijkstra(vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt; graph, vector&lt;int&gt;&amp; sources, int n) {
+    graph.push_back({}); // virtual node at index n
+    for (int s : sources) graph[n].push_back({s, 0});
+    return dijkstra(graph, n, n+1);
+}
+
+</code></pre>
+<hr />
+<h3 id="157-parallel-bfs-simultaneous-bfs">15.7 Parallel BFS / Simultaneous BFS</h3>
+<blockquote>
+<p><strong>Partition problem:</strong> find which source each cell is closest to.</p>
+</blockquote>
+<pre><code class="language-cpp">pair&lt;vector&lt;vector&lt;int&gt;&gt;, vector&lt;vector&lt;int&gt;&gt;&gt; voronoiBFS(vector&lt;string&gt;&amp; grid, vector&lt;pair&lt;int,int&gt;&gt;&amp; sources) {
+    int rows = grid.size(), cols = grid[0].size();
+    vector&lt;vector&lt;int&gt;&gt; dist(rows, vector&lt;int&gt;(cols, INT_MAX));
+    vector&lt;vector&lt;int&gt;&gt; owner(rows, vector&lt;int&gt;(cols, -1));
+    queue&lt;pair&lt;int,int&gt;&gt; q;
+    for (int idx = 0; idx &lt; (int)sources.size(); idx++) {
+        auto [r, c] = sources[idx];
+        dist[r][c] = 0; owner[r][c] = idx; q.push({r, c});
+    }
+    while (!q.empty()) {
+        auto [r, c] = q.front(); q.pop();
+        for (auto [nr, nc] : neighbors(r, c, rows, cols)) {
+            if (dist[nr][nc] == INT_MAX) {
+                dist[nr][nc] = dist[r][c]+1;
+                owner[nr][nc] = owner[r][c];
+                q.push({nr, nc});
+            }
+        }
+    }
+    return {dist, owner};
+}
+
+</code></pre>
+<hr />
+<h3 id="158-dsu-on-tree-small-to-large-merging">15.8 DSU on Tree (Small-to-Large Merging)</h3>
+<blockquote>
+<p>Count distinct values in subtrees efficiently. $O(N \log N)$.</p>
+</blockquote>
+<pre><code class="language-cpp">void dsuOnTree(vector&lt;vector&lt;int&gt;&gt;&amp; graph, vector&lt;int&gt;&amp; values, int n, vector&lt;int&gt;&amp; answer, int root=0) {
+    vector&lt;int&gt; sz(n, 1), heavy(n, -1);
+    unordered_map&lt;int,int&gt; cnt;
+    int distinct = 0;
+
+    function&lt;void(int, int)&gt; calcSize = [&amp;](int u, int p) {
+        for (int v : graph[u]) if (v != p) {
+            calcSize(v, u); sz[u] += sz[v];
+            if (heavy[u] == -1 || sz[v] &gt; sz[heavy[u]]) heavy[u] = v;
+        }
+    };
+
+    function&lt;void(int, int, int)&gt; add = [&amp;](int u, int p, int coeff) {
+        cnt[values[u]] += coeff;
+        if (coeff == 1 &amp;&amp; cnt[values[u]] == 1) distinct++;
+        else if (coeff == -1 &amp;&amp; cnt[values[u]] == 0) distinct--;
+        for (int v : graph[u]) if (v != p) add(v, u, coeff);
+    };
+
+    function&lt;void(int, int, bool)&gt; dfs = [&amp;](int u, int p, bool keep) {
+        for (int v : graph[u]) if (v != p &amp;&amp; v != heavy[u]) dfs(v, u, false);
+        if (heavy[u] != -1) dfs(heavy[u], u, true);
+        add(u, p, 1);
+        answer[u] = distinct;
+        if (!keep) add(u, p, -1);
+    };
+
+    calcSize(root, -1);
+    dfs(root, -1, false);
+}
+
+</code></pre>
+<hr />
+<h3 id="159-shortest-path-in-dag-dp">15.9 Shortest Path in DAG (DP)</h3>
+<blockquote>
+<p>In a DAG, process vertices in topological order. $O(V+E)$.</p>
+</blockquote>
+<pre><code class="language-cpp">vector&lt;int&gt; dagShortestPath(vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt;&amp; graph, vector&lt;int&gt;&amp; topoOrder, int start, int n) {
+    vector&lt;int&gt; dist(n, INT_MAX);
+    dist[start] = 0;
+    for (int u : topoOrder) {
+        if (dist[u] == INT_MAX) continue;
+        for (auto [v, w] : graph[u])
+            if (dist[u]+w &lt; dist[v]) dist[v] = dist[u]+w;
+    }
+    return dist;
+}
+
+</code></pre>
+<hr />
+<h3 id="1510-graph-hashing-isomorphism">15.10 Graph Hashing / Isomorphism</h3>
+<blockquote>
+<p>Tree isomorphism via canonical form (AHU algorithm sketch)</p>
+</blockquote>
+<pre><code class="language-cpp">string treeCanonical(vector&lt;vector&lt;int&gt;&gt;&amp; graph, int root, int parent) {
+    vector&lt;string&gt; children;
+    for (int v : graph[root])
+        if (v != parent) children.push_back(treeCanonical(graph, v, root));
+    sort(children.begin(), children.end());
+    string result = &quot;(&quot;;
+    for (auto&amp; c : children) result += c;
+    return result + &quot;)&quot;;
+}
+
+</code></pre>
+<hr />
+<h3 id="1511-important-theorems-facts-for-interviews">15.11 Important Theorems &amp; Facts for Interviews</h3>
+<table>
+<thead>
+<tr>
+<th>Theorem</th>
+<th>Statement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Handshaking Lemma</strong></td>
+<td>Sum of all degrees = $2E$ (undirected)</td>
+</tr>
+<tr>
+<td><strong>Euler's Formula</strong></td>
+<td>For connected planar graph: $V - E + F = 2$</td>
+</tr>
+<tr>
+<td><strong>König's Theorem</strong></td>
+<td>Bipartite: max matching = min vertex cover</td>
+</tr>
+<tr>
+<td><strong>Hall's Theorem</strong></td>
+<td>Bipartite graph has perfect matching iff for all $S \subseteq L$: $\vert N(S) \vert ≥ \vert S \vert$</td>
+</tr>
+<tr>
+<td><strong>Menger's Theorem</strong></td>
+<td>Max disjoint paths = min vertex cut</td>
+</tr>
+<tr>
+<td><strong>Ford-Fulkerson</strong></td>
+<td>Max flow = min cut</td>
+</tr>
+<tr>
+<td><strong>Dilworth's Theorem</strong></td>
+<td>Min chain cover = max antichain in poset</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="16-patterns-templates-cheat-sheet">16. Patterns, Templates &amp; Cheat Sheet</h3>
+<h4 id="161-interview-problem-patterns">16.1 Interview Problem Patterns</h4>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Trigger Words</th>
+<th>Algorithm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Shortest path, unweighted</strong></td>
+<td>"minimum steps/hops"</td>
+<td>BFS</td>
+</tr>
+<tr>
+<td><strong>Shortest path, weighted</strong></td>
+<td>"minimum cost/distance"</td>
+<td>Dijkstra</td>
+</tr>
+<tr>
+<td><strong>Shortest path, negative edges</strong></td>
+<td>"can gain points along path"</td>
+<td>Bellman-Ford</td>
+</tr>
+<tr>
+<td><strong>All pairs shortest</strong></td>
+<td>"between every pair"</td>
+<td>Floyd-Warshall / Johnson</td>
+</tr>
+<tr>
+<td><strong>Ordering with dependencies</strong></td>
+<td>"prerequisite", "before/after"</td>
+<td>Topological Sort</td>
+</tr>
+<tr>
+<td><strong>Group/cluster</strong></td>
+<td>"number of islands", "connected regions"</td>
+<td>DFS/BFS + components</td>
+</tr>
+<tr>
+<td><strong>Minimum connections</strong></td>
+<td>"minimum cables/roads to connect all"</td>
+<td>Kruskal / Prim MST</td>
+</tr>
+<tr>
+<td><strong>Cycle check</strong></td>
+<td>"can get stuck in loop"</td>
+<td>Directed: 3-color DFS; Undirected: DSU</td>
+</tr>
+<tr>
+<td><strong>Critical edges</strong></td>
+<td>"if this road is blocked"</td>
+<td>Bridges (Tarjan)</td>
+</tr>
+<tr>
+<td><strong>Flow/matching</strong></td>
+<td>"max assignment", "bottleneck"</td>
+<td>Max Flow / Bipartite Matching</td>
+</tr>
+<tr>
+<td><strong>Path in DAG</strong></td>
+<td>"number of ways", "longest path in DAG"</td>
+<td>DP on Topo order</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="162-grid-graph-template">16.2 Grid Graph Template</h4>
+<pre><code class="language-cpp">void solveGrid(vector&lt;string&gt;&amp; grid) {
+    int rows = grid.size(), cols = grid[0].size();
+    const int DIRS[4][2] = {{0,1},{0,-1},{1,0},{-1,0}};
+    vector&lt;vector&lt;bool&gt;&gt; visited(rows, vector&lt;bool&gt;(cols, false));
+
+    auto bfs = [&amp;](int sr, int sc) {
+        queue&lt;pair&lt;int,int&gt;&gt; q;
+        visited[sr][sc] = true;
+        q.push({sr, sc});
+        while (!q.empty()) {
+            auto [r, c] = q.front(); q.pop();
+            for (auto&amp; d : DIRS) {
+                int nr = r+d[0], nc = c+d[1];
+                if (nr &gt;= 0 &amp;&amp; nr &lt; rows &amp;&amp; nc &gt;= 0 &amp;&amp; nc &lt; cols 
+                    &amp;&amp; !visited[nr][nc] &amp;&amp; grid[nr][nc] != '#') {
+                    visited[nr][nc] = true;
+                    q.push({nr, nc});
+                }
+            }
+        }
+    };
+}
+
+</code></pre>
+<h4 id="163-common-mistakes-fixes">16.3 Common Mistakes &amp; Fixes</h4>
+<table>
+<thead>
+<tr>
+<th>Mistake</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Using visited set but not checking before enqueue</td>
+<td>Mark visited WHEN enqueuing, not when dequeuing</td>
+</tr>
+<tr>
+<td>Dijkstra with negative edges</td>
+<td>Use Bellman-Ford instead</td>
+</tr>
+<tr>
+<td>DFS stack overflow on large graphs</td>
+<td>Use iterative DFS with explicit stack</td>
+</tr>
+<tr>
+<td>Forgetting to handle disconnected graphs</td>
+<td>Loop over all nodes, not just node 0</td>
+</tr>
+<tr>
+<td>Parent tracking bug in undirected cycle detection</td>
+<td>Track edge index for multigraphs</td>
+</tr>
+<tr>
+<td>Floyd-Warshall wrong loop order</td>
+<td>Always $k$ (intermediate) in outermost loop</td>
+</tr>
+<tr>
+<td>Bellman-Ford not doing $V-1$ relaxations</td>
+<td>Need exactly $n-1$ iterations</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="164-complexity-quick-reference">16.4 Complexity Quick Reference</h4>
+<ul>
+<li><strong>DFS/BFS:</strong> $O(V+E)$</li>
+<li><strong>Dijkstra (binary heap):</strong> $O((V+E) \log V)$</li>
+<li><strong>Dijkstra (fib heap):</strong> $O(E + V \log V)$</li>
+<li><strong>Bellman-Ford:</strong> $O(VE)$</li>
+<li><strong>Floyd-Warshall:</strong> $O(V^3)$</li>
+<li><strong>Kruskal:</strong> $O(E \log E)$</li>
+<li><strong>Prim (binary heap):</strong> $O((V+E) \log V)$</li>
+<li><strong>Topological Sort:</strong> $O(V+E)$</li>
+<li><strong>Tarjan SCC:</strong> $O(V+E)$</li>
+<li><strong>Bridge Finding:</strong> $O(V+E)$</li>
+<li><strong>Bipartite Match (augm):</strong> $O(VE)$</li>
+<li><strong>Hopcroft-Karp:</strong> $O(E\sqrt{V})$</li>
+<li><strong>Dinic's Max Flow:</strong> $O(V^2E)$</li>
+<li><strong>Dinic on unit graph:</strong> $O(E\sqrt{V})$</li>
+<li><strong>TSP Bitmask DP:</strong> $O(2^N \cdot N^2)$</li>
+<li><strong>LCA Binary Lifting:</strong> $O(N \log N)$ build, $O(\log N)$ query</li>
+<li><strong>HLD:</strong> $O(N \log N)$ build, $O(\log^2 N)$ query</li>
+<li><strong>Centroid Decomp:</strong> $O(N \log N)$</li>
+</ul>
+<hr />
+<h3 id="166-top-30-leetcode-graph-problems">16.6 Top 30 LeetCode Graph Problems</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Problem</th>
+<th>Key Algorithm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>Number of Islands</td>
+<td>DFS/BFS components</td>
+</tr>
+<tr>
+<td>207</td>
+<td>Course Schedule</td>
+<td>Topological sort / cycle</td>
+</tr>
+<tr>
+<td>210</td>
+<td>Course Schedule II</td>
+<td>Topological sort</td>
+</tr>
+<tr>
+<td>133</td>
+<td>Clone Graph</td>
+<td>BFS/DFS + hashmap</td>
+</tr>
+<tr>
+<td>743</td>
+<td>Network Delay Time</td>
+<td>Dijkstra</td>
+</tr>
+<tr>
+<td>787</td>
+<td>Cheapest Flights K Stops</td>
+<td>Bellman-Ford modified</td>
+</tr>
+<tr>
+<td>684</td>
+<td>Redundant Connection</td>
+<td>Union-Find</td>
+</tr>
+<tr>
+<td>695</td>
+<td>Max Area of Island</td>
+<td>DFS/BFS</td>
+</tr>
+<tr>
+<td>994</td>
+<td>Rotting Oranges</td>
+<td>Multi-source BFS</td>
+</tr>
+<tr>
+<td>127</td>
+<td>Word Ladder</td>
+<td>BFS</td>
+</tr>
+<tr>
+<td>269</td>
+<td>Alien Dictionary</td>
+<td>Topological sort</td>
+</tr>
+<tr>
+<td>323</td>
+<td>Number of Connected Components</td>
+<td>DSU</td>
+</tr>
+<tr>
+<td>547</td>
+<td>Number of Provinces</td>
+<td>DFS/DSU</td>
+</tr>
+<tr>
+<td>1091</td>
+<td>Shortest Path Binary Matrix</td>
+<td>BFS</td>
+</tr>
+<tr>
+<td>778</td>
+<td>Swim in Rising Water</td>
+<td>Dijkstra / Binary Search</td>
+</tr>
+<tr>
+<td>1514</td>
+<td>Path with Maximum Probability</td>
+<td>Dijkstra (max variant)</td>
+</tr>
+<tr>
+<td>1631</td>
+<td>Path with Minimum Effort</td>
+<td>Dijkstra / Binary Search</td>
+</tr>
+<tr>
+<td>332</td>
+<td>Reconstruct Itinerary</td>
+<td>Hierholzer Eulerian path</td>
+</tr>
+<tr>
+<td>1192</td>
+<td>Critical Connections</td>
+<td>Tarjan Bridges</td>
+</tr>
+<tr>
+<td>802</td>
+<td>Find Eventual Safe States</td>
+<td>Reverse graph + topo</td>
+</tr>
+<tr>
+<td>847</td>
+<td>Shortest Path Visiting All Nodes</td>
+<td>BFS + bitmask</td>
+</tr>
+<tr>
+<td>721</td>
+<td>Accounts Merge</td>
+<td>Union-Find</td>
+</tr>
+<tr>
+<td>785</td>
+<td>Is Graph Bipartite</td>
+<td>BFS 2-coloring</td>
+</tr>
+<tr>
+<td>886</td>
+<td>Possible Bipartition</td>
+<td>Bipartite check</td>
+</tr>
+<tr>
+<td>1579</td>
+<td>Remove Max Edges</td>
+<td>DSU</td>
+</tr>
+<tr>
+<td>1489</td>
+<td>Find Critical/Pseudo-Critical Edges</td>
+<td>MST + Kruskal</td>
+</tr>
+<tr>
+<td>399</td>
+<td>Evaluate Division</td>
+<td>Weighted DFS/BFS</td>
+</tr>
+<tr>
+<td>1203</td>
+<td>Sort Items by Groups</td>
+<td>Topological sort × 2</td>
+</tr>
+<tr>
+<td>2092</td>
+<td>Find All People with Secret</td>
+<td>DSU per meeting time</td>
+</tr>
+<tr>
+<td>1970</td>
+<td>Last Day Where You Can Still Cross</td>
+<td>DSU / Binary Search</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="17-algorithm-selection-decision-framework">17. Algorithm Selection Decision Framework</h2>
+<blockquote>
+<p><strong>How to think:</strong> Read the problem $\rightarrow$ identify the graph type $\rightarrow$ identify what's being asked $\rightarrow$ match to a pattern $\rightarrow$ pick the algorithm.</p>
+</blockquote>
+<h3 id="171-step-by-step-decision-flowchart">17.1 Step-by-Step Decision Flowchart</h3>
+<ul>
+<li><strong>"Is X reachable from Y?" / "How many groups?"</strong> → Connectivity: DFS / BFS / Union-Find</li>
+<li><strong>"Shortest / Minimum cost path?"</strong></li>
+<li>Unweighted → BFS</li>
+<li>Weights 0 or 1 → 0-1 BFS (deque)</li>
+<li>Non-negative weights? → Dijkstra</li>
+<li>Negative weights? → Bellman-Ford / SPFA</li>
+<li>All pairs? → Floyd-Warshall (dense) / Johnson's (sparse)</li>
+<li>DAG? → Topo sort + DP (fastest: $O(V+E)$)</li>
+<li><strong>"Maximize the minimum value along a path?" (max-min path)</strong> → Multi-source BFS + DSU (descending) / Modified Dijkstra (max-heap) / Binary Search + BFS</li>
+<li><strong>"Minimize the maximum value along a path?" (min-max path)</strong> → DSU (ascending sort) / Modified Dijkstra (min-heap on bottleneck) / Binary Search + BFS</li>
+<li><strong>"Ordering / scheduling with dependencies?"</strong> → Topological Sort (Kahn's BFS or DFS)</li>
+<li><strong>"Detect cycle?"</strong></li>
+<li>Undirected → DFS (parent tracking) / Union-Find</li>
+<li>Directed → 3-color DFS / Kahn's (if topo order size &lt; n → cycle)</li>
+<li><strong>"Connect all nodes with minimum cost?"</strong> → MST → Kruskal (sparse, edge list) / Prim (dense, adj list)</li>
+<li><strong>"Critical edges / nodes whose removal disconnects?"</strong></li>
+<li>Edges → Bridges (Tarjan)</li>
+<li>Nodes → Articulation Points (Tarjan)</li>
+<li><strong>"Maximum flow / minimum cut / matching?"</strong></li>
+<li>General flow → Dinic's / Edmonds-Karp</li>
+<li>Bipartite matching → Hopcroft-Karp / Hungarian / Flow reduction</li>
+<li><strong>"Strongly connected components?"</strong> → Tarjan's SCC / Kosaraju's</li>
+<li><strong>"Traverse every edge exactly once?"</strong> → Eulerian Path/Circuit → Hierholzer's</li>
+<li><strong>"Visit every node exactly once (minimum cost)?"</strong> → Hamiltonian / TSP → Bitmask DP (n ≤ 20)</li>
+<li><strong>"Tree path / subtree queries?"</strong></li>
+<li>LCA → Binary Lifting / Euler Tour + RMQ</li>
+<li>Path queries → HLD + Segment Tree</li>
+<li>Subtree queries → Euler Tour + BIT/Segment Tree</li>
+</ul>
+<hr />
+<h3 id="172-pattern-recognition-by-problem-keywords">17.2 Pattern Recognition by Problem Keywords</h3>
+<table>
+<thead>
+<tr>
+<th>Keywords / Signals</th>
+<th>Pattern</th>
+<th>Algorithm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"number of islands", "connected regions"</td>
+<td>Connected Components</td>
+<td>DFS / BFS / DSU</td>
+</tr>
+<tr>
+<td>"minimum steps", "shortest path in grid"</td>
+<td>Unweighted Shortest Path</td>
+<td>BFS</td>
+</tr>
+<tr>
+<td>"minimum cost to reach", "cheapest path"</td>
+<td>Weighted Shortest Path</td>
+<td>Dijkstra / Bellman-Ford</td>
+</tr>
+<tr>
+<td>"safeness factor", "maximize minimum"</td>
+<td>Max-Min Path</td>
+<td>Multi-source BFS + DSU</td>
+</tr>
+<tr>
+<td>"minimum effort", "minimize maximum"</td>
+<td>Min-Max Path</td>
+<td>DSU asc / Dijkstra variant</td>
+</tr>
+<tr>
+<td>"prerequisite", "course schedule"</td>
+<td>Dependency Ordering</td>
+<td>Topological Sort</td>
+</tr>
+<tr>
+<td>"can all tasks be finished", "is there a cycle"</td>
+<td>Cycle Detection</td>
+<td>DFS coloring / Kahn's</td>
+</tr>
+<tr>
+<td>"minimum cost to connect all"</td>
+<td>MST</td>
+<td>Kruskal / Prim</td>
+</tr>
+<tr>
+<td>"if this edge/node is removed", "critical"</td>
+<td>Bridges / Articulation</td>
+<td>Tarjan</td>
+</tr>
+<tr>
+<td>"maximum items", "assignment problem"</td>
+<td>Network Flow</td>
+<td>Dinic / Hopcroft-Karp</td>
+</tr>
+<tr>
+<td>"bipartite", "two groups"</td>
+<td>Bipartiteness</td>
+<td>BFS 2-coloring</td>
+</tr>
+<tr>
+<td>"closest X for every cell"</td>
+<td>Multi-Source Distance</td>
+<td>Multi-source BFS</td>
+</tr>
+<tr>
+<td>"merge accounts", "redundant edge"</td>
+<td>Dynamic Connectivity</td>
+<td>Union-Find (DSU)</td>
+</tr>
+<tr>
+<td>"all pairs distance"</td>
+<td>All-Pairs Shortest Path</td>
+<td>Floyd-Warshall / Johnson's</td>
+</tr>
+<tr>
+<td>"at most K stops", "exactly K edges"</td>
+<td>K-constrained Shortest Path</td>
+<td>Bellman-Ford / BFS state</td>
+</tr>
+<tr>
+<td>"path with threshold"</td>
+<td>Threshold Path</td>
+<td>Binary Search + BFS/DFS</td>
+</tr>
+<tr>
+<td>"reconstruct itinerary"</td>
+<td>Eulerian Path</td>
+<td>Hierholzer's</td>
+</tr>
+<tr>
+<td>"visit all nodes shortest path"</td>
+<td>Bitmask BFS/DP</td>
+<td>BFS + bitmask state</td>
+</tr>
+<tr>
+<td>"probability", "maximize product"</td>
+<td>Modified Dijkstra</td>
+<td>Max-heap, multiply</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="173-identifying-the-graph-type">17.3 Identifying the Graph Type</h3>
+<ol>
+<li><strong>Explicit or Implicit?</strong></li>
+<li>Explicit: adjacency/edge list</li>
+<li>
+<p>Implicit: grid, state space, string transformations</p>
+</li>
+<li>
+<p><strong>Directed or Undirected?</strong></p>
+</li>
+<li>Directed: one-way, dependencies</li>
+<li>
+<p>Undirected: symmetric relationships</p>
+</li>
+<li>
+<p><strong>Weighted or Unweighted?</strong></p>
+</li>
+<li><em>DAG?</em> → Topo sort + DP</li>
+<li><em>Tree?</em> → LCA, HLD, Euler Tour, Centroid Decomp</li>
+<li><em>Negative weights?</em> → Bellman-Ford (Dijkstra fails)</li>
+<li><em>n small (≤ 20)?</em> → Bitmask DP</li>
+</ol>
+<hr />
+<h3 id="174-the-binary-search-bfsdfs-meta-pattern">17.4 The "Binary Search + BFS/DFS" Meta-Pattern</h3>
+<blockquote>
+<p>"Is there a path from S to T where [some constraint ≤ or ≥ threshold]?"
+<em>If the answer is monotonic:</em> 1. Binary search threshold. 2. Use BFS/DFS to check feasibility.</p>
+</blockquote>
+<p><strong>Template:</strong></p>
+<pre><code class="language-cpp">int binarySearchBFS(vector&lt;vector&lt;int&gt;&gt;&amp; grid) {
+    int n = grid.size(), lo = 0, hi = /* max possible */;
+    auto canReach = [&amp;](int threshold) -&gt; bool {
+        if (grid[0][0] &gt; threshold) return false;
+        vector&lt;vector&lt;bool&gt;&gt; visited(n, vector&lt;bool&gt;(n, false));
+        queue&lt;pair&lt;int,int&gt;&gt; q;
+        visited[0][0] = true; q.push({0, 0});
+        int dirs[4][2] = {{0,1},{0,-1},{1,0},{-1,0}};
+        while (!q.empty()) {
+            auto [r, c] = q.front(); q.pop();
+            if (r == n-1 &amp;&amp; c == n-1) return true;
+            for (auto&amp; d : dirs) {
+                int nr = r+d[0], nc = c+d[1];
+                if (nr&gt;=0 &amp;&amp; nr&lt;n &amp;&amp; nc&gt;=0 &amp;&amp; nc&lt;n &amp;&amp; !visited[nr][nc] &amp;&amp; grid[nr][nc] &lt;= threshold) {
+                    visited[nr][nc] = true; q.push({nr, nc});
+                }
+            }
+        }
+        return false;
+    };
+    while (lo &lt; hi) {
+        int mid = (lo + hi) / 2;
+        if (canReach(mid)) hi = mid;
+        else lo = mid + 1;
+    }
+    return lo;
+}
+
+</code></pre>
+<hr />
+<h3 id="175-the-dsu-sort-meta-pattern">17.5 The "DSU + Sort" Meta-Pattern</h3>
+<ol>
+<li>Assign a value/score to each node/edge.</li>
+<li>Sort by value.</li>
+<li>Process in sorted order, unioning as you go.</li>
+<li>Stop when condition is met.</li>
+</ol>
+<hr />
+<h3 id="176-the-modified-dijkstra-meta-pattern">17.6 The "Modified Dijkstra" Meta-Pattern</h3>
+<table>
+<thead>
+<tr>
+<th>Objective</th>
+<th>Relaxation</th>
+<th>Heap</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Min-sum</strong></td>
+<td><code>dist[v] = min(dist[v], dist[u] + w)</code></td>
+<td>Min-heap</td>
+</tr>
+<tr>
+<td><strong>Max-min</strong></td>
+<td><code>dist[v] = max(dist[v], min(dist[u], w))</code></td>
+<td>Max-heap</td>
+</tr>
+<tr>
+<td><strong>Min-max</strong></td>
+<td><code>dist[v] = min(dist[v], max(dist[u], w))</code></td>
+<td>Min-heap</td>
+</tr>
+<tr>
+<td><strong>Max-product</strong></td>
+<td><code>dist[v] = max(dist[v], dist[u] * w)</code></td>
+<td>Max-heap</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Template (Max-Min Dijkstra e.g., LC 2812):</strong></p>
+<pre><code class="language-cpp">int maxMinDijkstra(vector&lt;vector&lt;int&gt;&gt;&amp; safety, int n) {
+    vector&lt;vector&lt;int&gt;&gt; dist(n, vector&lt;int&gt;(n, 0));
+    dist[0][0] = safety[0][0];
+    priority_queue&lt;tuple&lt;int,int,int&gt;&gt; pq;
+    pq.push({safety[0][0], 0, 0});
+    int dirs[4][2] = {{0,1},{0,-1},{1,0},{-1,0}};
+    while (!pq.empty()) {
+        auto [d, r, c] = pq.top(); pq.pop();
+        if (r == n-1 &amp;&amp; c == n-1) return d;
+        if (d &lt; dist[r][c]) continue;
+        for (auto&amp; dir : dirs) {
+            int nr = r+dir[0], nc = c+dir[1];
+            if (nr&gt;=0 &amp;&amp; nr&lt;n &amp;&amp; nc&gt;=0 &amp;&amp; nc&lt;n) {
+                int newDist = min(d, safety[nr][nc]);
+                if (newDist &gt; dist[nr][nc]) {
+                    dist[nr][nc] = newDist;
+                    pq.push({newDist, nr, nc});
+                }
+            }
+        }
+    }
+    return 0;
+}
+
+</code></pre>
+<hr />
+<h3 id="177-multi-source-bfs">17.7 Multi-Source BFS</h3>
+<ul>
+<li><strong>Signal:</strong> "Nearest X for every cell" or "Distance from multiple sources".</li>
+<li><strong>Key Insight:</strong> Initialize queue with ALL sources at distance 0 → single BFS.</li>
+<li><strong>Common uses:</strong> Nearest fire/thief, Voronoi partitioning, Walls and Gates (LC 286), Rotting Oranges (LC 994).</li>
+</ul>
+<hr />
+<h3 id="178-quick-decision-table-i-see-x-i-think-y">17.8 Quick Decision Table: "I see X, I think Y"</h3>
+<ul>
+<li>Grid with obstacles → Implicit graph → BFS/DFS</li>
+<li>"Minimum steps in grid" → BFS</li>
+<li>"Minimum cost in weighted grid" → Dijkstra</li>
+<li>Edge weights 0 and 1 → 0-1 BFS (deque)</li>
+<li>"Connect all" + "minimum cost" → MST</li>
+<li>"Ordering" + "dependencies" → Topo sort</li>
+<li>n ≤ 20 and "visit all" → Bitmask DP</li>
+<li>"Maximize minimum" or "minimize maximum" → DSU+Sort OR Modified Dijkstra OR Binary Search+BFS</li>
+<li>"Remove edge → disconnects?" → Bridges (Tarjan)</li>
+<li>"Number of ways" in DAG → Topo sort + DP</li>
+<li>Negative edge weights → Bellman-Ford</li>
+<li>Tree + path queries → LCA / HLD</li>
+<li>Tree + subtree queries → Euler Tour + Segment Tree</li>
+</ul>
+<hr />
+<blockquote>
+<p><em>Guide compiled for DSA interviews up to competitive programming level - covers all standard and advanced graph algorithms with working C++17 code.</em></p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
