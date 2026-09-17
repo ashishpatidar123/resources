@@ -1,4 +1,4 @@
-# Daily Learnings & Revisions
+# Learning Resources
 
 Welcome to my centralized knowledge base. This site contains my daily study notes.
 
