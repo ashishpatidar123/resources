@@ -59,7 +59,7 @@ Here is a highly detailed, point-by-point breakdown of the internal PostgreSQL m
 PostgreSQL utilizes a fixed-page storage architecture where data is stored immutably. Instead of updating rows in place, it appends new "tuples" to the Heap and updates B-Tree indexes with direct physical pointers (CTIDs) to the new data. To manage concurrent users without data corruption, it relies on MVCC, using hidden `xmin` and `xmax` transaction IDs on every tuple to determine which data snapshot a specific query should see. Because this leaves obsolete data behind, the Vacuum process is required to reclaim space and prevent file bloat.
 
 ### Relevant Links for Further Exploration
-
-* **YouTube:** [PostgreSQL MVCC Internals Explained](https://www.youtube.com/watch?v=q9jixKv4h2I) (A great follow-up video diving deeper into `xmin`, `xmax`, and isolation levels).
+* **YouTube:** [PostgreSQL Internals](https://www.youtube.com/watch?v=q9jixKv4h2I) (The main video).
+* **YouTube:** [PostgreSQL MVCC Internals Explained](https://www.youtube.com/watch?v=TBmDBw1IIoY) (A great follow-up video diving deeper into `xmin`, `xmax`, and isolation levels).
 * **Article:** [PostgreSQL Official Documentation: Database Page Layout](https://www.postgresql.org/docs/current/storage-page-layout.html) (The official documentation showing exactly how the 8KB page is structured byte-by-byte).
-* **Article:** [Understanding Postgres TOAST](https://www.google.com/search?q=https://www.citusdata.com/blog/2013/04/12/understanding-toast/) (A practical breakdown of how Postgres handles oversized rows).
+* **Article:** [Understanding Postgres TOAST](https://www.cloudthat.com/resources/blog/toast-in-postgresql-for-large-data-management) (A practical breakdown of how Postgres handles oversized rows).
