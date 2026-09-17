@@ -1758,7 +1758,7 @@ struct HLD {
 
 ### 14.4 Centroid Decomposition
 
-> Recursively find centroid (removal splits tree into parts $\le n/2$). Useful for path counting problems.
+> Recursively find centroid (removal splits tree into parts ≤ n/2).
 
 ```cpp
 vector<int> centroidDecomp(vector<vector<int>>& graph, int n) {
@@ -2171,7 +2171,7 @@ string treeCanonical(vector<vector<int>>& graph, int root, int parent) {
 | **Handshaking Lemma** | Sum of all degrees = $2E$ (undirected) |
 | **Euler's Formula** | For connected planar graph: $V - E + F = 2$ |
 | **König's Theorem** | Bipartite: max matching = min vertex cover |
-| **Hall's Theorem** | Bipartite graph has perfect matching iff for all $S \subseteq L$: $\vert N(S) \vert \ge \vert S \vert$ |
+| **Hall's Theorem** | Bipartite graph has perfect matching iff for all $S \subseteq L$: $\vert N(S) \vert ≥ \vert S \vert$ |
 | **Menger's Theorem** | Max disjoint paths = min vertex cut |
 | **Ford-Fulkerson** | Max flow = min cut |
 | **Dilworth's Theorem** | Min chain cover = max antichain in poset |
@@ -2328,7 +2328,7 @@ void solveGrid(vector<string>& grid) {
   * Bipartite matching → Hopcroft-Karp / Hungarian / Flow reduction
 * **"Strongly connected components?"** → Tarjan's SCC / Kosaraju's
 * **"Traverse every edge exactly once?"** → Eulerian Path/Circuit → Hierholzer's
-* **"Visit every node exactly once (minimum cost)?"** → Hamiltonian / TSP → Bitmask DP ($n \le 20$)
+* **"Visit every node exactly once (minimum cost)?"** → Hamiltonian / TSP → Bitmask DP (n ≤ 20)
 * **"Tree path / subtree queries?"**
   * LCA → Binary Lifting / Euler Tour + RMQ
   * Path queries → HLD + Segment Tree
@@ -2374,16 +2374,16 @@ void solveGrid(vector<string>& grid) {
 
 
 3. **Weighted or Unweighted?**
-4. **DAG?** $\rightarrow$ Topo sort + DP
-5. **Tree?** $\rightarrow$ LCA, HLD, Euler Tour, Centroid Decomp
-6. **Negative weights?** $\rightarrow$ Bellman-Ford (Dijkstra fails)
-7. **n small ($\le 20$)?** $\rightarrow$ Bitmask DP
+8. *DAG?* → Topo sort + DP
+9. *Tree?* → LCA, HLD, Euler Tour, Centroid Decomp
+10. *Negative weights?* → Bellman-Ford (Dijkstra fails)
+11. *n small (≤ 20)?* → Bitmask DP
 
 ---
 
 ### 17.4 The "Binary Search + BFS/DFS" Meta-Pattern
 
-> "Is there a path from S to T where [some constraint $\le$ or $\ge$ threshold]?"
+> "Is there a path from S to T where [some constraint ≤ or ≥ threshold]?"
 > *If the answer is monotonic:* 1. Binary search threshold. 2. Use BFS/DFS to check feasibility.
 
 **Template:**
@@ -2473,26 +2473,26 @@ int maxMinDijkstra(vector<vector<int>>& safety, int n) {
 ### 17.7 Multi-Source BFS
 
 * **Signal:** "Nearest X for every cell" or "Distance from multiple sources".
-* **Key Insight:** Initialize queue with ALL sources at distance 0 $\rightarrow$ single BFS.
+* **Key Insight:** Initialize queue with ALL sources at distance 0 → single BFS.
 * **Common uses:** Nearest fire/thief, Voronoi partitioning, Walls and Gates (LC 286), Rotting Oranges (LC 994).
 
 ---
 
 ### 17.8 Quick Decision Table: "I see X, I think Y"
 
-* **Grid with obstacles** $\rightarrow$ Implicit graph $\rightarrow$ BFS/DFS
-* **"Minimum steps in grid"** $\rightarrow$ BFS
-* **"Minimum cost in weighted grid"** $\rightarrow$ Dijkstra
-* **Edge weights 0 and 1** $\rightarrow$ 0-1 BFS (deque)
-* **"Connect all" + "minimum cost"** $\rightarrow$ MST
-* **"Ordering" + "dependencies"** $\rightarrow$ Topo sort
-* **n $\le$ 20 and "visit all"** $\rightarrow$ Bitmask DP
-* **"Maximize minimum" or "minimize maximum"** $\rightarrow$ DSU+Sort OR Modified Dijkstra OR Binary Search+BFS
-* **"Remove edge $\rightarrow$ disconnects?"** $\rightarrow$ Bridges (Tarjan)
-* **"Number of ways" in DAG** $\rightarrow$ Topo sort + DP
-* **Negative edge weights** $\rightarrow$ Bellman-Ford
-* **Tree + path queries** $\rightarrow$ LCA / HLD
-* **Tree + subtree queries** $\rightarrow$ Euler Tour + Segment Tree
+* Grid with obstacles → Implicit graph → BFS/DFS
+* "Minimum steps in grid" → BFS
+* "Minimum cost in weighted grid" → Dijkstra
+* Edge weights 0 and 1 → 0-1 BFS (deque)
+* "Connect all" + "minimum cost" → MST
+* "Ordering" + "dependencies" → Topo sort
+* n ≤ 20 and "visit all" → Bitmask DP
+* "Maximize minimum" or "minimize maximum" → DSU+Sort OR Modified Dijkstra OR Binary Search+BFS
+* "Remove edge → disconnects?" → Bridges (Tarjan)
+* "Number of ways" in DAG → Topo sort + DP
+* Negative edge weights → Bellman-Ford
+* Tree + path queries → LCA / HLD
+* Tree + subtree queries → Euler Tour + Segment Tree
 
 ---
 
