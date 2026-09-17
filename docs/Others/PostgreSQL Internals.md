@@ -60,6 +60,6 @@ PostgreSQL utilizes a fixed-page storage architecture where data is stored immut
 
 ### Relevant Links for Further Exploration
 
-* **YouTube:** [PostgreSQL MVCC Internals Explained](https://www.google.com/search?q=https://www.youtube.com/watch%3Fv%3DFq4H4F0t7C0) (A great follow-up video diving deeper into `xmin`, `xmax`, and isolation levels).
+* **YouTube:** [PostgreSQL MVCC Internals Explained](https://www.youtube.com/watch?v=q9jixKv4h2I) (A great follow-up video diving deeper into `xmin`, `xmax`, and isolation levels).
 * **Article:** [PostgreSQL Official Documentation: Database Page Layout](https://www.postgresql.org/docs/current/storage-page-layout.html) (The official documentation showing exactly how the 8KB page is structured byte-by-byte).
 * **Article:** [Understanding Postgres TOAST](https://www.google.com/search?q=https://www.citusdata.com/blog/2013/04/12/understanding-toast/) (A practical breakdown of how Postgres handles oversized rows).
