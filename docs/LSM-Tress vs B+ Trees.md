@@ -1,4 +1,3 @@
-Welcome to today's Daily Technical Deep Dive. Yesterday, we explored CPU cache coherence and how hardware-level memory mechanics dictate latency. Today, we are scaling those principles up to persistent disk storage.
 
 We are diving into a high-frequency SDE-2 system design topic: **Database Indexing Internals: B+ Trees vs. LSM-Trees & The RUM Conjecture.**
 
@@ -102,9 +101,9 @@ public:
 
 ## Resources for Further Deep Diving
 
-*  **Article:** [LSM Trees vs B-Trees: How Storage Engines Choose Their Data Structure](https://dev.to/dylan_dumont_266378d98367/lsm-trees-vs-b-trees-how-storage-engines-choose-their-data-structure-10l9) - Deep dive into physical disk seek patterns.
+*  **Article:** [LSM Trees vs B+ Trees: How Storage Engines Choose Their Data Structure](https://dev.to/dylan_dumont_266378d98367/lsm-trees-vs-b-trees-how-storage-engines-choose-their-data-structure-10l9) - Deep dive into physical disk seek patterns.
 * **Article:** [B and B+ Trees](https://medium.com/@akashsdas_dev/b-trees-and-b-trees-682d363df1f7) - Understand difference between B and B+ tress.
-*  **Article:** [](https://vivekbansal.substack.com/p/what-is-lsm-tree) - Deep dive into LSM Trees.
+*  **Article:** [LSM Trees](https://vivekbansal.substack.com/p/what-is-lsm-tree) - Deep dive into LSM Trees.
 
 ---
 
