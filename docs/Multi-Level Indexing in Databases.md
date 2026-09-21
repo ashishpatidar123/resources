@@ -397,3 +397,171 @@ Assume 1 index page can store 100 entries.
  * With three level : ``` 100 x 100 x 100 = 1000000 entries ```
  * With four level : ``` 100 x 100 x 100 x 100 = 100000000 entries ```
 
+## 7. Different types of indexes
+
+### Clustered index
+A clustered index determines the physical or logical order of table rows.
+
+```text
+Clustered order by id:
+
+Page 10:
+  id 1
+  id 2
+  id 3
+Page 11:
+  id 4
+  id 5
+```
+
+The leaf level may contain the full rows:
+
+Advantages: 
+
+ * Efficient range scans on the clustering key
+ * related rows may be stored near one another
+ * fewer extra lookups for queries using clustered key
+
+Usually a table can have only one clustered index.
+
+### Non-clustered index
+A non-clustered index is a seperate structure:
+```text
+For example:
+
+Index:
+   email -> row pointer
+
+ap@gmail.com -> (page 20, slot 3)
+```
+
+The db first searches the index and then fetches the actual table row.
+
+Advantages:
+
+ * multiple non clustered indexes can exist
+ * useful for different query patterns
+
+Disadvantages:
+
+ * An additional lookup may required to retrieve the complete row
+
+### Covering indexes
+Suppose the query is:  
+```sql 
+SELECT name FROM users WHERE email = 'ap@gmail.com":
+```
+An index containing only email may find the row but the database must fetch the table row to retrieve name.
+
+A covering index contains all needed columns:
+
+```text
+Index:
+  email -> name
+```
+
+Then the database can answer the query directly from the index:
+
+```text
+ap@gmail.com  ashish
+```
+
+No seperate table lookup is necessary
+
+This is called an index-only scan or covering index scan.
+
+### Composite index
+A composite index used multiple columns.
+
+Example:
+```sql 
+CREATE INDEX idx_orders_customer_date ON orders(customer_id, order_date);
+```
+The index is ordered approximately like:
+
+```text
+customer_id | order_date
+------------------------
+1           | 2026-01-01
+1           | 2026-01-05
+1           | 2026-01-06
+2           | 2026-01-07
+2           | 2026-01-08
+```
+
+This efficiently supports: `WHERE customer_id = 1` and `WHERE customer_id = 1 AND order_date >= '2026-01-01';`
+
+The order of columns matters. An index on ```(customer_id, order_date)``` is generally useful for queries with ```customer_id```, it may be less useful for ```order_date```.
+
+### Hash Indexes
+A hash index applies a hash function to a key:  ``` hash(key) -> bucket```.
+
+Example: ``` hash('ap@gmail.com') -> bucket 42```
+
+The db looks directly in bucket 42.
+
+They are good for equality queries: `WHERE email = 'ap@gmail.com'` but generally poor for range queries `WHERE id BETWEEN 1 and 50`.
+
+Since hash order does not preserve key order. They may also require bucket expansion or collision handling. 
+
+### Bitmap indexes
+A bitmap index is useful for columns with a small number of distinct values.
+```text
+id | dept
+---------
+1  | CSE
+2  | EE
+3  | ME
+4  | EE
+5  | CSE
+```
+
+The bitmap for EE might be:
+```text
+id positions: 1 2 3 4 5
+EE:           0 1 0 1 0
+CSE:          1 0 0 0 1
+ME:           0 0 1 0 0
+```
+
+A query like 'WHERE dept = 'EE'` uses the EE bitmap. They are more suitable when cardinality of column is low.
+
+### Inverted indexes
+An inverted index maps a value to all records containing that value. Search engine use inverted index for text. 
+```text
+Doc 1: ds and algo
+Doc 2: algo code
+Doc 3: ds and code
+
+So a inverted index might be:
+
+ds   -> [Doc 1, Doc 3]
+algo -> [Doc 1, Doc 2]
+code -> [Doc 2, Doc 3]
+```
+
+For a query like ``` db and code```, it will interesects ```[Doc 1, Doc 3]``` and ```[Doc 2, Doc 3]``` and returns ```Doc 3```.
+
+They are used for full-text search, token search, tags, arrays, json fields, elastic search and opensearch.
+
+### Spatial Index
+Spatial indexes supports locations and geometric objects. For example: Find restaurants within 2 kms. 
+
+Common structure include: **R-trees**, **Quadtrees**, **Geohashes**.
+
+## 8. More about pages
+
+ * A database usually does not rely only on writing table pages directly to storage. Instead it uses **Write Ahead Log (WAL)**. So whenever a database updates a page it first write the log and then
+   update the table. So if the system crash happens, it can replay the logs and starts from the step where the crash had occured.
+ * **Dirty Pages** : When a database modifies a page in RAM, the page becomes dirty. Because the RAM version is different from the disk page. Eventually the database flushes this RAM page back to the disk.
+   This is called **write-back caching**.
+ * **Page Splits** : When a page is full, a new entry may require a split. So the new page may not be adjacent to the current page on the disk. This is acceptable because generally the indexes like B+ trees stores
+   pointers or page indentifier.
+ * **How the DB locates the page** : It uses logical page identifier: ```Page ID = 200```. It maps that to a file offset:  ```file offset  = page_id x page_size```. For example with an 8KB page: ```page offset 200 = 200 x 8192          bytes ```. The OS then maps the database file offset to a logical block on the storage device. The SSD or HDD maps the logical block to its physical storage.
+ * **Sequential vs Random access** : Sequential access means accessing in the order like 1, 2, 3... while random access means accessing completely random like 1, 100, 5000, 2.... Generally sequential access is efficient
+   especially on HDDs, while random access is expensive particularly on HDDs.
+   
+## 9. More on indexes
+
+ * **Storage**: An index is also a data structure, it is not free. The index consumed disk and RAM cache space since it stores the key and the value.
+ * **Index Selectivity**: A index is useful when it narrows the search space. So we should choose indexing for the columns which has almost all unique values. 
