@@ -273,11 +273,11 @@ The process is:
  8. The db places it in the buffer pool
  9. The query reads the page
 
-### 7. Table storage layouts
+## Table storage layouts
 
 The way table rows are stored affects indexing.
 
-#### Heap Organised table
+### Heap Organised table
 A heap table stores rows wherever space is available.
 ```text
 Page 10:
@@ -291,7 +291,7 @@ The rows are not necessarily sorted by a particular column.
 
 An index may point to the physical disk location: ```user_id --> (page, slot)``` example ``` 42 --> (page 11, slot 2)```
 
-#### Clustered or index organised table
+### Clustered or index organised table
 A clustered table stores the actual rows in index order.
 
 For example:
@@ -306,7 +306,7 @@ Page 11:
 ```
 The index's leaf pages may contains the complete rows rather than pointers to seperate heap pages.
 
-### 8. What is an INDEX ? 
+## What is an INDEX ? 
 An index is an auxillary data structure that helps locate table rows.
 
 Suppose the table is:
@@ -336,7 +336,7 @@ The index is smaller than the full table because it stores only the indexed key 
 
 The database searches the index first : ``` Find id = 3 ---> (row page 11, slot 1) ---> fetch row from page 11```
 
-#### Single-level indexing
+### Single-level indexing
 A simple index might be a sorted list:
 
 ```text
@@ -352,7 +352,7 @@ If the index is small enough to fit in memory, then binary search can find a key
 
 But if the index itself is huge. Then searching the index itself becomes expensive. This leads to multi level indexing.
 
-#### Multi-level indexing
+### Multi-level indexing
 
 Suppose a leaf level index contains many entries:
 ```text
