@@ -1,4 +1,4 @@
-# Multi-Level Indexing in Databases
+## 1. Multi-Level Indexing in Databases
 
 Multi-level indexing is a technique for finding data efficiently when a dataset is too huge to perform a search operation directly.
 
@@ -12,7 +12,7 @@ This is the main core and idea behind **B-trees** and **B+ trees**, which are th
 
 ---
 
-## The Problem: Finding Data on Storage
+## 2. The Problem: Finding Data on Storage
 
 Let's assume a table containing around 1 billion records:
 
@@ -40,7 +40,7 @@ Instead of searching all the rows, the database searches an organized structure 
 
 ---
 
-## The Library Analogy
+## 3. The Library Analogy
 
 We can understand this with the example of how we get books in a library. Imagine a library with millions of books.
 
@@ -78,7 +78,7 @@ This is **multi-level indexing**. The database equivalent of this is:
 
 ---
 
-## Storage Hierarchy: Where Data Sits
+## 4. Storage Hierarchy: Where Data Sits
 
 Let's go through how data is stored and where it can be stored. A database usually interacts with several layers:
 
@@ -273,7 +273,7 @@ The process is:
  8. The db places it in the buffer pool
  9. The query reads the page
 
-## Table storage layouts
+## 5. Table storage layouts
 
 The way table rows are stored affects indexing.
 
@@ -306,7 +306,7 @@ Page 11:
 ```
 The index's leaf pages may contains the complete rows rather than pointers to seperate heap pages.
 
-## What is an INDEX ? 
+## 6. What is an INDEX ? 
 An index is an auxillary data structure that helps locate table rows.
 
 Suppose the table is:
