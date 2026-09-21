@@ -203,6 +203,7 @@ Data page:       cache miss
 If index pages remain cached, index lookups become much faster.
 ### Persistent storage
 The database stores durable data on persistent storage usually:
+
 * SSD
 * HDD
 * Network attached storage
@@ -216,12 +217,14 @@ system and storage APIs, but the difference between SSD and HDD still affects pe
 #### HDD
 An HDD contains rotating magnetic platters.
 The disk has:
+
  * Platters
  * Tracks
  * Sectors
  * Read/Write heads
 
 To read data the HDD may need to:
+
  1. Move the read head to the correct track.
  2. Wait for the platter to rotate to the correct sector.
  3. Transfer the data.
@@ -237,6 +240,7 @@ A SSD uses flash memory rather than spinning platters.
 It has not moving heads and no rotating disks.
 
 This makes random access much faster than HDD, but SSD still have important features:
+
  * Data is stored in pages
  * Data is erased in larger erase blocks
  * Writes may require internal housekeeping
@@ -388,12 +392,8 @@ Now understand why multi-level indexes are efficient.
 
 Assume 1 index page can store 100 entries. 
 
- * With one level : ``` 100 entries ```. 
-
- * With two level : ``` 100 x 100 = 10000 entries ```. 
-
- * With three level : ``` 100 x 100 x 100 = 1000000 entries ```. 
-
- * With four level : ``` 100 x 100 x 100 x 100 = 100000000 entries ```. 
-
+ * With one level : ``` 100 entries ```
+ * With two level : ``` 100 x 100 = 10000 entries ```
+ * With three level : ``` 100 x 100 x 100 = 1000000 entries ```
+ * With four level : ``` 100 x 100 x 100 x 100 = 100000000 entries ```
 
