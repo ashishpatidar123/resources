@@ -2,6 +2,8 @@ site_name: Resources
 theme:
   name: material
 markdown_extensions:
+  - admonition
+  - pymdownx.superfences
   - pymdownx.arithmatex:
       generic: true
 
