@@ -1,6 +1,4 @@
-# Daily Technical Deep Dive: Lock-Free Concurrency & The ABA Problem
-
-Welcome to today's Daily Technical Deep Dive! Today we are looking at an advanced concept often discussed in Senior and SDE-2 interviews: **Lock-Free Concurrency, Compare-And-Swap (CAS), and the tricky ABA Problem.**
+# Lock-Free Concurrency & The ABA Problem
 
 If you are building systems where every nanosecond counts—like High-Frequency Trading (HFT) platforms or super-fast message queues—standard operating system locks are just too slow. The solution is **Lock-Free programming**. However, if you aren't careful, you will run into the ABA problem, a silent bug that is notoriously hard to track down.
 
@@ -107,11 +105,7 @@ To fix this, we need to prove that the `Node A` from step 1 is different from th
 
 ---
 
-## Summary & Further Reading
+## Summary
 
 When building systems for microsecond speed, OS locks act as a severe bottleneck. Lock-free programming uses CPU-level atomic instructions (like CAS) to update data safely without the OS. However, this opens the door to the **ABA problem**: a memory bug where a thread succeeds at a CAS check because an address looks the same, totally unaware that the memory was altered or recycled while it was paused. Engineers solve this using **Hazard Pointers** or **Tagged Pointers** (versioning).
 
-**Want to dive deeper?**
-* **Article:** [1024cores: Lock-Free Data Structures](https://www.1024cores.net/) - Written by Dmitriy Vyukov. An incredible resource on lock-free algorithms.
-* **Video:** [CppCon 2014: Herb Sutter "Lock-Free Programming"](https://www.youtube.com/watch?v=c1gO9aB9nbs) - A masterclass on memory orders and the dangers of ABA.
-* **Docs:** [Java AtomicStampedReference API](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicStampedReference.html) - Official specs on how Java handles this vulnerability.
