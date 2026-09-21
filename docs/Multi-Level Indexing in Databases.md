@@ -272,4 +272,127 @@ The process is:
 8. The db places it in the buffer pool
 9. The query reads the page
 
+### 7. Table storage layouts
+
+The way table rows are stored affects indexing.
+
+#### Heap Organised table
+A heap table stores rows wherever space is available.
+```text
+Page 10:
+  Ram
+  Laxman
+Page 11:
+  Seeta
+  Hanuman
+```
+The rows are not necessarily sorted by a particular column.
+
+An index may point to the physical disk location: ```user_id --> (page, slot)``` example ``` 42 --> (page 11, slot 2)```
+
+#### Clustered or index organised table
+A clustered table stores the actual rows in index order.
+
+For example:
+```text
+Page 10:
+  id 1
+  id 2
+  id 3
+Page 11:
+  id 4
+  id 5
+```
+The index's leaf pages may contains the complete rows rather than pointers to seperate heap pages.
+
+### 8. What is an INDEX ? 
+An index is an auxillary data structure that helps locate table rows.
+
+Suppose the table is:
+```text
+Page 10:
+  id | name
+  ---------
+  1  | Ram
+  2  | Laxman
+
+Page 11:
+  3  | Sita
+  4  | Hanuman
+```
+
+An index on id could contain:
+```text
+  id | row_location
+  ---------
+  1  | (10,1)
+  2  | (10,2)
+  3  | (11,1)
+  4  | (11,2)
+```
+
+The index is smaller than the full table because it stores only the indexed key and a pointer or row locator.
+
+The database searches the index first : ``` Find id = 3 ---> (row page 11, slot 1) ---> fetch row from page 11```
+
+### Single-level indexing
+A simple index might be a sorted list:
+
+```text
+Index:
+
+1 -> page 10
+2 -> page 10
+3 -> page 11
+4 -> page 11
+```
+
+If the index is small enough to fit in memory, then binary search can find a key efficiently.
+
+But if the index itself is huge. Then searching the index itself becomes expensive. This leads to multi level indexing.
+
+### Multi-level indexing
+
+Suppose a leaf level index contains many entries:
+```text
+Leaf page 1:
+ 1 -> data page 10
+ 2 -> data page 10
+ 3 -> data page 10
+ 4 -> data page 11
+Leaf page 2
+ 5 -> data page 11
+ 6 -> data page 12
+ 7 -> data page 12
+ 8 -> data page 13
+....
+```
+
+Now create an index over those leaf pages:
+
+```text
+Internal index:
+
+1 -> leaf page 1
+5 -> leaf page 2
+...
+```
+
+and if even this becomes large we can extend it further.
+
+So complete structure will look like this : 
+```Root page ---> internal index pages ----> leaf index pages ----> table data pages```
+
+Now understand why multi-level indexes are efficient. 
+
+Assume 1 index page can store 100 entries. 
+
+ * With one level : ``` 100 entries ```. 
+
+ * With two level : ``` 100 x 100 = 10000 entries ```. 
+
+ * With three level : ``` 100 x 100 x 100 = 1000000 entries ```. 
+
+ * With four level : ``` 100 x 100 x 100 x 100 = 100000000 entries ```. 
+
 
