@@ -86,7 +86,7 @@ Let's go through how data is stored and where it can be stored. A database usual
 
 Each layer has different speed, cost, and persistence characteristics.
 
-### 1. CPU Cache
+### CPU Cache
 
 The CPU has very small but very fast memory caches:
 
@@ -106,7 +106,7 @@ You normally do not design database indexes around CPU cache, but locality still
 * **Repeatedly accessed pages** stay cached.
 * **Random access** is generally more expensive.
 
-### 2. RAM
+### RAM
 
 RAM is fast but volatile. It is temporary, meaning data is lost when power is removed.
 
@@ -128,7 +128,7 @@ A database does not usually read individual rows directly from the disk every ti
 
 If the page is already in RAM, the database will reuse it without accessing the disk again.
 
-### 3. Database Pages
+### Database Pages
 
 A database typically divides its files into fixed-size pages.
 
@@ -169,7 +169,7 @@ Reading an individual byte from storage is not usually practical, as storage dev
 * Locking
 * Indexing
 
-### 4. Buffer pool: the database's RAM cache
+### Buffer pool: the database's RAM cache
 
 The database usually maintains a region of RAM called the buffer pool or buffer cache.
 
@@ -201,7 +201,7 @@ Data page:       cache miss
 ```
 
 If index pages remain cached, index lookups become much faster.
-### 5. Persistent storage
+### Persistent storage
 The database stores durable data on persistent storage usually:
 * SSD
 * HDD
@@ -258,7 +258,7 @@ into physical flash locations.
 A database page and a SSD flash page are not required to be of the same size or the same thing.
 ```Database page: 16KB``` and ``` SSD internal page: different size```.
 
-### 6. How a database reads from disk
+### How a database reads from disk
 Suppose the db needs the page 500.
 
 The process is:
