@@ -335,7 +335,7 @@ The index is smaller than the full table because it stores only the indexed key 
 
 The database searches the index first : ``` Find id = 3 ---> (row page 11, slot 1) ---> fetch row from page 11```
 
-### Single-level indexing
+#### Single-level indexing
 A simple index might be a sorted list:
 
 ```text
@@ -351,7 +351,7 @@ If the index is small enough to fit in memory, then binary search can find a key
 
 But if the index itself is huge. Then searching the index itself becomes expensive. This leads to multi level indexing.
 
-### Multi-level indexing
+#### Multi-level indexing
 
 Suppose a leaf level index contains many entries:
 ```text
