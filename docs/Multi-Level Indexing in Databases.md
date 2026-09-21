@@ -213,7 +213,7 @@ Unlike RAM, persistent storage retains data after a restart.
 A database may use several files. Modern database usually hides the physical device details behind the operating 
 system and storage APIs, but the difference between SSD and HDD still affects performance.
 
-#### 1. HDD
+#### HDD
 An HDD contains rotating magnetic platters.
 The disk has:
  * Platters
@@ -231,7 +231,7 @@ So these operations are mechanical in nature, thus contribute to the latency of 
 Also in HDD sequential access is much better, because the heads are moves in one direction.
 Random access is expensive because the head repeatedly moves around.
 
-#### 2. SSD
+#### SSD
 A SSD uses flash memory rather than spinning platters.
 
 It has not moving heads and no rotating disks.
@@ -254,7 +254,7 @@ Erase block:
 The database normally does not manage these flash pages directly. The SSD controller translates logical addresses
 into physical flash locations.
 
-#### 3. Important Distinction
+#### Important Distinction
 A database page and a SSD flash page are not required to be of the same size or the same thing.
 ```Database page: 16KB``` and ``` SSD internal page: different size```.
 
@@ -262,15 +262,16 @@ A database page and a SSD flash page are not required to be of the same size or 
 Suppose the db needs the page 500.
 
 The process is:
-1. Query asks for page 500
-2. Buffer pool checks whether the page 500 is present in cache
-3. If yes, then use it
-4. Otw, request logical block 500 from the operating system
-5. The OS sends a request to the storage device
-6. The device locates the data
-7. The data is moved to RAM
-8. The db places it in the buffer pool
-9. The query reads the page
+
+ 1. Query asks for page 500
+ 2. Buffer pool checks whether the page 500 is present in cache
+ 3. If yes, then use it
+ 4. Otw, request logical block 500 from the operating system
+ 5. The OS sends a request to the storage device
+ 6. The device locates the data
+ 7. The data is moved to RAM
+ 8. The db places it in the buffer pool
+ 9. The query reads the page
 
 ### 7. Table storage layouts
 
