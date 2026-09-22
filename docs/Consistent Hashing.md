@@ -1,3 +1,6 @@
+---
+title: Consistent Hashing
+---
 # Consistent Hashing and Virtual Nodes
 
 ## 1. Introduction
