@@ -1495,7 +1495,7 @@ int hopcroftKarp(const vector<vector<int>>& graph, int leftN, int rightN) {
 > **Min-Cuts**: Minimum capacity set of edges whose removal disconnects `s` from `t`.
 > **Max-Flow Min-Cut Theorem:** The maximum s-t flow equals the minimum s-t cut capacity. Ford-Fulkerson and Edmonds-Karp are algorithms for computing a maximum flow.
 
-### 13.1 Edmonds-Karp (Ford-Fulkerson with BFS augmenting paths)
+### Edmonds-Karp (Ford-Fulkerson with BFS augmenting paths)
 
 > Edmonds-Karp runs in **O(VE²)** and is a useful teaching/reference implementation. Generic Ford-Fulkerson has a different bound that depends on the capacities and path-selection rule.
 
@@ -1551,7 +1551,7 @@ struct MaxFlow{
 };
 ```
 
-### 13.2 Dinic's Algorithm (general bound O(V²E))
+### Dinic's Algorithm (general bound O(V²E))
 
 ```cpp
 struct Dinic{
@@ -1647,7 +1647,7 @@ int main() {
 }
 ```
 
-### 13.3 Network Flow Applications 
+### Network Flow Applications 
 
 | Problem | Reduction to Max Flow |
 |---------|----------------------|
@@ -1685,7 +1685,7 @@ int bipartiteViaFlow(int leftN, int rightN, vector<pair<int,int>>& edges){
 
 ## 14. Tree Algorithms on Graphs
 
-### 14.1 Lowest Common Ancestor (LCA) - Binary Lifting
+### Lowest Common Ancestor (LCA) - Binary Lifting
 
 > **LCA(u,v)** is the deepest node that is an ancestor of both `u` and `v`.
 > Build: O(N log N). Query: O(log N). Assumes the input is a connected tree rooted at `root`.
@@ -1765,7 +1765,7 @@ struct LCA {
 ```
 
 
-### 14.2 Euler Tour (Flattening a Tree)
+### Euler Tour (Flattening a Tree)
 
 > Converts tree problem to range problems (use with segment trees).
 
@@ -1793,7 +1793,7 @@ bool isAncestor(vector<int>& tin, vector<int>& tout, int u, int v) {
 
 ---
 
-### 14.3 Heavy-Light Decomposition (HLD)
+### Heavy-Light Decomposition (HLD)
 
 ```cpp
 struct HLD {
@@ -1853,7 +1853,7 @@ struct HLD {
 
 ```
 
-### 14.4 Centroid Decomposition
+### Centroid Decomposition
 
 > Recursively find centroid (removal splits tree into parts ≤ n/2).
 
@@ -1890,7 +1890,7 @@ vector<int> centroidDecomp(vector<vector<int>>& graph, int n) {
 
 ---
 
-### 14.5 Tree DP Patterns
+### Tree DP Patterns
 
 **Tree Diameter**
 
@@ -1957,7 +1957,7 @@ vector<int> reroot(vector<vector<int>>& graph, int n) {
 
 ## 15. Advanced & Competitive Programming
 
-### 15.1 Eulerian Path & Circuit
+### Eulerian Path & Circuit
 
 * **Eulerian Circuit:** Visit every edge exactly once and return to the start.
 * **Eulerian Path:** Visit every edge exactly once (the start and end may differ).
@@ -2041,7 +2041,7 @@ vector<int> hierholzerDirected(
 ```
 
 
-### 15.2 Hamiltonian Path & TSP (Bitmask DP)
+### Hamiltonian Path & TSP (Bitmask DP)
 
 > **TSP:** Find a minimum-cost Hamiltonian cycle. NP-hard in general.
 > **Bitmask DP:** O(2^N · N²), practical only for small N (roughly N ≤ 20 depending on memory/time limits).
@@ -2130,7 +2130,7 @@ vector<int> tspPath(const vector<vector<int>>& dist, int n) {
 }
 ```
 
-### 15.3 Graph Coloring
+### Graph Coloring
 
 **Greedy Coloring** (not optimal; with the `set` used below, roughly O((V+E) log V)):
 
@@ -2174,7 +2174,7 @@ bool isKColorable(vector<vector<int>>& graph, int n, int k) {
 
 ---
 
-### 15.4 Bidirectional Dijkstra
+### Bidirectional Dijkstra
 
 > Useful for non-negative edge weights when you have a single source and target. For directed graphs, `revGraph` must contain all edges reversed. Return `-1` if the target is unreachable.
 
@@ -2252,7 +2252,7 @@ long long bidirectionalDijkstra(
 
 ---
 
-### 15.5 Virtual Nodes Trick
+### Virtual Nodes Trick
 
 > Add a virtual source/sink connected to multiple nodes to reduce multiple Dijkstra calls to one.
 
@@ -2272,7 +2272,7 @@ vector<long long> multiSourceDijkstra(
 
 ---
 
-### 15.6 Parallel BFS / Simultaneous BFS
+### Parallel BFS / Simultaneous BFS
 
 > **Partition problem:** find which source each cell is closest to. Ties are broken by source insertion order; add an obstacle check if `#` cells are blocked.
 
@@ -2303,7 +2303,7 @@ pair<vector<vector<int>>, vector<vector<int>>> voronoiBFS(vector<string>& grid, 
 
 ---
 
-### 15.7 DSU on Tree (Small-to-Large Merging)
+### DSU on Tree (Small-to-Large Merging)
 
 > A standard DSU-on-tree / "sack" technique for subtree queries. The example below computes the number of distinct values in every subtree in O(N log N) expected time with an `unordered_map`.
 
@@ -2374,7 +2374,7 @@ void dsuOnTree(
 ```
 
 
-### 15.8 Shortest Path in DAG (DP)
+### Shortest Path in DAG (DP)
 
 > In a DAG, process vertices in topological order. O(V+E). This also works with negative edge weights because a DAG has no cycles.
 
@@ -2401,7 +2401,7 @@ vector<long long> dagShortestPath(
 
 ---
 
-### 15.9 Tree Canonical Form / Isomorphism
+### Tree Canonical Form / Isomorphism
 
 > Rooted unordered tree canonical form (AHU-style). For unrooted tree isomorphism, find the tree center(s), root at the center, and compare the canonical forms.
 
@@ -2420,7 +2420,7 @@ string treeCanonical(vector<vector<int>>& graph, int root, int parent) {
 
 ---
 
-### 15.10 Important Theorems & Facts for Interviews
+### Important Theorems & Facts for Interviews
 | Theorem | Statement |
 | --- | --- |
 | **Handshaking Lemma** | Sum of all degrees = $2E$ (undirected) |
@@ -2433,9 +2433,9 @@ string treeCanonical(vector<vector<int>>& graph, int root, int parent) {
 
 ---
 
-### 16. Patterns, Templates & Cheat Sheet
+## 16. Patterns, Templates & Cheat Sheet
 
-#### 16.1 Interview Problem Patterns
+### Interview Problem Patterns
 
 | Pattern | Trigger Words | Algorithm |
 | --- | --- | --- |
@@ -2453,7 +2453,7 @@ string treeCanonical(vector<vector<int>>& graph, int root, int parent) {
 
 ---
 
-#### 16.2 Grid Graph Template
+### Grid Graph Template
 
 ```cpp
 void solveGrid(vector<string>& grid) {
@@ -2481,7 +2481,7 @@ void solveGrid(vector<string>& grid) {
 
 ```
 
-#### 16.3 Common Mistakes & Fixes
+### Common Mistakes & Fixes
 
 | Mistake | Fix |
 | --- | --- |
@@ -2495,7 +2495,7 @@ void solveGrid(vector<string>& grid) {
 
 ---
 
-#### 16.4 Complexity Quick Reference
+### Complexity Quick Reference
 
 * **DFS/BFS:** $O(V+E)$
 * **Dijkstra (binary heap):** $O((V+E) \log V)$
@@ -2518,7 +2518,7 @@ void solveGrid(vector<string>& grid) {
 
 ---
 
-### 16.5 Top 30 LeetCode Graph Problems
+### Top 30 LeetCode Graph Problems
 
 | # | Problem | Key Algorithm |
 | --- | --- | --- |
@@ -2559,7 +2559,7 @@ void solveGrid(vector<string>& grid) {
 
 > **How to think:** Read the problem $\rightarrow$ identify the graph type $\rightarrow$ identify what's being asked $\rightarrow$ match to a pattern $\rightarrow$ pick the algorithm.
 
-### 17.1 Step-by-Step Decision Flowchart
+### Step-by-Step Decision Flowchart
 * **"Is X reachable from Y?" / "How many groups?"** → Connectivity: DFS / BFS / Union-Find
 * **"Shortest / Minimum cost path?"**
   * Unweighted → BFS
@@ -2591,7 +2591,7 @@ void solveGrid(vector<string>& grid) {
   * Subtree queries → Euler Tour + BIT/Segment Tree
 ---
 
-### 17.2 Pattern Recognition by Problem Keywords
+### Pattern Recognition by Problem Keywords
 
 | Keywords / Signals | Pattern | Algorithm |
 | --- | --- | --- |
@@ -2617,7 +2617,7 @@ void solveGrid(vector<string>& grid) {
 
 ---
 
-### 17.3 Identifying the Graph Type
+### Identifying the Graph Type
 
 1. **Explicit or Implicit?**
 * Explicit: adjacency/edge list
@@ -2637,7 +2637,7 @@ void solveGrid(vector<string>& grid) {
 
 ---
 
-### 17.4 The "Binary Search + BFS/DFS" Meta-Pattern
+### The "Binary Search + BFS/DFS" Meta-Pattern
 
 > "Is there a path from S to T where [some constraint ≤ or ≥ threshold]?"
 > *If the answer is monotonic:* 1. Binary search threshold. 2. Use BFS/DFS to check feasibility.
@@ -2677,7 +2677,7 @@ int binarySearchBFS(vector<vector<int>>& grid) {
 
 ---
 
-### 17.5 The "DSU + Sort" Meta-Pattern
+### The "DSU + Sort" Meta-Pattern
 
 1. Assign a value/score to each node/edge.
 2. Sort by value.
@@ -2686,7 +2686,7 @@ int binarySearchBFS(vector<vector<int>>& grid) {
 
 ---
 
-### 17.6 The "Modified Dijkstra" Meta-Pattern
+### The "Modified Dijkstra" Meta-Pattern
 
 | Objective | Relaxation | Heap |
 | --- | --- | --- |
@@ -2726,7 +2726,7 @@ int maxMinDijkstra(vector<vector<int>>& safety, int n) {
 
 ---
 
-### 17.7 Multi-Source BFS
+### Multi-Source BFS
 
 * **Signal:** "Nearest X for every cell" or "Distance from multiple sources".
 * **Key Insight:** Initialize queue with ALL sources at distance 0 → single BFS.
@@ -2734,7 +2734,7 @@ int maxMinDijkstra(vector<vector<int>>& safety, int n) {
 
 ---
 
-### 17.8 Quick Decision Table: "I see X, I think Y"
+### Quick Decision Table: "I see X, I think Y"
 
 * Grid with obstacles → Implicit graph → BFS/DFS
 * "Minimum steps in grid" → BFS
@@ -2752,4 +2752,3 @@ int maxMinDijkstra(vector<vector<int>>& safety, int n) {
 
 ---
 
-> *Guide compiled for DSA interviews up to competitive programming level. The examples are intended as reusable C++17 reference implementations, with assumptions and complexity called out where they matter.*
