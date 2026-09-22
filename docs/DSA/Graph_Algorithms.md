@@ -2249,6 +2249,7 @@ long long bidirectionalDijkstra(
     return best == INF ? -1 : best;
 }
 ```
+
 ---
 
 ### 15.5 Virtual Nodes Trick
