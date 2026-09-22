@@ -2043,15 +2043,11 @@ return best;
 > Add a virtual source/sink connected to multiple nodes to reduce multiple Dijkstra calls to one.
 
 ```cpp
-// Instead of running Dijkstra from each of k sources:
-// Add virtual node n, connect to each source with edge weight 0
-// Run single Dijkstra from the virtual node
 vector<int> multiSourceDijkstra(vector<vector<pair<int,int>>> graph, vector<int>& sources, int n) {
     graph.push_back({}); // virtual node at index n
     for (int s : sources) graph[n].push_back({s, 0});
     return dijkstra(graph, n, n+1);
 }
-
 ```
 ---
 
