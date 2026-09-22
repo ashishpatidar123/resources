@@ -2249,7 +2249,7 @@ long long bidirectionalDijkstra(
     return best == INF ? -1 : best;
 }
 ```
-
+---
 
 ### 15.5 Virtual Nodes Trick
 
@@ -2268,6 +2268,7 @@ vector<long long> multiSourceDijkstra(
     return dijkstra(graph, n, n + 1);
 }
 ```
+
 ---
 
 ### 15.6 Parallel BFS / Simultaneous BFS
