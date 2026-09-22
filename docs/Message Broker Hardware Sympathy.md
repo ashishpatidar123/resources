@@ -149,4 +149,3 @@ To serve that data back to consumers, Kafka uses the OS-level `sendfile()` syste
 ## Resources for Further Deep Diving
 
 * **Guide:** [Why is Kafka Fast? (ByteByteGo)](https://bytebytego.com/guides/why-is-kafka-fast/) - A visual walkthrough of Sequential I/O and the Zero-Copy data path, step by step.
-* **Article:** [The Log: What every software engineer should know about real-time data's unifying abstraction](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying) - Written by Jay Kreps, co-creator of Kafka. The canonical piece on why append-only logs are central to distributed systems.
