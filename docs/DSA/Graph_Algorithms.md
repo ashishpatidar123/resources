@@ -16,9 +16,7 @@
 10. [Connected Components & SCC](#10-connected-components--scc)
 11. [Bridges & Articulation Points](#11-bridges--articulation-points)
 12. [Bipartite Graphs & Matching](#12-bipartite-graphs--matching)
-15. [Advanced & Competitive Programming](#15-advanced--competitive-programming)
-16. [Patterns, Templates & Cheat Sheet](#16-patterns-templates--cheat-sheet)
-17. [Algorithm Selection Decision Framework](#17-algorithm-selection-decision-framework)
+13. [Patterns, Templates & Cheat Sheet](#16-patterns-templates--cheat-sheet)
 
 ---
 
@@ -572,7 +570,7 @@ string alienOrder(vector<string>& words) {
 
 ## 7. Shortest Path Algorithms
 
-### 7.1 Dijkstra's Algorithm
+### Dijkstra's Algorithm
 
 > **Use when:** Single-source shortest paths with **non-negative edge weights**.
 > For robust reusable code, use `long long` for distances so path sums do not overflow `int`.
@@ -662,7 +660,7 @@ long long dijkstraGrid(vector<vector<int>>& grid) {
 }
 ```
 
-### 7.2 Bellman-Ford Algorithm
+### Bellman-Ford Algorithm
 > **Use when:** Single-source shortest paths with negative edges; also detects reachable negative cycles.
 > Negative cycles make shortest paths undefined for vertices reachable from the cycle.
 
@@ -721,7 +719,7 @@ vector<long long> spfa(const vector<vector<pair<int,long long>>>& graph, int sta
 }
 ```
 
-### 7.3 Floyd-Warshall Algorithm
+### Floyd-Warshall Algorithm
 
 > **Use when:** All-pairs shortest path on a relatively small graph. Works for directed or undirected graphs and allows negative edges, but a negative cycle makes shortest paths undefined.
 
@@ -758,37 +756,10 @@ vector<vector<long long>> floydWarshall(
     return dist;
 }
 ```
-### 7.4 Johnson's Algorithm (All-Pairs for Sparse Graphs)
-> **Combines Bellman-Ford + Dijkstra.** With the binary heap used below, the implementation is roughly O(VE log V + V² log V). It is attractive for sparse graphs with possibly negative edges, provided there is no negative cycle.
 
-```cpp
-vector<vector<long long>> johnsons(int n, vector<tuple<int,int,int>> edges) {
-    // Step 1: Add virtual node n, connect to all vertices with weight 0
-    for (int v = 0; v < n; v++) edges.push_back({n, v, 0});
+---
 
-    // Step 2: Bellman-Ford from virtual node to get potentials h[]
-    vector<long long> h = bellmanFord(n+1, edges, n);
-    if (h.empty()) return {}; // negative cycle
-
-    // Step 3: Re-weight edges: w'(u,v) = w(u,v) + h[u] - h[v]
-    vector<vector<pair<int,long long>>> rw(n);
-    for (auto [u, v, w] : edges)
-    if (u < n && v < n) rw[u].push_back({v, w + h[u] - h[v]});
-
-    // Step 4: Dijkstra from each vertex, adjust back
-    vector<vector<long long>> allDist;
-    for (int s = 0; s < n; s++) {
-        auto d = dijkstra(rw, s, n);
-        vector<long long> row(n);
-        for (int v = 0; v < n; v++)
-        row[v] = (d[v] == (1LL << 60)) ? (1LL << 60) : d[v] - h[s] + h[v];
-        allDist.push_back(row);
-    }
-    return allDist;
-}
-```
-
-### 7.5 Comparison Table
+### Comparison Table
 
 | Algorithm | Edge Weights | Graph Type | Time Complexity | Primary Use Case |
 | :--- | :--- | :--- | :--- | :--- |
@@ -798,7 +769,6 @@ vector<vector<long long>> johnsons(int n, vector<tuple<int,int,int>> edges) {
 | **Bellman-Ford** | Any | Any | $O(VE)$ | Negative edges / detect cycles |
 | **SPFA** | Any | Any | $O(VE)$ worst case | Queue-based Bellman-Ford variant; can be fast on some inputs but poor on adversarial graphs |
 | **Floyd-Warshall** | Any (no negative-cycle shortest paths) | Any | $O(V^3)$ | All-pairs on smaller graphs |
-| **Johnson's** | Any (no negative cycle) | Sparse | $O(VE\log V + V^2\log V)$ with binary heaps | All-pairs, sparse graphs |
 
 ---
 
@@ -808,7 +778,7 @@ vector<vector<long long>> johnsons(int n, vector<tuple<int,int,int>> edges) {
 
 **Key Property:** For any cut of the graph, the minimum weight crossing edge is in the MST (Cut Property).
 
-### 8.1 Kruskal's Algorithm
+### Kruskal's Algorithm
 
 > Sort edges by weight, greedily add an edge when it does not create a cycle (use DSU).
 
@@ -860,7 +830,7 @@ pair<long long, vector<tuple<int,int,int>>> kruskal(
 
 ---
 
-### 8.2 Prim's Algorithm
+### Prim's Algorithm
 
 > Grow an MST from a starting vertex. This binary-heap + adjacency-list implementation is typically preferred for sparse graphs; the classic O(V²) matrix version is often useful on dense graphs.
 
@@ -919,7 +889,7 @@ pair<long long, vector<tuple<int,int,int>>> prim(
 
 ---
 
-### 8.3 MST Variants
+### MST Variants
 
 **Maximum Spanning Tree**: Negate all weights, run Kruskal's/Prim's.
 
@@ -933,7 +903,7 @@ pair<long long, vector<tuple<int,int,int>>> prim(
 
 **Steiner Tree** (NP-hard in general): Connect a subset of vertices with minimum total weight.
 
-### 8.4 MST Applications
+### MST Applications
 
 - Network design (minimum cable cost)
 - Cluster analysis (remove k−1 heaviest MST edges → k clusters)
@@ -1337,14 +1307,6 @@ void findBridgesMultigraph(vector<vector<pair<int, int>>>& graph, int n, vector<
 }
 ```
 
-### Bridge Tree vs Block-Cut Tree
-
-A **bridge tree** contracts each 2-edge-connected component (after removing bridges) into a single node. The resulting graph is a tree for each connected component of the original graph. Useful for:
-- Counting bridges on a path
-- Answering connectivity queries across bridge cuts
-
-A **block-cut tree** is a different structure: it represents vertex-biconnected components and articulation vertices. Do not use the two terms interchangeably.
-
 ---
 
 ## 12. Bipartite Graphs & Matching
@@ -1423,28 +1385,6 @@ int maxIndependentSet(vector<vector<int>>& graph, int n, int root=0) {
     };
     dfs(root, -1);
     return max(dp[root][0], dp[root][1]);
-}
-
-```
-
-**Re-rooting Technique**
-
-```cpp
-vector<int> reroot(vector<vector<int>>& graph, int n) {
-    vector<int> down(n, 0), ans(n, 0);
-    function<void(int, int)> dfs1 = [&](int u, int p) {
-        for (int v : graph[u]) if (v != p) { dfs1(v, u); down[u] += down[v] + 1; }
-    };
-    function<void(int, int, int)> dfs2 = [&](int u, int p, int fromParent) {
-        ans[u] = down[u] + fromParent;
-        for (int v : graph[u]) if (v != p) {
-            int contrib = ans[u] - (down[v] + 1);
-            dfs2(v, u, contrib + (n - 1 - down[v]));
-        }
-    };
-    dfs1(0, -1);
-    dfs2(0, -1, 0);
-    return ans;
 }
 
 ```
@@ -1590,39 +1530,6 @@ vector<long long> dagShortestPath(
 | **Minimum connections** | "minimum cables/roads to connect all" | Kruskal / Prim MST |
 | **Cycle check** | "can get stuck in loop" | Directed: 3-color DFS; Undirected: DSU |
 | **Critical edges** | "if this road is blocked" | Bridges (Tarjan) |
-| **Flow/matching** | "max assignment", "bottleneck" | Max Flow / Bipartite Matching |
-| **Path in DAG** | "number of ways", "longest path in DAG" | DP on Topo order |
-
----
-
-
-### Common Mistakes & Fixes
-
-| Mistake | Fix |
-| --- | --- |
-| Using visited set but not checking before enqueue | Mark visited WHEN enqueuing, not when dequeuing |
-| Dijkstra with negative edges | Use Bellman-Ford instead |
-| DFS stack overflow on large graphs | Use iterative DFS with explicit stack |
-| Forgetting to handle disconnected graphs | Loop over all nodes, not just node 0 |
-| Parent tracking bug in undirected cycle detection | Track edge index for multigraphs |
-| Floyd-Warshall wrong loop order | Always $k$ (intermediate) in outermost loop |
-| Bellman-Ford not allowing enough relaxations | Use at most $n-1$ rounds; early termination is valid when a full round makes no update |
-
----
-
-### Complexity Quick Reference
-
-* **DFS/BFS:** $O(V+E)$
-* **Dijkstra (binary heap):** $O((V+E) \log V)$
-* **Dijkstra (fib heap):** $O(E + V \log V)$
-* **Bellman-Ford:** $O(VE)$
-* **Floyd-Warshall:** $O(V^3)$
-* **Kruskal:** $O(E \log E)$
-* **Prim (binary heap + adjacency list):** $O(E \log V)$
-* **Topological Sort:** $O(V+E)$
-* **Tarjan SCC:** $O(V+E)$
-* **Bridge Finding:** $O(V+E)$
-
 
 ---
 
@@ -1692,123 +1599,6 @@ vector<long long> dagShortestPath(
 | | König's Theorem - Minimum Vertex Cover | CP-Algorithms |
 | | MATCHING - Hopcroft-Karp | SPOJ |
 | | Possible Bipartition | LeetCode 886 |
-| **Network Flow** | Maximum Flow | CSES |
-| | Maximum Number of Events That Can Be Attended II | LeetCode 1751 |
-| | Cut Edges in a Network | UVa 259 |
-| | Max Flow - Ford Fulkerson | GeeksForGeeks |
-| | Police Station | Codeforces 796E |
-| **Tree Algorithms** | Sum of Distances in Tree | LeetCode 834 |
-| | Binary Tree Cameras | LeetCode 968 |
-| | Tree Distances I | CSES |
-| | Centroid Decomposition | CSES |
-| | Tree Queries | Codeforces 1328E |
-| **Euler Path / Circuit** | Valid Arrangement of Pairs | LeetCode 2097 |
-| | Cracking the Safe | LeetCode 753 |
-| | Mail Delivery | CSES |
-| | Eulerian Path in Directed Graph | CP-Algorithms |
-| | Words | SPOJ] |
-| | Reconstruct Itinerary | LeetCode 332 |
-
----
-
-## 17. Algorithm Selection Decision Framework
-
-> **How to think:** Read the problem $\rightarrow$ identify the graph type $\rightarrow$ identify what's being asked $\rightarrow$ match to a pattern $\rightarrow$ pick the algorithm.
-
-### Step-by-Step Decision Flowchart
-* **"Is X reachable from Y?" / "How many groups?"** → Connectivity: DFS / BFS / Union-Find
-* **"Shortest / Minimum cost path?"**
-  * Unweighted → BFS
-  * Weights 0 or 1 → 0-1 BFS (deque)
-  * Non-negative weights → Dijkstra
-  * Negative weights → Bellman-Ford (SPFA is an optional heuristic/alternative with the same O(VE) worst-case bound)
-  * All pairs? → Floyd-Warshall (dense) / Johnson's (sparse)
-  * DAG? → Topo sort + DP (fastest: $O(V+E)$)
-* **"Maximize the minimum value along a path?" (max-min path)** → Modified Dijkstra (max-heap) / Binary Search + BFS; DSU + sorting is useful for specific connectivity formulations where the threshold process is monotone
-* **"Minimize the maximum value along a path?" (min-max path)** → DSU (ascending sort) / Modified Dijkstra (min-heap on bottleneck) / Binary Search + BFS
-* **"Ordering / scheduling with dependencies?"** → Topological Sort (Kahn's BFS or DFS)
-* **"Detect cycle?"**
-  * Undirected → DFS (parent tracking) / Union-Find
-  * Directed → 3-color DFS / Kahn's (if topo order size < n → cycle)
-* **"Connect all nodes with minimum cost?"** → MST → Kruskal (especially convenient with edge lists) / Prim (binary heap for adjacency lists; O(V²) matrix Prim is also useful on dense graphs)
-* **"Critical edges / nodes whose removal disconnects?"**
-  * Edges → Bridges (Tarjan)
-  * Nodes → Articulation Points (Tarjan)
-* **"Maximum flow / minimum cut / matching?"**
-  * General flow → Dinic / Edmonds-Karp
-  * Bipartite matching → Kuhn (simple), Hopcroft-Karp (faster), or flow reduction
-  * Assignment / weighted perfect matching → Hungarian algorithm
-* **"Strongly connected components?"** → Tarjan's SCC / Kosaraju's
-* **"Traverse every edge exactly once?"** → Eulerian Path/Circuit → Hierholzer's
-* **"Visit every node exactly once (minimum cost)?"** → Hamiltonian / TSP → Bitmask DP (n ≤ 20)
-* **"Tree path / subtree queries?"**
-  * LCA → Binary Lifting / Euler Tour + RMQ
-  * Path queries → HLD + Segment Tree
-  * Subtree queries → Euler Tour + BIT/Segment Tree
----
-
-### Pattern Recognition by Problem Keywords
-
-| Keywords / Signals | Pattern | Algorithm |
-| --- | --- | --- |
-| "number of islands", "connected regions" | Connected Components | DFS / BFS / DSU |
-| "minimum steps", "shortest path in grid" | Unweighted Shortest Path | BFS |
-| "minimum cost to reach", "cheapest path" | Weighted Shortest Path | Dijkstra / Bellman-Ford |
-| "safeness factor", "maximize minimum" | Max-Min Path | Multi-source BFS + DSU |
-| "minimum effort", "minimize maximum" | Min-Max Path | DSU asc / Dijkstra variant |
-| "prerequisite", "course schedule" | Dependency Ordering | Topological Sort |
-| "can all tasks be finished", "is there a cycle" | Cycle Detection | DFS coloring / Kahn's |
-| "minimum cost to connect all" | MST | Kruskal / Prim |
-| "if this edge/node is removed", "critical" | Bridges / Articulation | Tarjan |
-| "maximum items", "assignment problem" | Network Flow | Dinic / Hopcroft-Karp |
-| "bipartite", "two groups" | Bipartiteness | BFS 2-coloring |
-| "closest X for every cell" | Multi-Source Distance | Multi-source BFS |
-| "merge accounts", "redundant edge" | Dynamic Connectivity | Union-Find (DSU) |
-| "all pairs distance" | All-Pairs Shortest Path | Floyd-Warshall / Johnson's |
-| "at most K stops", "exactly K edges" | K-constrained Shortest Path | Bellman-Ford / BFS state |
-| "path with threshold" | Threshold Path | Binary Search + BFS/DFS |
-| "reconstruct itinerary" | Eulerian Path | Hierholzer's |
-| "visit all nodes shortest path" | Bitmask BFS/DP | BFS + bitmask state |
-| "probability", "maximize product" | Modified Dijkstra | Max-heap, multiply |
-
----
-
-### Identifying the Graph Type
-
-1. **Explicit or Implicit?**
-* Explicit: adjacency/edge list
-* Implicit: grid, state space, string transformations
-
-
-2. **Directed or Undirected?**
-* Directed: one-way, dependencies
-* Undirected: symmetric relationships
-
-
-3. **Weighted or Unweighted?**
-4. **DAG?** → Topo sort + DP
-5. **Tree?** → LCA, HLD, Euler Tour, Centroid Decomp
-6. **Negative weights?** → Bellman-Ford (Dijkstra fails)
-7. **n small (≈ 20 or less)?** → Bitmask DP
-
----
-
-
-### Quick Decision Table: "I see X, I think Y"
-
-* Grid with obstacles → Implicit graph → BFS/DFS
-* "Minimum steps in grid" → BFS
-* "Minimum cost in weighted grid" → Dijkstra
-* Edge weights 0 and 1 → 0-1 BFS (deque)
-* "Connect all" + "minimum cost" → MST
-* "Ordering" + "dependencies" → Topo sort
-* n ≤ 20 and "visit all" → Bitmask DP
-* "Maximize minimum" or "minimize maximum" → DSU+Sort OR Modified Dijkstra OR Binary Search+BFS
-* "Remove edge → disconnects?" → Bridges (Tarjan)
-* "Number of ways" in DAG → Topo sort + DP
-* Negative edge weights → Bellman-Ford
-* Tree + path queries → LCA / HLD
-* Tree + subtree queries → Euler Tour + Segment Tree
 
 ---
 
