@@ -1,0 +1,1079 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Distributed%20Rate%20Limiting%20with%20Redis%20and%20Lua%20Scripting/">
+      
+      
+        <link rel="next" href="../Lock%20Free%20Concurrency/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>LSM Tress vs B+ Trees - Resources</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-the-theoretical-limit-the-rum-conjecture" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Resources" class="md-header__button md-logo" aria-label="Resources" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Resources
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              LSM Tress vs B+ Trees
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Resources" class="md-nav__button md-logo" aria-label="Resources" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Resources
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Consistent%20Hashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Consistent Hashing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Distributed%20Rate%20Limiting%20with%20Redis%20and%20Lua%20Scripting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Rate Limiting with Redis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LSM Tress vs B+ Trees
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LSM Tress vs B+ Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-theoretical-limit-the-rum-conjecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Theoretical Limit: The RUM Conjecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-b-trees-the-read-optimized-standard-postgresql-mysql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. B+ Trees: The Read-Optimized Standard (PostgreSQL, MySQL)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-lsm-trees-the-write-optimized-engine-cassandra-rocksdb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. LSM-Trees: The Write-Optimized Engine (Cassandra, RocksDB)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-compaction-lifecycle-the-lsm-trade-off" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The Compaction Lifecycle (The LSM Trade-off)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-practical-code-example-lsm-memtable-flush-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Practical Code Example: LSM MemTable Flush (C++)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources-for-further-deep-diving" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resources for Further Deep Diving
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Lock%20Free%20Concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lock-Free Concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Message%20Broker%20Hardware%20Sympathy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message Broker Hardware Sympathy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Microservices%20Data%20Consistency%3A%20Dual-Write%2C%202PC%20and%20the%20Transactional%20Outbox%20Pattern/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dual-Write and 2PC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Multi-Level%20Indexing%20in%20Databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Level Indexing in Databases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Multi-Version%20Concurrency%20Control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Version Concurrency Control (MVCC)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PostgreSQL%20Internals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PostgreSQL Internals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DSA
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DSA/Graph_Algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graph Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../OS/Hardware%20Mechanical%20Sympathy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware Mechanical Sympathy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    System Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../System%20Design/System%20Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design Concepts: A Comprehensive Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-theoretical-limit-the-rum-conjecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Theoretical Limit: The RUM Conjecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-b-trees-the-read-optimized-standard-postgresql-mysql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. B+ Trees: The Read-Optimized Standard (PostgreSQL, MySQL)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-lsm-trees-the-write-optimized-engine-cassandra-rocksdb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. LSM-Trees: The Write-Optimized Engine (Cassandra, RocksDB)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-compaction-lifecycle-the-lsm-trade-off" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The Compaction Lifecycle (The LSM Trade-off)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-practical-code-example-lsm-memtable-flush-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Practical Code Example: LSM MemTable Flush (C++)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources-for-further-deep-diving" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resources for Further Deep Diving
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>LSM Tress vs B+ Trees</h1>
+
+<p>We are diving into a high-frequency SDE-2 system design topic: <strong>Database Indexing Internals: B+ Trees vs. LSM-Trees &amp; The RUM Conjecture.</strong></p>
+<p>Understanding these storage engines is the difference between building a system that chokes at 5,000 writes per second versus one that scales to millions.</p>
+<h2 id="1-the-theoretical-limit-the-rum-conjecture">1. The Theoretical Limit: The RUM Conjecture</h2>
+<p>Before choosing a database, you must understand the immutable laws of database physics. The RUM conjecture states that a storage engine can only optimize for two out of three overheads:</p>
+<ul>
+<li><strong>Read Amplification (R):</strong> How much extra data the system reads from disk to answer a query.</li>
+<li><strong>Update/Write Amplification (U):</strong> How much extra data the system writes to the physical disk compared to the logical data inserted by the application.</li>
+<li><strong>Memory/Space Amplification (M):</strong> How much extra disk space or RAM is required to store the data (metadata, fragmentation, indexes).</li>
+</ul>
+<p>You cannot have a perfect database. You are simply choosing your bottleneck.</p>
+<h2 id="2-b-trees-the-read-optimized-standard-postgresql-mysql">2. B+ Trees: The Read-Optimized Standard (PostgreSQL, MySQL)</h2>
+<p>B+ Trees are the backbone of traditional Relational Database Management Systems (RDBMS). They prioritize lightning-fast <strong>Reads</strong> and optimal <strong>Memory</strong> footprint, but they sacrifice <strong>Update</strong> performance.</p>
+<ul>
+<li><strong>Architecture:</strong> A balanced tree where all data rows live in the leaf nodes, which are linked together to allow fast range scans.</li>
+<li><strong>Disk Mechanics (Random I/O):</strong> Updating a B+ Tree requires seeking the specific page on the physical disk, loading it into memory, updating the row, and writing it back.</li>
+<li><strong>The Flaw: Severe Write Amplification.</strong> Disk drives read and write in fixed-size blocks (typically 4KB or 8KB pages). If you update a single 32-byte row in an InnoDB database, the engine must flush the entire 8KB page back to the SSD.</li>
+<li><em>Math:</em> <span class="arithmatex">\(8192 \text{ bytes} / 32 \text{ bytes} = 256\text{x Write Amplification}\)</span>.</li>
+<li>This brutal write amplification severely limits total write throughput and physically degrades SSD lifespans under heavy write loads.</li>
+</ul>
+<h2 id="3-lsm-trees-the-write-optimized-engine-cassandra-rocksdb">3. LSM-Trees: The Write-Optimized Engine (Cassandra, RocksDB)</h2>
+<p>Log-Structured Merge-Trees (LSM-Trees) were invented to eliminate random disk I/O. They prioritize <strong>Updates</strong> and <strong>Memory</strong> footprint, at the expense of <strong>Reads</strong>.</p>
+<ul>
+<li><strong>Architecture:</strong> LSM-Trees convert all database writes into purely sequential appends. Incoming data is never overwritten in place.</li>
+<li><strong>The MemTable (In-Memory Buffer):</strong> When a write hits an LSM-Tree, it is first stored in RAM inside a sorted data structure (usually a Red-Black Tree or SkipList).</li>
+<li>
+<p><em>Implementation Note:</em> using binary search (<code>std::lower_bound</code>) to achieve <span class="arithmatex">\(\mathcal{O}(\log N)\)</span> range queries on sorted C++ vectors, the MemTable keeps data strictly sorted in memory. This allows the database engine to quickly verify if a key exists in RAM before hitting the disk.</p>
+</li>
+<li>
+<p><strong>The SSTable (Sequential Flush):</strong> Once the MemTable hits a threshold (e.g., 64MB), it is flushed to disk as an immutable Sorted String Table (SSTable). Because this is a massive, sequential write, disk throughput approaches the maximum theoretical hardware limit (often &gt;1 GB/s).</p>
+</li>
+<li><strong>The Flaw: Severe Read Amplification.</strong> Because data is spread across dozens of immutable SSTables, reading a key requires checking the MemTable, and then scanning backward through multiple disk files.</li>
+<li><em>The Mitigation:</em> LSM-Trees heavily rely on <strong>Bloom Filters</strong>—probabilistic data structures loaded in RAM that instantly tell the system if an SSTable definitely <em>does not</em> contain a key, saving a costly disk seek.</li>
+</ul>
+<h2 id="4-the-compaction-lifecycle-the-lsm-trade-off">4. The Compaction Lifecycle (The LSM Trade-off)</h2>
+<p>Because LSM-Trees are append-only, deleting a record just writes a new "Tombstone" marker, and updating a record just writes a newer version of the key.</p>
+<ul>
+<li><strong>Merge-Sort Compaction:</strong> To prevent the disk from filling up, background threads continuously run Compaction. They take multiple smaller SSTables, execute an efficient merge-sort, discard the overwritten data/tombstones, and write a new, larger SSTable.</li>
+<li><strong>The Bottleneck:</strong> Compaction consumes massive amounts of CPU and Disk I/O bandwidth. If write velocity outpaces compaction speed, read latency spikes dramatically—a notorious phenomenon known as "Cassandra latency jitter."</li>
+</ul>
+<hr />
+<h2 id="5-practical-code-example-lsm-memtable-flush-c">5. Practical Code Example: LSM MemTable Flush (C++)</h2>
+<p>This simplified example demonstrates how an LSM-Tree absorbs random point writes in memory and converts them into highly efficient sequential disk flushes.</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;map&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;fstream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;ctime&gt;</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">SimplifiedMemTable</span><span class="w"> </span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="c1">// A Red-Black tree keeps keys strictly sorted in memory</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">memtable</span><span class="p">;</span><span class="w"> </span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">current_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">FLUSH_THRESHOLD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">64</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1024</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1024</span><span class="p">;</span><span class="w"> </span><span class="c1">// 64 MB</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">flush_to_sstable</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">filename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"sstable_"</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">time</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">".sst"</span><span class="p">;</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">ofstream</span><span class="w"> </span><span class="n">outfile</span><span class="p">(</span><span class="n">filename</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Sequential I/O: Writing sorted data linearly to disk</span>
+<span class="w">        </span><span class="c1">// This is orders of magnitude faster than random B+ Tree page updates</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="p">[</span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">]</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">memtable</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">outfile</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">key</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">":"</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="n">outfile</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+<span class="w">        </span><span class="n">memtable</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+<span class="w">        </span><span class="n">current_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"MemTable threshold reached. Flushed to immutable SSTable.</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">insert</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// O(log N) insertion overhead in RAM</span>
+<span class="w">        </span><span class="n">memtable</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"> </span>
+<span class="w">        </span><span class="n">current_size</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">key</span><span class="p">.</span><span class="n">length</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">value</span><span class="p">.</span><span class="n">length</span><span class="p">();</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">current_size</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">FLUSH_THRESHOLD</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">flush_to_sstable</span><span class="p">();</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<hr />
+<h2 id="resources-for-further-deep-diving">Resources for Further Deep Diving</h2>
+<ul>
+<li><strong>Article:</strong> <a href="https://dev.to/dylan_dumont_266378d98367/lsm-trees-vs-b-trees-how-storage-engines-choose-their-data-structure-10l9">LSM Trees vs B+ Trees: How Storage Engines Choose Their Data Structure</a> - Deep dive into physical disk seek patterns.</li>
+<li><strong>Article:</strong> <a href="https://medium.com/@akashsdas_dev/b-trees-and-b-trees-682d363df1f7">B and B+ Trees</a> - Understand difference between B and B+ tress.</li>
+<li><strong>Article:</strong> <a href="https://vivekbansal.substack.com/p/what-is-lsm-tree">LSM Trees</a> - Deep dive into LSM Trees.</li>
+</ul>
+<hr />
+<p><strong>Summary:</strong>
+When designing backend systems, selecting the storage engine dictates your maximum throughput ceiling. B+ Trees (MySQL, PostgreSQL) are highly read-optimized but suffer from crippling write amplification (up to 256x) because updating a small record forces the system to randomly seek and rewrite entire 8KB pages. LSM-Trees (RocksDB, Cassandra) solve this by buffering random writes in a sorted in-memory MemTable, then flushing them sequentially to disk as immutable SSTables. While LSM-Trees achieve maximum write hardware saturation, they suffer from read amplification and rely on Bloom Filters and background Compaction processes to maintain query performance over time.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

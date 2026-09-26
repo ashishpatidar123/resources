@@ -1,0 +1,1637 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Message%20Broker%20Hardware%20Sympathy/">
+      
+      
+        <link rel="next" href="../Multi-Level%20Indexing%20in%20Databases/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Dual-Write and 2PC - Resources</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#microservices-data-consistency-dual-write-2pc-and-the-transactional-outbox-pattern" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Resources" class="md-header__button md-logo" aria-label="Resources" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Resources
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Dual-Write and 2PC
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Resources" class="md-nav__button md-logo" aria-label="Resources" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Resources
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Consistent%20Hashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Consistent Hashing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Distributed%20Rate%20Limiting%20with%20Redis%20and%20Lua%20Scripting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Rate Limiting with Redis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LSM-Tress%20vs%20B%2B%20Trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LSM Tress vs B+ Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Lock%20Free%20Concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lock-Free Concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Message%20Broker%20Hardware%20Sympathy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message Broker Hardware Sympathy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dual-Write and 2PC
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dual-Write and 2PC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-problem-the-dual-write-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Problem: The Dual-Write Problem
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. The Problem: The Dual-Write Problem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-naive-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Naive Approach
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-flaw-partial-failure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Flaw (Partial Failure)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-reversed-flaw" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Reversed Flaw
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-legacy-fix-two-phase-commit-2pc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Legacy Fix: Two-Phase Commit (2PC)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. The Legacy Fix: Two-Phase Commit (2PC)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How it Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-flaws" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Flaws
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-modern-standard-the-transactional-outbox-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The Modern Standard: The Transactional Outbox Pattern
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. The Modern Standard: The Transactional Outbox Pattern">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-mechanics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Mechanics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-atomic-write" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Atomic Write
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-guarantee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Guarantee
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-change-data-capture-cdc-and-the-wal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Change Data Capture (CDC) and the WAL
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Change Data Capture (CDC) and the WAL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-write-ahead-log-wal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Write-Ahead Log (WAL)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debezium-the-cdc-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Debezium (The CDC Engine)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-architecture-advantage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Architecture Advantage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-practical-implementation-java-spring-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Practical Implementation (Java + Spring Data)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-the-trade-off-at-least-once-delivery-and-idempotency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. The Trade-off: At-Least-Once Delivery and Idempotency
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. The Trade-off: At-Least-Once Delivery and Idempotency">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-consumer-flaw" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Consumer Flaw
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-requirement-idempotency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Requirement (Idempotency)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparison
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Multi-Level%20Indexing%20in%20Databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Level Indexing in Databases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Multi-Version%20Concurrency%20Control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Version Concurrency Control (MVCC)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PostgreSQL%20Internals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PostgreSQL Internals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DSA
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DSA/Graph_Algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graph Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../OS/Hardware%20Mechanical%20Sympathy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware Mechanical Sympathy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    System Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../System%20Design/System%20Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design Concepts: A Comprehensive Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-problem-the-dual-write-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Problem: The Dual-Write Problem
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. The Problem: The Dual-Write Problem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-naive-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Naive Approach
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-flaw-partial-failure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Flaw (Partial Failure)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-reversed-flaw" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Reversed Flaw
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-legacy-fix-two-phase-commit-2pc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Legacy Fix: Two-Phase Commit (2PC)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. The Legacy Fix: Two-Phase Commit (2PC)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How it Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-flaws" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Flaws
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-modern-standard-the-transactional-outbox-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The Modern Standard: The Transactional Outbox Pattern
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. The Modern Standard: The Transactional Outbox Pattern">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-mechanics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Mechanics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-atomic-write" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Atomic Write
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-guarantee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Guarantee
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-change-data-capture-cdc-and-the-wal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Change Data Capture (CDC) and the WAL
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Change Data Capture (CDC) and the WAL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-write-ahead-log-wal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Write-Ahead Log (WAL)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debezium-the-cdc-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Debezium (The CDC Engine)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-architecture-advantage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Architecture Advantage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-practical-implementation-java-spring-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Practical Implementation (Java + Spring Data)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-the-trade-off-at-least-once-delivery-and-idempotency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. The Trade-off: At-Least-Once Delivery and Idempotency
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. The Trade-off: At-Least-Once Delivery and Idempotency">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-consumer-flaw" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Consumer Flaw
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-requirement-idempotency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Requirement (Idempotency)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparison
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="microservices-data-consistency-dual-write-2pc-and-the-transactional-outbox-pattern">Microservices Data Consistency: Dual-Write, 2PC and the Transactional Outbox Pattern</h1>
+<h2 id="1-introduction">1. Introduction</h2>
+<p>When we break a monolith into microservices, each service usually has its own database. So we lose the safety of a single, centralized database transaction which covers everything.</p>
+<p>Now suppose a service has to update its own database <strong>and</strong> tell other services about it by publishing an event to a message broker. Keeping data consistent across these independent systems, without crushing system latency, is one of the defining challenges of distributed architecture.</p>
+<div class="admonition note">
+<p class="admonition-title">The Basic Idea</p>
+<p>Don't write to two different systems (database and Kafka) in one go. Write only to the local database in a single transaction, and let a separate process deliver the event to Kafka.</p>
+</div>
+<p>In this article we will go through three approaches:</p>
+<p><code>Dual-Write (naive)</code> → <code>Two-Phase Commit (legacy)</code> → <code>Transactional Outbox (modern standard)</code></p>
+<hr />
+<h2 id="2-the-problem-the-dual-write-problem">2. The Problem: The Dual-Write Problem</h2>
+<h3 id="the-naive-approach">The Naive Approach</h3>
+<p>Let's take an example. An Order Service needs to save an order to its PostgreSQL database and immediately publish an <code>OrderCreated</code> event to an Apache Kafka topic, so the Inventory Service can reserve stock.</p>
+<p>The naive code looks like this:</p>
+<div class="highlight"><pre><span></span><code><span class="n">db</span><span class="p">.</span><span class="na">save</span><span class="p">(</span><span class="n">order</span><span class="p">);</span><span class="w">                        </span><span class="c1">// 1. write to the database</span>
+<span class="n">kafka</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="s">"OrderCreated"</span><span class="p">,</span><span class="w"> </span><span class="n">order</span><span class="p">);</span><span class="w">  </span><span class="c1">// 2. write to Kafka</span>
+</code></pre></div>
+<h3 id="the-flaw-partial-failure">The Flaw (Partial Failure)</h3>
+<p>Network calls are fundamentally unreliable. These are two separate systems, so there is no single transaction that covers both writes.</p>
+<p>Suppose the database saves successfully, but the Kafka network call times out or the broker crashes:</p>
+<div class="highlight"><pre><span></span><code>Order Service   → saves order in DB      ✔
+Order Service   → publishes to Kafka    ✘ (failed)
+Inventory Service → never hears about the order
+</code></pre></div>
+<p>The Order Service thinks the order exists, but the Inventory Service never hears about it. The two services are now inconsistent, and nothing in the system will fix it automatically (someone needs to find and repair it manually).</p>
+<h3 id="the-reversed-flaw">The Reversed Flaw</h3>
+<p>What if we publish to Kafka <em>first</em>, and then the database write fails (for example, due to a constraint violation)?</p>
+<p>The Inventory Service reserves stock for a ghost order that does not exist.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Wrapping the code in a database transaction doesn't help. Even if we publish to Kafka inside the transaction, the commit can still fail <em>after</em> the message is already sent, and we cannot take the message back.</p>
+</div>
+<hr />
+<h2 id="3-the-legacy-fix-two-phase-commit-2pc">3. The Legacy Fix: Two-Phase Commit (2PC)</h2>
+<p>Historically, enterprise systems solved dual-writes using Distributed Transactions (XA / 2PC), which are governed by a central <strong>Transaction Coordinator</strong>.</p>
+<h3 id="how-it-works">How it Works</h3>
+<ul>
+<li><strong>Phase 1 (Prepare):</strong> The coordinator asks both the Database and the Message Broker to lock their resources and confirm they are ready to commit.</li>
+<li><strong>Phase 2 (Commit):</strong> If both say "yes", the coordinator sends a global commit. If anyone says "no", it sends a global rollback.</li>
+</ul>
+<p><code>Coordinator</code> → <code>Prepare?</code> → <code>DB: yes</code> + <code>Broker: yes</code> → <code>Commit</code></p>
+<h3 id="the-flaws">The Flaws</h3>
+<p>2PC is the enemy of low-latency systems:</p>
+<ul>
+<li>It requires synchronous, blocking network calls.</li>
+<li>It holds row-level database locks open while waiting for network acknowledgments from external systems.</li>
+<li>If the coordinator crashes after the prepare phase, the participants stay blocked with their locks held, until the coordinator comes back. This is a serious availability risk.</li>
+<li>Modern, high-throughput message brokers like Kafka do not support XA distributed transactions. (Kafka has its own transactions, but they only cover writes inside Kafka, so they can't include your database.)</li>
+</ul>
+<p>Because of its poor throughput and availability risks, 2PC is generally avoided in modern microservices.</p>
+<hr />
+<h2 id="4-the-modern-standard-the-transactional-outbox-pattern">4. The Modern Standard: The Transactional Outbox Pattern</h2>
+<p>To avoid distributed locking, we rely on the guarantees of a single, local ACID database transaction.</p>
+<h3 id="the-mechanics">The Mechanics</h3>
+<p>We create an <code>Outbox</code> table in the exact same database as the <code>Order</code> table.</p>
+<h3 id="the-atomic-write">The Atomic Write</h3>
+<p>When a user places an order, the application writes the <code>Order</code> record <strong>and</strong> the <code>Outbox</code> event (the message which was intended for Kafka) in a single, local database transaction.</p>
+<div class="highlight"><pre><span></span><code>BEGIN TRANSACTION
+   INSERT INTO orders  ...   (the business data)
+   INSERT INTO outbox  ...   (the event to be sent to Kafka)
+COMMIT
+</code></pre></div>
+<h3 id="the-guarantee">The Guarantee</h3>
+<p>Because relational databases (like PostgreSQL or MySQL) guarantee Atomicity, the order cannot be saved without the outbox event also being saved. If the database crashes mid-write, the entire transaction rolls back.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>This only works because both tables are in the <strong>same database</strong>. That is what allows one local transaction to cover both writes.</p>
+</div>
+<p>But writing to the Outbox table is only half of the solution. Now we need to get those events from the table to Kafka.</p>
+<hr />
+<h2 id="5-change-data-capture-cdc-and-the-wal">5. Change Data Capture (CDC) and the WAL</h2>
+<p>We still need to get the outbox messages to Kafka, without writing dual-write application code again. For this we use Change Data Capture.</p>
+<h3 id="the-write-ahead-log-wal">The Write-Ahead Log (WAL)</h3>
+<p>When a database commits a transaction, it doesn't immediately write the data to the scattered data files (this requires slow, random I/O). Instead, it appends the transaction sequentially to an append-only file on disk called the <strong>Write-Ahead Log</strong> (WAL in Postgres) or <strong>binlog</strong> (in MySQL). Sequential disk writes are very fast.</p>
+<p>This is the same WAL idea we saw before: the log is written first, and the data files are updated later.</p>
+<h3 id="debezium-the-cdc-engine">Debezium (The CDC Engine)</h3>
+<p>Instead of the Java/C++ application pushing to Kafka, we deploy a Change Data Capture (CDC) tool like <strong>Debezium</strong>. Debezium acts as a silent observer. It continuously reads the database's log.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In PostgreSQL, Debezium doesn't read the raw WAL files directly. It uses <em>logical decoding</em> through a replication slot, which turns the WAL into a stream of row changes. This needs <code>wal_level = logical</code> in the Postgres configuration. Debezium usually runs on top of Kafka Connect.</p>
+</div>
+<h3 id="the-flow">The Flow</h3>
+<p>As soon as Debezium sees a new committed change for the <code>Outbox</code> table, it extracts the payload and asynchronously publishes it to Kafka.</p>
+<p><code>Application</code> → <code>Order + Outbox (one DB transaction)</code> → <code>WAL</code> → <code>Debezium</code> → <code>Kafka</code> → <code>Inventory Service</code></p>
+<p>Debezium also has a ready-made <strong>Outbox Event Router</strong> transformation, which reads the outbox rows and routes them to the correct Kafka topics for you.</p>
+<h3 id="the-architecture-advantage">The Architecture Advantage</h3>
+<p>The application thread never waits for Kafka. It simply commits to the local DB and returns a <code>200 OK</code> to the user. Latency is minimized, and the dual-write problem is removed from the application code.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Debezium picks up the <code>INSERT</code> from the log, so the outbox rows can be deleted from the table soon after they are inserted. This keeps the outbox table small.</p>
+<p>Another (simpler, but slower) option is a <em>polling publisher</em>: a background job which reads new rows from the outbox table every few seconds and publishes them.</p>
+</div>
+<hr />
+<h2 id="6-practical-implementation-java-spring-data">6. Practical Implementation (Java + Spring Data)</h2>
+<p>First, the Outbox table in the same database:</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">outbox</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">id</span><span class="w">             </span><span class="n">UUID</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w">           </span><span class="c1">-- unique event id (used later for idempotency)</span>
+<span class="w">    </span><span class="n">aggregate_type</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">      </span><span class="c1">-- e.g. 'ORDER'</span>
+<span class="w">    </span><span class="n">aggregate_id</span><span class="w">   </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">      </span><span class="c1">-- e.g. the order id</span>
+<span class="w">    </span><span class="n">event_type</span><span class="w">     </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">      </span><span class="c1">-- e.g. 'ORDER_CREATED'</span>
+<span class="w">    </span><span class="n">payload</span><span class="w">        </span><span class="n">JSONB</span><span class="w">        </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">      </span><span class="c1">-- the message for Kafka</span>
+<span class="w">    </span><span class="n">created_at</span><span class="w">     </span><span class="k">TIMESTAMP</span><span class="w">    </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">now</span><span class="p">()</span>
+<span class="p">);</span>
+</code></pre></div>
+<p>Here is how we implement the Outbox write using standard Spring Boot <code>@Transactional</code> semantics.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">com.fasterxml.jackson.core.JsonProcessingException</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">com.fasterxml.jackson.databind.ObjectMapper</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.stereotype.Service</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.transaction.annotation.Transactional</span><span class="p">;</span>
+
+<span class="nd">@Service</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">OrderService</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">OrderRepository</span><span class="w"> </span><span class="n">orderRepository</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">OutboxRepository</span><span class="w"> </span><span class="n">outboxRepository</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">ObjectMapper</span><span class="w"> </span><span class="n">jsonMapper</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">OrderService</span><span class="p">(</span><span class="n">OrderRepository</span><span class="w"> </span><span class="n">orderRepository</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">OutboxRepository</span><span class="w"> </span><span class="n">outboxRepository</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">ObjectMapper</span><span class="w"> </span><span class="n">jsonMapper</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">orderRepository</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">orderRepository</span><span class="p">;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">outboxRepository</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">outboxRepository</span><span class="p">;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">jsonMapper</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">jsonMapper</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// This annotation guarantees both writes succeed, or both fail.</span>
+<span class="w">    </span><span class="c1">// There is ZERO network call to Kafka in this thread.</span>
+<span class="w">    </span><span class="nd">@Transactional</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Order</span><span class="w"> </span><span class="nf">createOrder</span><span class="p">(</span><span class="n">OrderRequest</span><span class="w"> </span><span class="n">request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// 1. Save the business entity</span>
+<span class="w">        </span><span class="n">Order</span><span class="w"> </span><span class="n">newOrder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Order</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="na">getCustomerId</span><span class="p">(),</span><span class="w"> </span><span class="n">request</span><span class="p">.</span><span class="na">getAmount</span><span class="p">());</span>
+<span class="w">        </span><span class="n">orderRepository</span><span class="p">.</span><span class="na">save</span><span class="p">(</span><span class="n">newOrder</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// 2. Create the event payload</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">eventPayload</span><span class="p">;</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">eventPayload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">jsonMapper</span><span class="p">.</span><span class="na">writeValueAsString</span><span class="p">(</span><span class="n">newOrder</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">JsonProcessingException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// Unchecked exception, so Spring rolls back the whole transaction</span>
+<span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalStateException</span><span class="p">(</span><span class="s">"Could not serialize order event"</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="c1">// 3. Save to the Outbox table in the SAME database</span>
+<span class="w">        </span><span class="n">OutboxEvent</span><span class="w"> </span><span class="n">event</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">OutboxEvent</span><span class="p">(</span>
+<span class="w">            </span><span class="s">"ORDER_CREATED"</span><span class="p">,</span>
+<span class="w">            </span><span class="n">newOrder</span><span class="p">.</span><span class="na">getId</span><span class="p">(),</span>
+<span class="w">            </span><span class="n">eventPayload</span>
+<span class="w">        </span><span class="p">);</span>
+<span class="w">        </span><span class="n">outboxRepository</span><span class="p">.</span><span class="na">save</span><span class="p">(</span><span class="n">event</span><span class="p">);</span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">newOrder</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>By default, Spring rolls back a transaction only for unchecked exceptions (<code>RuntimeException</code> and <code>Error</code>). <code>writeValueAsString</code> throws a <em>checked</em> <code>JsonProcessingException</code>, so if we just let it escape from the method, the order would be committed <strong>without</strong> its outbox event, which is exactly the inconsistency we wanted to avoid. That's why we wrap it in an unchecked exception (or use <code>@Transactional(rollbackFor = Exception.class)</code>).</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>In real projects, it is better to serialize a separate event object (a small DTO) instead of the database entity itself. Then the event format is stable even if the entity changes.</p>
+</div>
+<hr />
+<h2 id="7-the-trade-off-at-least-once-delivery-and-idempotency">7. The Trade-off: At-Least-Once Delivery and Idempotency</h2>
+<p>There are no perfect systems, only trade-offs. The Outbox pattern avoids the blocking of 2PC, but in return we get <strong>Eventual Consistency</strong>: the Inventory Service will see the order a little later, not at the same instant.</p>
+<h3 id="the-consumer-flaw">The Consumer Flaw</h3>
+<p>CDC tools like Debezium guarantee <strong>At-Least-Once</strong> delivery. Suppose Debezium publishes an event to Kafka, but crashes before it can record its offset (how far it has read). When it restarts, it will publish the exact same event again.</p>
+<h3 id="the-requirement-idempotency">The Requirement (Idempotency)</h3>
+<p>Because the Outbox pattern can produce duplicate messages (during retries or restarts), the downstream consumer (the Inventory Service) <strong>must be idempotent</strong>. It should track the processed event IDs in its own database, so it doesn't reserve stock twice for the same <code>OrderCreated</code> event.</p>
+<div class="highlight"><pre><span></span><code>Event arrives (id = 42)
+   ├─ id 42 already processed?  → yes → ignore it
+   └─ no → reserve stock + save id 42 (in one local transaction)
+</code></pre></div>
+<p>The event ID is the <code>id</code> column we created in the outbox table.</p>
+<h3 id="comparison">Comparison</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Approach</th>
+<th style="text-align: left;">Consistency</th>
+<th style="text-align: left;">Latency</th>
+<th style="text-align: left;">Main Problem</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Dual-Write</td>
+<td style="text-align: left;">Can become wrong</td>
+<td style="text-align: left;">Low</td>
+<td style="text-align: left;">Partial failure loses events or creates ghost events</td>
+</tr>
+<tr>
+<td style="text-align: left;">Two-Phase Commit</td>
+<td style="text-align: left;">Strong</td>
+<td style="text-align: left;">High (blocking locks)</td>
+<td style="text-align: left;">Kafka has no XA support; coordinator failure blocks everything</td>
+</tr>
+<tr>
+<td style="text-align: left;">Outbox + CDC</td>
+<td style="text-align: left;">Eventual</td>
+<td style="text-align: left;">Low</td>
+<td style="text-align: left;">Duplicate events, so consumers must be idempotent</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="8-summary">8. Summary</h2>
+<p>When microservices must update a local database and publish an event to a message broker, naive dual-writes can lead to inconsistent data because of partial network failures. Traditional Two-Phase Commit (2PC) solves this, but it hurts throughput through blocking locks and is not supported by Kafka.</p>
+<p>The Transactional Outbox pattern is the industry standard here: it writes both the business entity and the event to the local database in a single ACID transaction. A separate Change Data Capture (CDC) process (like Debezium) then reads the database log (WAL) and publishes the event to Kafka asynchronously. This guarantees that an event is never lost and keeps application latency low, with the trade-off that the system is eventually consistent and downstream consumers must be designed to handle duplicate messages idempotently.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

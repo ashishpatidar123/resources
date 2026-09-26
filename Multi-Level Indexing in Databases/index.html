@@ -1,0 +1,2483 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Microservices%20Data%20Consistency%3A%20Dual-Write%2C%202PC%20and%20the%20Transactional%20Outbox%20Pattern/">
+      
+      
+        <link rel="next" href="../Multi-Version%20Concurrency%20Control/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Multi-Level Indexing in Databases - Resources</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#multi-level-indexing-in-databases" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Resources" class="md-header__button md-logo" aria-label="Resources" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Resources
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Multi-Level Indexing in Databases
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Resources" class="md-nav__button md-logo" aria-label="Resources" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Resources
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Consistent%20Hashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Consistent Hashing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Distributed%20Rate%20Limiting%20with%20Redis%20and%20Lua%20Scripting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Rate Limiting with Redis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LSM-Tress%20vs%20B%2B%20Trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LSM Tress vs B+ Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Lock%20Free%20Concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lock-Free Concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Message%20Broker%20Hardware%20Sympathy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message Broker Hardware Sympathy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Microservices%20Data%20Consistency%3A%20Dual-Write%2C%202PC%20and%20the%20Transactional%20Outbox%20Pattern/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dual-Write and 2PC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Level Indexing in Databases
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Level Indexing in Databases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-problem-finding-data-on-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Problem: Finding Data on Storage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-library-analogy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Library Analogy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. The Library Analogy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#without-an-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Without an Index
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#with-a-catalog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        With a Catalog
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-level-catalog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-Level Catalog
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-storage-hierarchy-where-data-sits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Storage Hierarchy: Where Data Sits
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Storage Hierarchy: Where Data Sits">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#memory-and-storage-layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory and Storage Layers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpu-cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CPU Cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RAM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#database-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database Pages
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database Pages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-use-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why use pages?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#buffer-pool-the-databases-ram-cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buffer Pool: The Database's RAM Cache
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Buffer Pool: The Database&#39;s RAM Cache">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cache-hit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cache hit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cache-miss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cache miss
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#persistent-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Persistent Storage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Persistent Storage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HDD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SSD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important-distinction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Important Distinction
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequential-vs-random-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequential vs Random Access
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-a-database-locates-a-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How a Database Locates a Page
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-a-database-reads-from-disk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How a Database Reads from Disk
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-table-storage-layouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Table Storage Layouts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Table Storage Layouts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#heap-organised-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Heap Organised Table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clustered-or-index-organised-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clustered or Index Organised Table
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-what-is-an-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. What is an Index?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. What is an Index?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#single-level-indexing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Single-Level Indexing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-level-indexing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-Level Indexing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-multi-level-indexes-are-efficient" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Multi-Level Indexes are Efficient
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-different-types-of-indexes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Different Types of Indexes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Different Types of Indexes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clustered-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clustered Index
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-clustered-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Non-Clustered Index
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#covering-indexes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Covering Indexes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#composite-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Composite Index
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hash-indexes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hash Indexes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bitmap-indexes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bitmap Indexes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inverted-indexes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inverted Indexes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spatial-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spatial Index
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-more-about-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. More About Pages
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. More About Pages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#write-ahead-log-wal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Write Ahead Log (WAL)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dirty-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dirty Pages
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#page-splits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Page Splits
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-things-to-keep-in-mind-about-indexes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Things to Keep in Mind About Indexes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Things to Keep in Mind About Indexes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#storage-and-write-cost" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Storage and Write Cost
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#index-selectivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Index Selectivity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Multi-Version%20Concurrency%20Control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Version Concurrency Control (MVCC)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PostgreSQL%20Internals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PostgreSQL Internals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DSA
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DSA/Graph_Algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graph Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../OS/Hardware%20Mechanical%20Sympathy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware Mechanical Sympathy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    System Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../System%20Design/System%20Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design Concepts: A Comprehensive Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-problem-finding-data-on-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Problem: Finding Data on Storage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-library-analogy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Library Analogy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. The Library Analogy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#without-an-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Without an Index
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#with-a-catalog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        With a Catalog
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-level-catalog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-Level Catalog
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-storage-hierarchy-where-data-sits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Storage Hierarchy: Where Data Sits
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Storage Hierarchy: Where Data Sits">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#memory-and-storage-layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory and Storage Layers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpu-cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CPU Cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RAM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#database-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database Pages
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database Pages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-use-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why use pages?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#buffer-pool-the-databases-ram-cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buffer Pool: The Database's RAM Cache
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Buffer Pool: The Database&#39;s RAM Cache">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cache-hit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cache hit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cache-miss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cache miss
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#persistent-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Persistent Storage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Persistent Storage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HDD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SSD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important-distinction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Important Distinction
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequential-vs-random-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequential vs Random Access
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-a-database-locates-a-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How a Database Locates a Page
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-a-database-reads-from-disk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How a Database Reads from Disk
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-table-storage-layouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Table Storage Layouts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Table Storage Layouts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#heap-organised-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Heap Organised Table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clustered-or-index-organised-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clustered or Index Organised Table
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-what-is-an-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. What is an Index?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. What is an Index?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#single-level-indexing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Single-Level Indexing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-level-indexing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-Level Indexing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-multi-level-indexes-are-efficient" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Multi-Level Indexes are Efficient
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-different-types-of-indexes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Different Types of Indexes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Different Types of Indexes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clustered-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clustered Index
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-clustered-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Non-Clustered Index
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#covering-indexes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Covering Indexes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#composite-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Composite Index
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hash-indexes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hash Indexes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bitmap-indexes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bitmap Indexes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inverted-indexes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inverted Indexes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spatial-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spatial Index
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-more-about-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. More About Pages
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. More About Pages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#write-ahead-log-wal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Write Ahead Log (WAL)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dirty-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dirty Pages
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#page-splits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Page Splits
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-things-to-keep-in-mind-about-indexes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Things to Keep in Mind About Indexes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Things to Keep in Mind About Indexes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#storage-and-write-cost" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Storage and Write Cost
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#index-selectivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Index Selectivity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="multi-level-indexing-in-databases">Multi-Level Indexing in Databases</h1>
+<h2 id="1-introduction">1. Introduction</h2>
+<p>Multi-level indexing is a technique for finding data efficiently when a dataset is too huge to perform a search operation directly.</p>
+<div class="admonition note">
+<p class="admonition-title">The Basic Idea</p>
+<p>Instead of searching a huge index from the beginning, create an index for the index—a multi-level structure.</p>
+</div>
+<p>This produces several levels of progressively smaller indexes, similar to:</p>
+<p><code>Top Level Index</code> → <code>Middle Level Index</code> → <code>Leaf Level Index</code> → <code>Actual Data</code></p>
+<p>This is the main core and idea behind <strong>B-trees</strong> and <strong>B+ trees</strong>, which are the most widely used data structures for database indexes.</p>
+<hr />
+<h2 id="2-the-problem-finding-data-on-storage">2. The Problem: Finding Data on Storage</h2>
+<p>Let's assume a table containing around 1 billion records:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">user_id</th>
+<th style="text-align: left;">name</th>
+<th style="text-align: left;">email</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Ram</td>
+<td style="text-align: left;">...</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">Laxman</td>
+<td style="text-align: left;">...</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">Sita</td>
+<td style="text-align: left;">...</td>
+</tr>
+<tr>
+<td style="text-align: left;">...</td>
+<td style="text-align: left;">...</td>
+<td style="text-align: left;">...</td>
+</tr>
+</tbody>
+</table>
+<p>Now, if we execute the following query:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">700000000</span><span class="p">;</span>
+</code></pre></div>
+<p>The database needs to find the row where <code>user_id = 700000000</code>. Without an index, the database may need to look at every single row and check for this particular condition.</p>
+<p>This is called a <strong>table scan</strong> or <strong>sequential scan</strong>. For a table with huge records, this will be extremely expensive.</p>
+<p>So, we use indexes here. An index provides a shortcut:</p>
+<p><code>user_id 700000000</code> → <code>location of the row</code></p>
+<p>Instead of searching all the rows, the database searches an organized structure that points directly to the row.</p>
+<hr />
+<h2 id="3-the-library-analogy">3. The Library Analogy</h2>
+<p>We can understand this with the example of how we get books in a library. Imagine a library with millions of books.</p>
+<h3 id="without-an-index">Without an Index</h3>
+<p>To find a book titled <em>System Design</em>, you have to walk through every shelf and check every book:</p>
+<div class="highlight"><pre><span></span><code>Shelf 1
+Shelf 2
+Shelf 3
+....
+Shelf 100000
+</code></pre></div>
+<p>This is equivalent to a table scan.</p>
+<h3 id="with-a-catalog">With a Catalog</h3>
+<p>If the library has a catalog:</p>
+<p><code>Letter S</code> → <code>Shelf 25</code></p>
+<p>You search the catalog instead of every book. This allows you to find the book much faster.</p>
+<h3 id="multi-level-catalog">Multi-Level Catalog</h3>
+<p>What if the catalog itself is huge? Then the library organizes it further:</p>
+<ol>
+<li><code>Letter S</code> → <code>Catalog Section 5</code></li>
+<li><code>Catalog Section 5</code> → <code>Shelf 25</code></li>
+<li><code>Shelf 25</code> → <code>Position 10</code></li>
+</ol>
+<p>This is <strong>multi-level indexing</strong>. The database equivalent of this is:</p>
+<p><code>Root Index Page</code> → <code>Internal Index Page</code> → <code>Leaf Index Page</code> → <code>Data Page</code> → <code>Row</code></p>
+<hr />
+<h2 id="4-storage-hierarchy-where-data-sits">4. Storage Hierarchy: Where Data Sits</h2>
+<p>Let's go through how data is stored and where it can be stored. A database usually interacts with several layers:</p>
+<p><code>Application</code> → <code>Database Engine</code> → <code>Buffer Pool (RAM)</code> → <code>Operating System / File System</code> → <code>SSD / HDD</code></p>
+<p>Each layer has different speed, cost, and persistence characteristics.</p>
+<h3 id="memory-and-storage-layers">Memory and Storage Layers</h3>
+<p>From fastest (and smallest) to slowest (and largest):</p>
+<ol>
+<li>CPU Registers</li>
+<li>L1 Cache</li>
+<li>L2 Cache</li>
+<li>L3 Cache</li>
+<li>RAM</li>
+<li>SSD</li>
+<li>HDD</li>
+</ol>
+<h3 id="cpu-cache">CPU Cache</h3>
+<p>The CPU has very small but very fast memory caches (L1, L2 and L3).</p>
+<p>The CPU cache stores recently used instructions and data. For example, if a database repeatedly examines the same B-tree root page, then that root page may remain in the CPU cache or RAM.</p>
+<p>You normally do not design database indexes around CPU cache, but locality still matters:</p>
+<ul>
+<li><strong>Sequential access</strong> is generally efficient.</li>
+<li><strong>Repeatedly accessed pages</strong> stay cached.</li>
+<li><strong>Random access</strong> is generally more expensive.</li>
+</ul>
+<h3 id="ram">RAM</h3>
+<p>RAM is fast but volatile. It is temporary, meaning data is lost when power is removed.</p>
+<p>A database uses RAM for:</p>
+<ul>
+<li>The buffer pool</li>
+<li>Cached table pages</li>
+<li>Cached index pages</li>
+<li>Active transactions</li>
+<li>Sort operations</li>
+<li>Hash tables</li>
+<li>Memtables (in LSM trees)</li>
+<li>Query execution state</li>
+</ul>
+<p>A database does not usually read individual rows directly from the disk every time. It reads larger units called <strong>pages</strong> into RAM.</p>
+<p><strong>For example:</strong></p>
+<p><code>Disk Page 100</code> → <code>Read</code> → <code>Buffer Pool in RAM</code></p>
+<p>If the page is already in RAM, the database will reuse it without accessing the disk again.</p>
+<h3 id="database-pages">Database Pages</h3>
+<p>A database typically divides its files into fixed-size pages.</p>
+<p>Common page sizes include:</p>
+<ul>
+<li>4KB</li>
+<li>8KB</li>
+<li>16KB</li>
+<li>32KB</li>
+</ul>
+<p>The exact size depends on the specific database system (for example, PostgreSQL uses 8KB by default and MySQL InnoDB uses 16KB). A table might be stored as:</p>
+<div class="highlight"><pre><span></span><code>Page 0
+Page 1
+Page 2
+...
+</code></pre></div>
+<p>Each page contains records or index entries. For example:</p>
+<div class="highlight"><pre><span></span><code>Page 100:
+
+  Row A
+  Row B
+  Row C
+</code></pre></div>
+<p>The database identifies a row using a coordinate system similar to <code>(page_number, slot_number)</code>.</p>
+<p><strong>For example:</strong> <code>(100, 3)</code> means the row is in page 100, slot 3.</p>
+<p>Some systems call this a <strong>Row Identifier (RID)</strong> or a <strong>Physical Record Pointer</strong>.</p>
+<h4 id="why-use-pages">Why use pages?</h4>
+<p>Reading an individual byte from storage is not usually practical, as storage devices transfer chunks of data at once. A page is the database's convenient unit for:</p>
+<ul>
+<li>Reading</li>
+<li>Writing</li>
+<li>Caching</li>
+<li>Locking</li>
+<li>Indexing</li>
+</ul>
+<h3 id="buffer-pool-the-databases-ram-cache">Buffer Pool: The Database's RAM Cache</h3>
+<p>The database usually maintains a region of RAM called the buffer pool or buffer cache.</p>
+<p>Suppose the database needs page 500.</p>
+<h4 id="cache-hit">Cache hit</h4>
+<div class="highlight"><pre><span></span><code>Database checks buffer cache
+Page 500 is already there
+Database uses it immediately
+</code></pre></div>
+<h4 id="cache-miss">Cache miss</h4>
+<div class="highlight"><pre><span></span><code>Database checks buffer cache
+Page 500 is not there
+Database requests it from the disk
+Storage returns page 500
+Database places it in RAM
+Database uses it
+</code></pre></div>
+<p>This is important because RAM access is much faster than storage access.</p>
+<p>A query might perform:</p>
+<div class="highlight"><pre><span></span><code>Root index page: cache hit
+Internal page:   cache hit
+Leaf page:       cache hit
+Data page:       cache miss
+</code></pre></div>
+<p>If index pages remain cached, index lookups become much faster.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The upper levels of an index (root and internal pages) are accessed by almost every query, so they almost always stay in the buffer pool. Most cache misses happen at the leaf and data pages.</p>
+</div>
+<h3 id="persistent-storage">Persistent Storage</h3>
+<p>The database stores durable data on persistent storage, usually:</p>
+<ul>
+<li>SSD</li>
+<li>HDD</li>
+<li>Network attached storage</li>
+<li>Cloud</li>
+</ul>
+<p>Unlike RAM, persistent storage retains data after a restart.</p>
+<p>A database may use several files. Modern databases usually hide the physical device details behind the operating system and storage APIs, but the difference between SSD and HDD still affects performance.</p>
+<h4 id="hdd">HDD</h4>
+<p>An HDD contains rotating magnetic platters.</p>
+<p>The disk has:</p>
+<ul>
+<li>Platters</li>
+<li>Tracks</li>
+<li>Sectors</li>
+<li>Read/Write heads</li>
+</ul>
+<p>To read data the HDD may need to:</p>
+<ol>
+<li>Move the read head to the correct track (seek).</li>
+<li>Wait for the platter to rotate to the correct sector.</li>
+<li>Transfer the data.</li>
+</ol>
+<p>These operations are mechanical in nature, so they add to the latency of the system.</p>
+<p>Also in HDD, sequential access is much better, because the data sits in adjacent sectors and the head does not need to move again and again.
+Random access is expensive because the head repeatedly moves around to different tracks.</p>
+<h4 id="ssd">SSD</h4>
+<p>An SSD uses flash memory rather than spinning platters.</p>
+<p>It has no moving heads and no rotating disks.</p>
+<p>This makes random access much faster than HDD, but SSDs still have important features:</p>
+<ul>
+<li>Data is read and written in flash pages</li>
+<li>Data is erased in larger erase blocks</li>
+<li>Writes may require internal housekeeping</li>
+<li>Flash cells have limited write endurance</li>
+<li>The SSD controller performs wear leveling and garbage collection</li>
+</ul>
+<p>A simplified SSD organisation looks like:</p>
+<div class="highlight"><pre><span></span><code>Erase block:
+  Flash page
+  Flash page
+  Flash page
+</code></pre></div>
+<p>The database normally does not manage these flash pages directly. The SSD controller translates logical addresses into physical flash locations.</p>
+<h4 id="important-distinction">Important Distinction</h4>
+<p>A database page and an SSD flash page are not required to be of the same size or the same thing.</p>
+<div class="highlight"><pre><span></span><code>Database page: 16KB
+SSD internal page: different size
+</code></pre></div>
+<h3 id="sequential-vs-random-access">Sequential vs Random Access</h3>
+<p>Sequential access means accessing in order like 1, 2, 3... while random access means accessing completely random locations like 1, 100, 5000, 2...</p>
+<p>Generally sequential access is efficient, especially on HDDs, while random access is expensive, particularly on HDDs.</p>
+<h3 id="how-a-database-locates-a-page">How a Database Locates a Page</h3>
+<p>It uses a logical page identifier:</p>
+<div class="highlight"><pre><span></span><code>Page ID = 200
+</code></pre></div>
+<p>It maps that to a file offset:</p>
+<div class="highlight"><pre><span></span><code>file offset = page_id x page_size
+</code></pre></div>
+<p>For example, with an 8KB page:</p>
+<div class="highlight"><pre><span></span><code>offset of page 200 = 200 x 8192 bytes = 1,638,400 bytes
+</code></pre></div>
+<p>The OS then maps the database file offset to a logical block on the storage device. The SSD or HDD maps the logical block to its physical storage.</p>
+<h3 id="how-a-database-reads-from-disk">How a Database Reads from Disk</h3>
+<p>Suppose the database needs page 500.</p>
+<p>The process is:</p>
+<ol>
+<li>Query asks for page 500.</li>
+<li>Buffer pool checks whether page 500 is present in cache.</li>
+<li>If yes, then use it.</li>
+<li>Otherwise, request the page from the operating system (using its file offset, as shown above).</li>
+<li>The OS sends a request to the storage device (it may also serve it from its own file system cache).</li>
+<li>The device locates the data.</li>
+<li>The data is moved to RAM.</li>
+<li>The database places it in the buffer pool.</li>
+<li>The query reads the page.</li>
+</ol>
+<hr />
+<h2 id="5-table-storage-layouts">5. Table Storage Layouts</h2>
+<p>The way table rows are stored affects indexing.</p>
+<h3 id="heap-organised-table">Heap Organised Table</h3>
+<p>A heap table stores rows wherever space is available.</p>
+<div class="highlight"><pre><span></span><code>Page 10:
+  Ram
+  Laxman
+Page 11:
+  Sita
+  Hanuman
+</code></pre></div>
+<p>The rows are not necessarily sorted by a particular column.</p>
+<p>An index may point to the physical disk location:</p>
+<p><code>user_id</code> → <code>(page, slot)</code></p>
+<p><strong>For example:</strong> <code>42</code> → <code>(page 11, slot 2)</code></p>
+<h3 id="clustered-or-index-organised-table">Clustered or Index Organised Table</h3>
+<p>A clustered table stores the actual rows in index order.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code>Page 10:
+  id 1
+  id 2
+  id 3
+Page 11:
+  id 4
+  id 5
+</code></pre></div>
+<p>The index's leaf pages contain the complete rows rather than pointers to separate heap pages.</p>
+<hr />
+<h2 id="6-what-is-an-index">6. What is an Index?</h2>
+<p>An index is an auxiliary data structure that helps locate table rows.</p>
+<p>Suppose the table is:</p>
+<div class="highlight"><pre><span></span><code>Page 10:
+  id | name
+  ---------
+  1  | Ram
+  2  | Laxman
+
+Page 11:
+  3  | Sita
+  4  | Hanuman
+</code></pre></div>
+<p>An index on <code>id</code> could contain:</p>
+<div class="highlight"><pre><span></span><code>id | row_location
+---------
+1  | (10,1)
+2  | (10,2)
+3  | (11,1)
+4  | (11,2)
+</code></pre></div>
+<p>The index is smaller than the full table because it stores only the indexed key and a pointer or row locator.</p>
+<p>The database searches the index first:</p>
+<p><code>Find id = 3</code> → <code>(page 11, slot 1)</code> → <code>fetch row from page 11</code></p>
+<h3 id="single-level-indexing">Single-Level Indexing</h3>
+<p>A simple index might be a sorted list:</p>
+<div class="highlight"><pre><span></span><code>Index:
+
+1 -&gt; page 10
+2 -&gt; page 10
+3 -&gt; page 11
+4 -&gt; page 11
+</code></pre></div>
+<p>If the index is small enough to fit in memory, then binary search can find a key efficiently.</p>
+<p>But if the index itself is huge, then searching the index itself becomes expensive. This leads to multi-level indexing.</p>
+<h3 id="multi-level-indexing">Multi-Level Indexing</h3>
+<p>Suppose a leaf level index contains many entries:</p>
+<div class="highlight"><pre><span></span><code>Leaf page 1:
+ 1 -&gt; data page 10
+ 2 -&gt; data page 10
+ 3 -&gt; data page 10
+ 4 -&gt; data page 11
+Leaf page 2:
+ 5 -&gt; data page 11
+ 6 -&gt; data page 12
+ 7 -&gt; data page 12
+ 8 -&gt; data page 13
+....
+</code></pre></div>
+<p>Now create an index over those leaf pages:</p>
+<div class="highlight"><pre><span></span><code>Internal index:
+
+1 -&gt; leaf page 1
+5 -&gt; leaf page 2
+...
+</code></pre></div>
+<p>and if even this becomes large we can extend it further.</p>
+<p>So the complete structure will look like this:</p>
+<p><code>Root page</code> → <code>Internal index pages</code> → <code>Leaf index pages</code> → <code>Table data pages</code></p>
+<h3 id="why-multi-level-indexes-are-efficient">Why Multi-Level Indexes are Efficient</h3>
+<p>Assume 1 index page can store 100 entries.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Levels</th>
+<th style="text-align: left;">Entries you can reach</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">One level</td>
+<td style="text-align: left;"><code>100</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">Two levels</td>
+<td style="text-align: left;"><code>100 x 100 = 10,000</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">Three levels</td>
+<td style="text-align: left;"><code>100 x 100 x 100 = 1,000,000</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">Four levels</td>
+<td style="text-align: left;"><code>100 x 100 x 100 x 100 = 100,000,000</code></td>
+</tr>
+</tbody>
+</table>
+<p>Each level costs us roughly one page read, so finding a key among 100 million entries needs only about 4 page reads.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>In real databases an index page (8KB or 16KB) holds several hundred entries, not just 100. That is why even a table with billions of rows usually needs only 3 to 4 index levels.</p>
+</div>
+<hr />
+<h2 id="7-different-types-of-indexes">7. Different Types of Indexes</h2>
+<h3 id="clustered-index">Clustered Index</h3>
+<p>A clustered index determines the physical or logical order of table rows.</p>
+<div class="highlight"><pre><span></span><code>Clustered order by id:
+
+Page 10:
+  id 1
+  id 2
+  id 3
+Page 11:
+  id 4
+  id 5
+</code></pre></div>
+<p>The leaf level contains the full rows.</p>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Efficient range scans on the clustering key</li>
+<li>Related rows may be stored near one another</li>
+<li>Fewer extra lookups for queries using the clustered key</li>
+</ul>
+<p>Usually a table can have only one clustered index.</p>
+<h3 id="non-clustered-index">Non-Clustered Index</h3>
+<p>A non-clustered index is a separate structure:</p>
+<div class="highlight"><pre><span></span><code>For example:
+
+Index:
+   email -&gt; row pointer
+
+ap@gmail.com -&gt; (page 20, slot 3)
+</code></pre></div>
+<p>The database first searches the index and then fetches the actual table row.</p>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Multiple non-clustered indexes can exist</li>
+<li>Useful for different query patterns</li>
+</ul>
+<p><strong>Disadvantages:</strong></p>
+<ul>
+<li>An additional lookup may be required to retrieve the complete row</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In databases that use clustered tables (like MySQL InnoDB), a non-clustered index usually stores the clustering key (primary key) instead of the <code>(page, slot)</code> location. The database then searches the clustered index again to get the row.</p>
+</div>
+<h3 id="covering-indexes">Covering Indexes</h3>
+<p>Suppose the query is:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'ap@gmail.com'</span><span class="p">;</span>
+</code></pre></div>
+<p>An index containing only <code>email</code> may find the row but the database must fetch the table row to retrieve <code>name</code>.</p>
+<p>A covering index contains all needed columns:</p>
+<div class="highlight"><pre><span></span><code>Index:
+  email -&gt; name
+</code></pre></div>
+<p>Then the database can answer the query directly from the index:</p>
+<div class="highlight"><pre><span></span><code>ap@gmail.com  ashish
+</code></pre></div>
+<p>No separate table lookup is necessary.</p>
+<p>This is called an index-only scan or covering index scan.</p>
+<h3 id="composite-index">Composite Index</h3>
+<p>A composite index uses multiple columns.</p>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_orders_customer_date</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">orders</span><span class="p">(</span><span class="n">customer_id</span><span class="p">,</span><span class="w"> </span><span class="n">order_date</span><span class="p">);</span>
+</code></pre></div>
+<p>The index is ordered approximately like:</p>
+<div class="highlight"><pre><span></span><code>customer_id | order_date
+------------------------
+1           | 2026-01-01
+1           | 2026-01-05
+1           | 2026-01-06
+2           | 2026-01-07
+2           | 2026-01-08
+</code></pre></div>
+<p>This efficiently supports:</p>
+<ul>
+<li><code>WHERE customer_id = 1</code></li>
+<li><code>WHERE customer_id = 1 AND order_date &gt;= '2026-01-01';</code></li>
+</ul>
+<p>The order of columns matters. An index on <code>(customer_id, order_date)</code> is generally useful for queries with <code>customer_id</code>, but it is generally not efficient for queries that filter only on <code>order_date</code>. This is because the index is sorted by <code>customer_id</code> first (also known as the leftmost prefix rule).</p>
+<h3 id="hash-indexes">Hash Indexes</h3>
+<p>A hash index applies a hash function to a key: <code>hash(key)</code> → <code>bucket</code>.</p>
+<p>Example: <code>hash('ap@gmail.com')</code> → <code>bucket 42</code></p>
+<p>The database looks directly in bucket 42.</p>
+<p>They are good for equality queries like <code>WHERE email = 'ap@gmail.com'</code> but generally poor for range queries like <code>WHERE id BETWEEN 1 AND 50</code>.</p>
+<p>This is because hash order does not preserve key order. They may also require bucket expansion or collision handling.</p>
+<h3 id="bitmap-indexes">Bitmap Indexes</h3>
+<p>A bitmap index is useful for columns with a small number of distinct values.</p>
+<div class="highlight"><pre><span></span><code>id | dept
+---------
+1  | CSE
+2  | EE
+3  | ME
+4  | EE
+5  | CSE
+</code></pre></div>
+<p>The bitmap for each value might be:</p>
+<div class="highlight"><pre><span></span><code>id positions: 1 2 3 4 5
+EE:           0 1 0 1 0
+CSE:          1 0 0 0 1
+ME:           0 0 1 0 0
+</code></pre></div>
+<p>A query like <code>WHERE dept = 'EE'</code> uses the EE bitmap. They are more suitable when the cardinality of the column is low.</p>
+<h3 id="inverted-indexes">Inverted Indexes</h3>
+<p>An inverted index maps a value to all records containing that value. Search engines use inverted indexes for text.</p>
+<div class="highlight"><pre><span></span><code>Doc 1: ds and algo
+Doc 2: algo code
+Doc 3: ds and code
+
+So an inverted index might be:
+
+ds   -&gt; [Doc 1, Doc 3]
+algo -&gt; [Doc 1, Doc 2]
+code -&gt; [Doc 2, Doc 3]
+</code></pre></div>
+<p>For a query like <code>ds and code</code>, it will intersect <code>[Doc 1, Doc 3]</code> and <code>[Doc 2, Doc 3]</code> and return <code>Doc 3</code>.</p>
+<p>They are used for full-text search, token search, tags, arrays, JSON fields, Elasticsearch and OpenSearch.</p>
+<h3 id="spatial-index">Spatial Index</h3>
+<p>Spatial indexes support locations and geometric objects. For example: find restaurants within 2 km.</p>
+<p>Common structures include: <strong>R-trees</strong>, <strong>Quadtrees</strong>, <strong>Geohashes</strong>.</p>
+<hr />
+<h2 id="8-more-about-pages">8. More About Pages</h2>
+<h3 id="write-ahead-log-wal">Write Ahead Log (WAL)</h3>
+<p>A database usually does not rely only on writing table pages directly to storage. Instead it uses a <strong>Write Ahead Log (WAL)</strong>. So whenever a database updates a page, it first writes the change to the log and only then modifies the page. If a system crash happens, the database can replay the log on restart and recover to a consistent state.</p>
+<h3 id="dirty-pages">Dirty Pages</h3>
+<p>When a database modifies a page in RAM, the page becomes <strong>dirty</strong>, because the RAM version is different from the disk page. Eventually the database flushes this RAM page back to the disk. This is called <strong>write-back caching</strong>.</p>
+<h3 id="page-splits">Page Splits</h3>
+<p>When a page is full, a new entry may require a <strong>split</strong>. So the new page may not be adjacent to the current page on the disk. This is acceptable because generally indexes like B+ trees store pointers or page identifiers.</p>
+<hr />
+<h2 id="9-things-to-keep-in-mind-about-indexes">9. Things to Keep in Mind About Indexes</h2>
+<h3 id="storage-and-write-cost">Storage and Write Cost</h3>
+<p>An index is also a data structure, it is not free. The index consumes disk and RAM cache space since it stores the key and the pointer (or value).</p>
+<p>Indexes also slow down writes, because every <code>INSERT</code>, <code>UPDATE</code> (on indexed columns) and <code>DELETE</code> has to update the indexes too.</p>
+<h3 id="index-selectivity">Index Selectivity</h3>
+<p>An index is useful when it narrows the search space. So for B-tree indexes, we should prefer columns which have mostly unique (high cardinality) values, like <code>user_id</code> or <code>email</code>. A column like <code>gender</code> has only a few distinct values, so a normal index on it will not narrow down much.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

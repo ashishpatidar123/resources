@@ -1,0 +1,1715 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Consistent%20Hashing/">
+      
+      
+        <link rel="next" href="../LSM-Tress%20vs%20B%2B%20Trees/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Distributed Rate Limiting with Redis - Resources</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#distributed-rate-limiting-with-redis-and-lua-scripting" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Resources" class="md-header__button md-logo" aria-label="Resources" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Resources
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Distributed Rate Limiting with Redis
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Resources" class="md-nav__button md-logo" aria-label="Resources" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Resources
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Consistent%20Hashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Consistent Hashing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Rate Limiting with Redis
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Rate Limiting with Redis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-problem-in-memory-counters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Problem: In-Memory Counters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. The Problem: In-Memory Counters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-naive-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Naive Approach
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-it-fails-in-a-distributed-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why It Fails in a Distributed System
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-sticky-session-band-aid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Sticky Session Band-Aid
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-core-algorithms-token-bucket-vs-sliding-window-log" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Core Algorithms: Token Bucket vs Sliding Window Log
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Core Algorithms: Token Bucket vs Sliding Window Log">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#token-bucket-the-industry-standard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Token Bucket (The Industry Standard)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sliding-window-log-the-high-accuracy-alternative" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sliding Window Log (The High-Accuracy Alternative)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparison
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-distributed-race-condition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The Distributed Race Condition
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-the-solution-atomicity-via-redis-lua-scripting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. The Solution: Atomicity via Redis Lua Scripting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. The Solution: Atomicity via Redis Lua Scripting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-not-a-distributed-lock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Not a Distributed Lock?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-redis-reality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Redis Reality
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lua-scripting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lua Scripting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-practical-implementation-java-redis-lua" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Practical Implementation (Java + Redis Lua)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Practical Implementation (Java + Redis Lua)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-the-script-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How the Script Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-architecture-trade-offs-and-flaws" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Architecture Trade-offs and Flaws
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Architecture Trade-offs and Flaws">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-single-point-of-failure-spof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Single Point of Failure (SPOF)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-ntp-clock-drift-flaw" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The NTP Clock Drift Flaw
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#long-scripts-block-redis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Long Scripts Block Redis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sending-the-script-every-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sending the Script Every Time
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources-for-further-deep-diving" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resources for Further Deep Diving
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LSM-Tress%20vs%20B%2B%20Trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LSM Tress vs B+ Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Lock%20Free%20Concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lock-Free Concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Message%20Broker%20Hardware%20Sympathy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message Broker Hardware Sympathy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Microservices%20Data%20Consistency%3A%20Dual-Write%2C%202PC%20and%20the%20Transactional%20Outbox%20Pattern/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dual-Write and 2PC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Multi-Level%20Indexing%20in%20Databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Level Indexing in Databases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Multi-Version%20Concurrency%20Control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Version Concurrency Control (MVCC)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PostgreSQL%20Internals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PostgreSQL Internals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DSA
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DSA/Graph_Algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graph Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../OS/Hardware%20Mechanical%20Sympathy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware Mechanical Sympathy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    System Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../System%20Design/System%20Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design Concepts: A Comprehensive Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-problem-in-memory-counters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Problem: In-Memory Counters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. The Problem: In-Memory Counters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-naive-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Naive Approach
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-it-fails-in-a-distributed-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why It Fails in a Distributed System
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-sticky-session-band-aid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Sticky Session Band-Aid
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-core-algorithms-token-bucket-vs-sliding-window-log" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Core Algorithms: Token Bucket vs Sliding Window Log
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Core Algorithms: Token Bucket vs Sliding Window Log">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#token-bucket-the-industry-standard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Token Bucket (The Industry Standard)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sliding-window-log-the-high-accuracy-alternative" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sliding Window Log (The High-Accuracy Alternative)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparison
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-distributed-race-condition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The Distributed Race Condition
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-the-solution-atomicity-via-redis-lua-scripting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. The Solution: Atomicity via Redis Lua Scripting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. The Solution: Atomicity via Redis Lua Scripting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-not-a-distributed-lock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Not a Distributed Lock?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-redis-reality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Redis Reality
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lua-scripting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lua Scripting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-practical-implementation-java-redis-lua" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Practical Implementation (Java + Redis Lua)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Practical Implementation (Java + Redis Lua)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-the-script-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How the Script Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-architecture-trade-offs-and-flaws" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Architecture Trade-offs and Flaws
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Architecture Trade-offs and Flaws">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-single-point-of-failure-spof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Single Point of Failure (SPOF)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-ntp-clock-drift-flaw" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The NTP Clock Drift Flaw
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#long-scripts-block-redis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Long Scripts Block Redis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sending-the-script-every-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sending the Script Every Time
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources-for-further-deep-diving" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resources for Further Deep Diving
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="distributed-rate-limiting-with-redis-and-lua-scripting">Distributed Rate Limiting with Redis and Lua Scripting</h1>
+<h2 id="1-introduction">1. Introduction</h2>
+<p>Rate limiting means controlling how many requests a user (or client) can make to an API in a given time. If the user crosses the limit, the server rejects the request with HTTP <code>429 Too Many Requests</code>.</p>
+<p>Building an API rate limiter on a single server is simple. But enforcing a strict global rate limit across 50 server instances, without adding a lot of latency or race conditions, is a complex engineering challenge.</p>
+<div class="admonition note">
+<p class="admonition-title">The Basic Idea</p>
+<p>Keep the rate limiting state in one shared place (Redis), and make the "check and update" step a single atomic operation (a Lua script).</p>
+</div>
+<p>The final flow will look like this:</p>
+<p><code>Request</code> → <code>App Server</code> → <code>Redis (Lua script)</code> → <code>Allow</code> or <code>Reject (429)</code></p>
+<hr />
+<h2 id="2-the-problem-in-memory-counters">2. The Problem: In-Memory Counters</h2>
+<h3 id="the-naive-approach">The Naive Approach</h3>
+<p>A developer uses a thread-safe <code>ConcurrentHashMap&lt;String, Integer&gt;</code> (in Java) or <code>std::unordered_map</code> with a <code>std::mutex</code> (in C++) on the application server to track requests per user IP.</p>
+<h3 id="why-it-fails-in-a-distributed-system">Why It Fails in a Distributed System</h3>
+<p>Modern microservices sit behind a Load Balancer. Suppose User A gets routed to Server 1 on the first request and to Server 2 on the second request. Now the in-memory state is siloed, because each server only knows about its own requests.</p>
+<div class="highlight"><pre><span></span><code>User A → Load Balancer → Server 1 (count = 1)
+User A → Load Balancer → Server 2 (count = 1)   ← Server 2 doesn't know about Server 1
+</code></pre></div>
+<p>So a user could bypass a "10 requests/minute" limit by making 50 requests, if they are load-balanced evenly across 5 different servers (each server allows 10).</p>
+<h3 id="the-sticky-session-band-aid">The Sticky Session Band-Aid</h3>
+<p>You could configure the load balancer to always route User A to Server 1 (Sticky Sessions). But this has its own problems:</p>
+<ul>
+<li>It destroys load distribution (hotspotting), because a heavy user always hits the same server.</li>
+<li>If Server 1 crashes, the user is moved to another server and the counter is lost, so their limit gets reset.</li>
+</ul>
+<p>That is why it is considered an anti-pattern in modern stateless microservice architectures.</p>
+<hr />
+<h2 id="3-core-algorithms-token-bucket-vs-sliding-window-log">3. Core Algorithms: Token Bucket vs Sliding Window Log</h2>
+<p>To move the state out of the servers, we first need to agree on the algorithm which will run in our distributed cache.</p>
+<h3 id="token-bucket-the-industry-standard">Token Bucket (The Industry Standard)</h3>
+<p><strong>Mechanics:</strong></p>
+<ul>
+<li>A bucket holds a maximum of <span class="arithmatex">\(N\)</span> tokens.</li>
+<li>Tokens are added to the bucket at a fixed rate <span class="arithmatex">\(R\)</span> (tokens per second).</li>
+<li>Every API request costs 1 token.</li>
+<li>If the bucket is empty, the request is dropped (HTTP 429).</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>We don't actually need a background process to refill the bucket. Instead, on every request we calculate how many tokens should have been added since the last request (<code>elapsed time x rate</code>). This is called a <strong>lazy refill</strong>, and our implementation below uses it.</p>
+</div>
+<p><strong>Pros:</strong></p>
+<ul>
+<li>Extremely memory efficient. It only needs to store 2 values per user: <code>tokens_left</code> and <code>last_refill_timestamp</code>.</li>
+<li>It handles traffic bursts elegantly. A user can burst up to <span class="arithmatex">\(N\)</span> requests at once, while the long-term average is still limited to <span class="arithmatex">\(R\)</span> per second.</li>
+<li>Stripe and Amazon API Gateway use this.</li>
+</ul>
+<h3 id="sliding-window-log-the-high-accuracy-alternative">Sliding Window Log (The High-Accuracy Alternative)</h3>
+<p><strong>Mechanics:</strong></p>
+<ul>
+<li>Instead of counting tokens, the system logs the exact Unix timestamp of every single request a user makes.</li>
+<li>To check if the limit is breached, it drops all timestamps older than the window (e.g. older than 1 minute ago) and counts the remaining logs.</li>
+</ul>
+<p><strong>The Memory Flaw:</strong></p>
+<p>If the limit is 10,000 requests per hour, you must store 10,000 timestamps per active user. Even at 8 bytes each, that is at least 80 KB per user (and a Redis sorted set uses more than the raw bytes). Multiply that by millions of users and you need tens or hundreds of GB of RAM just for rate limiting. Furthermore, removing old entries and counting the log on every request burns CPU cycles.</p>
+<h3 id="comparison">Comparison</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Feature</th>
+<th style="text-align: left;">Token Bucket</th>
+<th style="text-align: left;">Sliding Window Log</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Memory per user</td>
+<td style="text-align: left;">Tiny (2 values)</td>
+<td style="text-align: left;">Large (one entry per request)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Accuracy</td>
+<td style="text-align: left;">Good</td>
+<td style="text-align: left;">Very high (exact)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Burst handling</td>
+<td style="text-align: left;">Allows bursts up to bucket size</td>
+<td style="text-align: left;">No bursts beyond the limit</td>
+</tr>
+<tr>
+<td style="text-align: left;">Work per request</td>
+<td style="text-align: left;">Constant (O(1))</td>
+<td style="text-align: left;">Cleanup + count of the log</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-the-distributed-race-condition">4. The Distributed Race Condition</h2>
+<p>To solve the siloed state problem, we move the Token Bucket state to a centralized Redis cluster. But this introduces a severe concurrency bug: the <strong>Read-Modify-Write Race Condition</strong>.</p>
+<p>Suppose User123 has <code>tokens = 5</code> and two requests arrive at almost the same time on different servers:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Step</th>
+<th style="text-align: left;">Server 1 (Thread A)</th>
+<th style="text-align: left;">Server 2 (Thread B)</th>
+<th style="text-align: left;"><code>tokens</code> in Redis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Reads <code>tokens = 5</code></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">5</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Reads <code>tokens = 5</code></td>
+<td style="text-align: left;">5</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">Calculates <code>5 - 1 = 4</code></td>
+<td style="text-align: left;">Calculates <code>5 - 1 = 4</code></td>
+<td style="text-align: left;">5</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">Writes <code>tokens = 4</code></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Writes <code>tokens = 4</code></td>
+<td style="text-align: left;">4</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The Result:</strong> Two requests went through, but the token count only decreased by 1.</p>
+<p>The problem is that "read, calculate, write" are three separate steps, and another request can sneak in between them.</p>
+<hr />
+<h2 id="5-the-solution-atomicity-via-redis-lua-scripting">5. The Solution: Atomicity via Redis Lua Scripting</h2>
+<h3 id="why-not-a-distributed-lock">Why Not a Distributed Lock?</h3>
+<p>The first idea is to use a distributed lock (like Redlock) around the read-modify-write. But this is not a good fit here:</p>
+<ol>
+<li>Acquire the lock (network call)</li>
+<li>Read the data (network call)</li>
+<li>Write the data (network call)</li>
+<li>Release the lock (network call)</li>
+</ol>
+<p>That is at least 4 network round-trips for <em>every single API call</em>. Even if one round-trip takes around 1 ms inside a data center, we are adding several milliseconds of latency to each request. Also, all the requests of a busy user have to wait for the same lock.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Redis also has <code>WATCH</code> / <code>MULTI</code> / <code>EXEC</code> (optimistic locking), but under high contention the transaction fails and the client has to retry. A Lua script avoids this completely.</p>
+</div>
+<h3 id="the-redis-reality">The Redis Reality</h3>
+<p>Redis executes commands using a <strong>single-threaded</strong> event loop. It executes one command at a time.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Since Redis 6, extra threads can be used for network I/O (reading and writing sockets), but command execution is still done by one thread.</p>
+</div>
+<h3 id="lua-scripting">Lua Scripting</h3>
+<p>Redis allows you to upload custom Lua scripts directly to the Redis server. Redis guarantees that the entire Lua script is executed <strong>atomically</strong>. No other Redis commands or scripts can run while your script is executing.</p>
+<h3 id="performance">Performance</h3>
+<p>By pushing the "Read-Modify-Write" logic directly into the Redis server, we avoid the extra network round-trips. The application server makes exactly one network call: "Execute this script."</p>
+<p><code>App Server</code> → <code>EVAL script</code> → <code>Redis runs read + calculate + write atomically</code> → <code>returns 1 or 0</code></p>
+<hr />
+<h2 id="6-practical-implementation-java-redis-lua">6. Practical Implementation (Java + Redis Lua)</h2>
+<p>Here is how we can implement a globally atomic Token Bucket in Java using the Jedis client.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">redis.clients.jedis.Jedis</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">redis.clients.jedis.JedisPool</span><span class="p">;</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">DistributedRateLimiter</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// A pool is used because a single Jedis connection is not thread-safe</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">JedisPool</span><span class="w"> </span><span class="n">jedisPool</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// The Lua script executed directly inside Redis.</span>
+<span class="w">    </span><span class="c1">// KEYS[1] = bucket_key, ARGV[1] = capacity, ARGV[2] = refill_rate, ARGV[3] = current_time</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">TOKEN_BUCKET_SCRIPT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"""</span>
+<span class="s">        local bucket_key = KEYS[1]</span>
+<span class="s">        local capacity = tonumber(ARGV[1])</span>
+<span class="s">        local refill_rate = tonumber(ARGV[2])</span>
+<span class="s">        local now = tonumber(ARGV[3])</span>
+
+<span class="s">        -- Read current state (a new bucket starts full)</span>
+<span class="s">        local last_tokens = tonumber(redis.call('HGET', bucket_key, 'tokens')) or capacity</span>
+<span class="s">        local last_refill = tonumber(redis.call('HGET', bucket_key, 'last_refill')) or now</span>
+
+<span class="s">        -- Calculate refills based on elapsed time (lazy refill)</span>
+<span class="s">        local elapsed_time = math.max(0, now - last_refill)</span>
+<span class="s">        local new_tokens = math.min(capacity, last_tokens + (elapsed_time * refill_rate))</span>
+
+<span class="s">        -- Evaluate limit</span>
+<span class="s">        if new_tokens &gt;= 1 then</span>
+<span class="s">            redis.call('HSET', bucket_key, 'tokens', new_tokens - 1)</span>
+<span class="s">            redis.call('HSET', bucket_key, 'last_refill', now)</span>
+<span class="s">            redis.call('EXPIRE', bucket_key, math.ceil(capacity / refill_rate)) -- Cleanup</span>
+<span class="s">            return 1 -- Allowed</span>
+<span class="s">        else</span>
+<span class="s">            return 0 -- Blocked</span>
+<span class="s">        end</span>
+<span class="s">        """</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">DistributedRateLimiter</span><span class="p">(</span><span class="n">JedisPool</span><span class="w"> </span><span class="n">jedisPool</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">jedisPool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">jedisPool</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">isAllowed</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">userId</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">capacity</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">tokensPerSecond</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">bucketKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"rate_limit:"</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">userId</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">long</span><span class="w"> </span><span class="n">currentTimeSeconds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span>
+
+<span class="w">        </span><span class="c1">// Only one network round-trip. Guaranteed atomic execution.</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">Jedis</span><span class="w"> </span><span class="n">jedis</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">jedisPool</span><span class="p">.</span><span class="na">getResource</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">Object</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">jedis</span><span class="p">.</span><span class="na">eval</span><span class="p">(</span><span class="n">TOKEN_BUCKET_SCRIPT</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">bucketKey</span><span class="p">,</span>
+<span class="w">                                       </span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">capacity</span><span class="p">),</span>
+<span class="w">                                       </span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">tokensPerSecond</span><span class="p">),</span>
+<span class="w">                                       </span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">currentTimeSeconds</span><span class="p">));</span>
+
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">Long</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="mi">1L</span><span class="p">).</span><span class="na">equals</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The multi-line string (<code>"""</code>) is a Java text block, available from Java 15. On older versions you can join the Lua lines with <code>+</code> instead.</p>
+</div>
+<h3 id="how-the-script-works">How the Script Works</h3>
+<ol>
+<li>Read the current <code>tokens</code> and <code>last_refill</code> of the user from a Redis hash. If the key doesn't exist, start with a full bucket.</li>
+<li>Calculate how many tokens were refilled since the last request, and cap it at the bucket capacity.</li>
+<li>If at least 1 token is available, consume it, save the new state, and return <code>1</code> (allowed).</li>
+<li>Otherwise return <code>0</code> (blocked).</li>
+<li>The <code>EXPIRE</code> removes the key of inactive users after the time needed to fill the bucket completely, so Redis doesn't keep old buckets forever.</li>
+</ol>
+<hr />
+<h2 id="7-architecture-trade-offs-and-flaws">7. Architecture Trade-offs and Flaws</h2>
+<h3 id="the-single-point-of-failure-spof">The Single Point of Failure (SPOF)</h3>
+<p>If your Redis cluster goes down, your API has to choose between two bad options:</p>
+<ul>
+<li><strong>Block all traffic</strong> (fail closed): bad availability.</li>
+<li><strong>Allow all traffic</strong> (fail open): can cause cascading failure to the databases behind the API.</li>
+</ul>
+<p>This risk can be reduced by running Redis with replicas and automatic failover. Some systems also keep a rough local in-memory limiter as a fallback when Redis is not reachable.</p>
+<h3 id="the-ntp-clock-drift-flaw">The NTP Clock Drift Flaw</h3>
+<p>Notice the <code>ARGV[3] = current_time</code> passed from the application server. In a distributed system, Server 1 and Server 2 will have slightly different system clocks due to Network Time Protocol (NTP) drift. If Server 1 is 5 seconds ahead of Server 2, passing the time from the application nodes will cause erratic token refilling (a fast clock gives extra tokens for free).</p>
+<p><strong>The Fix:</strong> Use Redis's internal <code>TIME</code> command inside the Lua script, so the source of truth for time is always the Redis node itself.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Replace ARGV[3] with Redis's own clock</span>
+<span class="kd">local</span><span class="w"> </span><span class="nv">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">redis</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="s1">'TIME'</span><span class="p">)</span>
+<span class="kd">local</span><span class="w"> </span><span class="nv">now</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">tonumber</span><span class="p">(</span><span class="nv">t</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">tonumber</span><span class="p">(</span><span class="nv">t</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000000</span><span class="w">  </span><span class="c1">-- seconds with microsecond precision</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Calling <code>TIME</code> inside a script and then writing data is allowed from Redis 5 onwards. It also gives us sub-second precision, which the <code>System.currentTimeMillis() / 1000</code> in our Java code doesn't.</p>
+</div>
+<h3 id="long-scripts-block-redis">Long Scripts Block Redis</h3>
+<p>Since a script runs atomically, Redis cannot serve any other client while the script is running. So keep the script short and simple, like our token bucket which only does a few O(1) operations.</p>
+<h3 id="sending-the-script-every-time">Sending the Script Every Time</h3>
+<p><code>EVAL</code> sends the whole script text on every call. In production we should load the script once (<code>SCRIPT LOAD</code>) and call it using its SHA1 hash (<code>EVALSHA</code>), so less data goes over the network.</p>
+<hr />
+<h2 id="8-summary">8. Summary</h2>
+<p>Distributed rate limiting prevents systemic API collapse, but naive in-memory counters fail behind load balancers. The Token Bucket algorithm offers the best balance of memory efficiency and burst tolerance.</p>
+<p>To implement this across many servers, we centralize the state in Redis. To overcome the Read-Modify-Write race condition without the latency penalty of distributed locks, we push the rate limiting logic directly into Redis via a Lua script. This uses Redis's single-threaded command execution to guarantee atomicity, with just one fast network call per request.</p>
+<hr />
+<h2 id="resources-for-further-deep-diving">Resources for Further Deep Diving</h2>
+<ul>
+<li><strong>Article:</strong> <a href="https://stripe.com/blog/rate-limiters">Scaling your API with rate limiters (Stripe Engineering Blog)</a> - How Stripe enforces limits using Token Buckets and Redis.</li>
+<li><strong>Article:</strong> <a href="https://bytebytego.com/courses/system-design-interview/design-a-rate-limiter">Design a Rate Limiter (ByteByteGo)</a> - Explains the different rate limiting algorithms and their trade-offs.</li>
+<li><strong>Docs:</strong> <a href="https://redis.io/docs/latest/develop/programmability/eval-intro/">Scripting with Lua (Redis Documentation)</a> - How Redis executes Lua scripts atomically.</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

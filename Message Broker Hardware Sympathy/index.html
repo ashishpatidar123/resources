@@ -1,0 +1,1458 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Lock%20Free%20Concurrency/">
+      
+      
+        <link rel="next" href="../Microservices%20Data%20Consistency%3A%20Dual-Write%2C%202PC%20and%20the%20Transactional%20Outbox%20Pattern/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Message Broker Hardware Sympathy - Resources</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#message-broker-hardware-sympathy-sequential-io-and-zero-copy" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Resources" class="md-header__button md-logo" aria-label="Resources" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Resources
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Message Broker Hardware Sympathy
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Resources" class="md-nav__button md-logo" aria-label="Resources" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Resources
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Consistent%20Hashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Consistent Hashing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Distributed%20Rate%20Limiting%20with%20Redis%20and%20Lua%20Scripting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Rate Limiting with Redis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LSM-Tress%20vs%20B%2B%20Trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LSM Tress vs B+ Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Lock%20Free%20Concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lock-Free Concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message Broker Hardware Sympathy
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message Broker Hardware Sympathy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-problem-traditional-message-queues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Problem: Traditional Message Queues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. The Problem: Traditional Message Queues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-flaw-random-io" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Flaw (Random I/O)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-hardware-reality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Hardware Reality
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-solution-the-append-only-log" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Solution: The Append-Only Log
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. The Solution: The Append-Only Log">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sequential-io" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequential I/O
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-speed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Speed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-analogy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Analogy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-secret-sauce-zero-copy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The Secret Sauce: Zero-Copy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. The Secret Sauce: Zero-Copy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-standard-slow-way" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Standard (Slow) Way
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zero-copy-the-kafka-way" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zero-Copy (The Kafka Way)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Result
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-practical-code-example-zero-copy-in-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Practical Code Example: Zero-Copy in Java
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-architecture-trade-offs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Architecture Trade-offs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Architecture Trade-offs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#no-querying" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        No Querying
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#latency-vs-throughput" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Latency vs Throughput
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources-for-further-deep-diving" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resources for Further Deep Diving
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Microservices%20Data%20Consistency%3A%20Dual-Write%2C%202PC%20and%20the%20Transactional%20Outbox%20Pattern/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dual-Write and 2PC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Multi-Level%20Indexing%20in%20Databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Level Indexing in Databases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Multi-Version%20Concurrency%20Control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Version Concurrency Control (MVCC)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PostgreSQL%20Internals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PostgreSQL Internals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DSA
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DSA/Graph_Algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graph Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../OS/Hardware%20Mechanical%20Sympathy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware Mechanical Sympathy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    System Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../System%20Design/System%20Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design Concepts: A Comprehensive Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-problem-traditional-message-queues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Problem: Traditional Message Queues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. The Problem: Traditional Message Queues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-flaw-random-io" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Flaw (Random I/O)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-hardware-reality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Hardware Reality
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-solution-the-append-only-log" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Solution: The Append-Only Log
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. The Solution: The Append-Only Log">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sequential-io" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequential I/O
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-speed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Speed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-analogy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Analogy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-secret-sauce-zero-copy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The Secret Sauce: Zero-Copy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. The Secret Sauce: Zero-Copy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-standard-slow-way" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Standard (Slow) Way
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zero-copy-the-kafka-way" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zero-Copy (The Kafka Way)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Result
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-practical-code-example-zero-copy-in-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Practical Code Example: Zero-Copy in Java
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-architecture-trade-offs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Architecture Trade-offs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Architecture Trade-offs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#no-querying" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        No Querying
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#latency-vs-throughput" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Latency vs Throughput
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources-for-further-deep-diving" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resources for Further Deep Diving
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="message-broker-hardware-sympathy-sequential-io-and-zero-copy">Message Broker Hardware Sympathy: Sequential I/O and Zero-Copy</h1>
+<h2 id="1-introduction">1. Introduction</h2>
+<p>If you are building a system that needs to process millions of events per second, like tracking every click on a website or every GPS ping from a fleet of delivery vehicles, a traditional database or a standard message queue will fall over. This is the same hardware-level idea we've seen before (like how LSM-trees flush data to disk to avoid random I/O), now applied to building a massive event streaming platform like Apache Kafka.</p>
+<div class="admonition note">
+<p class="admonition-title">The Basic Idea</p>
+<p>Don't update individual records on disk for every message. Only ever append to the end of a file, and let the <em>consumer</em> keep track of how far it has read.</p>
+</div>
+<hr />
+<h2 id="2-the-problem-traditional-message-queues">2. The Problem: Traditional Message Queues</h2>
+<h3 id="the-architecture">The Architecture</h3>
+<p>Think of traditional message brokers (like older versions of RabbitMQ or ActiveMQ) as very anxious librarians. When a publisher sends a message, the broker saves it. When a consumer reads the message, the broker updates that message's state to "read", or deletes it.</p>
+<h3 id="the-flaw-random-io">The Flaw (Random I/O)</h3>
+<p>To track the state of every single message, for every single consumer, the broker has to constantly update rows or index entries on the disk.</p>
+<h3 id="the-hardware-reality">The Hardware Reality</h3>
+<p>Updating individual records scattered across a file means the disk has to keep jumping between different locations to find the right blocks. This is called <strong>Random I/O</strong>. Even on modern SSDs, random writes are noticeably slower than sequential writes. If you try to push 100,000 messages a second through this kind of system, the disk will thrash, latency goes through the roof, and the whole system bottlenecks.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Traditional queues couple the storage of the message with the state of the consumer. This creates lock contention in memory and forces random disk access every time a message is acknowledged.</p>
+</div>
+<hr />
+<h2 id="3-the-solution-the-append-only-log">3. The Solution: The Append-Only Log</h2>
+<p>Instead of acting like a librarian crossing things off a list, Kafka acts like a receipt printer. It doesn't care if you've read the receipt; it just keeps printing new items at the bottom.</p>
+<h3 id="sequential-io">Sequential I/O</h3>
+<p>Kafka stores messages in a flat, append-only file called a <strong>Log</strong>. When a new message arrives, it is simply appended to the end of the file.</p>
+<h3 id="the-speed">The Speed</h3>
+<p>Because the disk is only writing sequentially, without ever jumping around, even a plain spinning hard drive (HDD) can write data at over 100 MB/s. It is close to the physical speed limit of the hardware.</p>
+<h3 id="the-analogy">The Analogy</h3>
+<p>Think of a VHS tape versus a DVD. Skipping to a random scene on a VHS tape means fast-forwarding through everything in between, which is slow. But just hitting "record" and letting the tape run is fast and efficient, because it never has to jump around.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Because Kafka never deletes or updates individual messages when they are read, the broker doesn't have to track "has this specific message been read" for every consumer. Instead, each <em>consumer</em> tracks its own place in the log using an integer called an <strong>Offset</strong>. This removes the read-write lock contention that a traditional queue has.</p>
+<p>Modern Kafka does still store committed offsets on the broker (so a consumer can resume after a restart), but even that is done by appending to an internal log topic (<code>__consumer_offsets</code>) rather than updating a row in place, so it doesn't bring back the random I/O problem.</p>
+</div>
+<hr />
+<h2 id="4-the-secret-sauce-zero-copy">4. The Secret Sauce: Zero-Copy</h2>
+<p>Writing data fast is only half the battle. When a consumer asks for data, the broker has to read it from disk and push it out over the network.</p>
+<h3 id="the-standard-slow-way">The Standard (Slow) Way</h3>
+<p>Normally, sending a file over a network involves four steps:</p>
+<ol>
+<li><strong>DMA copies</strong> data from Disk to Kernel Space (the OS Page Cache). This step doesn't need the CPU: DMA (Direct Memory Access) lets the disk controller move data into RAM on its own.</li>
+<li><strong>CPU copies</strong> data from Kernel Space to User Space (your JVM/Application memory).</li>
+<li><strong>CPU copies</strong> data from User Space back down to Kernel Space (the Socket Buffer).</li>
+<li><strong>DMA copies</strong> it from the Socket Buffer to the Network Interface Card (NIC).</li>
+</ol>
+<h3 id="the-problem">The Problem</h3>
+<p>That is 4 memory copies and 4 context switches between user mode and kernel mode (the switch into the kernel for the read, back out to the application, into the kernel again for the write, and back out). Two of the four copies (steps 2 and 3) burn CPU cycles just moving bytes around for no real reason, since the application usually doesn't need to look at the bytes; it's just forwarding them. Materializing that data as a byte array in the JVM also adds pressure on the Garbage Collector.</p>
+<h3 id="zero-copy-the-kafka-way">Zero-Copy (The Kafka Way)</h3>
+<p>Kafka uses a low-level OS system call called <code>sendfile()</code>. This tells the operating system to copy data directly from the OS Page Cache to the Network Card, skipping steps 2 and 3 entirely.</p>
+<h3 id="the-result">The Result</h3>
+<p>The data never touches User Space, and it never enters the JVM. On a NIC that supports scatter-gather DMA, only the two DMA copies (disk → page cache, page cache → NIC) remain, and the CPU does almost no work at all. Kafka is essentially just a routing tube connecting the disk directly to the network cable.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Without scatter-gather DMA support in the NIC, <code>sendfile()</code> still needs one CPU copy inside the kernel, from the page cache into the socket buffer. Even then, it skips both trips through user space, so it still cuts the copies from 4 down to 3, and the context switches from 4 down to 2. Most modern Linux servers do have this NIC support, which is what gets you the full "2 copies, 2 context switches" zero-copy path.</p>
+</div>
+<hr />
+<h2 id="5-practical-code-example-zero-copy-in-java">5. Practical Code Example: Zero-Copy in Java</h2>
+<p>Here is how you can implement a Zero-Copy network transfer in Java using the NIO (New I/O) package. This <code>transferTo</code> method is what Kafka calls under the hood, and on Linux it maps directly to the <code>sendfile()</code> system call.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.IOException</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">java.io.RandomAccessFile</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">java.net.InetSocketAddress</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">java.nio.channels.FileChannel</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">java.nio.channels.SocketChannel</span><span class="p">;</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ZeroCopyExample</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">sendDataZeroCopy</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">filePath</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">destIp</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">destPort</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// try-with-resources ensures everything is closed even if transferTo() throws</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">RandomAccessFile</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">RandomAccessFile</span><span class="p">(</span><span class="n">filePath</span><span class="p">,</span><span class="w"> </span><span class="s">"r"</span><span class="p">);</span>
+<span class="w">             </span><span class="n">FileChannel</span><span class="w"> </span><span class="n">fileChannel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="p">.</span><span class="na">getChannel</span><span class="p">();</span>
+<span class="w">             </span><span class="n">SocketChannel</span><span class="w"> </span><span class="n">socketChannel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SocketChannel</span><span class="p">.</span><span class="na">open</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">            </span><span class="n">socketChannel</span><span class="p">.</span><span class="na">connect</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">InetSocketAddress</span><span class="p">(</span><span class="n">destIp</span><span class="p">,</span><span class="w"> </span><span class="n">destPort</span><span class="p">));</span>
+
+<span class="w">            </span><span class="c1">// The Magic Call: transferTo()</span>
+<span class="w">            </span><span class="c1">// This invokes the OS 'sendfile()' system call.</span>
+<span class="w">            </span><span class="c1">// Data goes straight from the disk cache to the socket buffer via DMA.</span>
+<span class="w">            </span><span class="c1">// It never enters the Java heap.</span>
+<span class="w">            </span><span class="kt">long</span><span class="w"> </span><span class="n">totalBytes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fileChannel</span><span class="p">.</span><span class="na">size</span><span class="p">();</span>
+<span class="w">            </span><span class="kt">long</span><span class="w"> </span><span class="n">position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">            </span><span class="c1">// transferTo() is not guaranteed to send everything in one call,</span>
+<span class="w">            </span><span class="c1">// especially for large files, so we loop until it's all sent.</span>
+<span class="w">            </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">position</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">totalBytes</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">position</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">fileChannel</span><span class="p">.</span><span class="na">transferTo</span><span class="p">(</span><span class="n">position</span><span class="p">,</span><span class="w"> </span><span class="n">totalBytes</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">position</span><span class="p">,</span><span class="w"> </span><span class="n">socketChannel</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The original single-call version (<code>fileChannel.transferTo(0, totalBytes, socketChannel)</code>) works for small files, but <code>transferTo()</code> can transfer fewer bytes than requested in one call, particularly for large log segments. The loop above makes sure the whole file is actually sent.</p>
+</div>
+<hr />
+<h2 id="6-architecture-trade-offs">6. Architecture Trade-offs</h2>
+<p>You can't get this kind of speed without giving something up.</p>
+<h3 id="no-querying">No Querying</h3>
+<p>Because data is written as a raw sequential byte stream, you lose the ability to query it. You cannot ask Kafka, "give me the event where <code>userId == 123</code>." Kafka only understands offsets. You have to say, "give me all the bytes starting at offset 4500," and do the filtering yourself on the consumer side.</p>
+<h3 id="latency-vs-throughput">Latency vs Throughput</h3>
+<p>Kafka batches messages together before writing them to disk, which is what makes the sequential writes so efficient. This is great for throughput, but it means a single message can sit in a batch for a few milliseconds before being flushed, which is a small trade-off against the absolute lowest possible per-message latency.</p>
+<hr />
+<h2 id="7-summary">7. Summary</h2>
+<p>When scaling backend systems to handle millions of events per second, traditional message queues bottleneck because they rely on random disk I/O and heavy CPU usage to track the state of every message. Kafka solves this by treating storage as a simple, append-only log, which lets it make the most of cheap sequential disk write speeds.</p>
+<p>To serve that data back to consumers, Kafka uses the OS-level <code>sendfile()</code> system call (zero-copy), letting the hardware's DMA controller move data straight from the disk cache to the network card. This bypasses the application layer almost entirely, saving CPU cycles and memory, in exchange for giving up the ability to query the data directly.</p>
+<hr />
+<h2 id="resources-for-further-deep-diving">Resources for Further Deep Diving</h2>
+<ul>
+<li><strong>Guide:</strong> <a href="https://bytebytego.com/guides/why-is-kafka-fast/">Why is Kafka Fast? (ByteByteGo)</a> - A visual walkthrough of Sequential I/O and the Zero-Copy data path, step by step.</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

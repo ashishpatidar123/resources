@@ -1,0 +1,1457 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Multi-Level%20Indexing%20in%20Databases/">
+      
+      
+        <link rel="next" href="../PostgreSQL%20Internals/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Multi-Version Concurrency Control (MVCC) - Resources</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#multi-version-concurrency-control-mvcc" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Resources" class="md-header__button md-logo" aria-label="Resources" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Resources
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Multi-Version Concurrency Control (MVCC)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Resources" class="md-nav__button md-logo" aria-label="Resources" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Resources
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Consistent%20Hashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Consistent Hashing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Distributed%20Rate%20Limiting%20with%20Redis%20and%20Lua%20Scripting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Rate Limiting with Redis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LSM-Tress%20vs%20B%2B%20Trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LSM Tress vs B+ Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Lock%20Free%20Concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lock-Free Concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Message%20Broker%20Hardware%20Sympathy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message Broker Hardware Sympathy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Microservices%20Data%20Consistency%3A%20Dual-Write%2C%202PC%20and%20the%20Transactional%20Outbox%20Pattern/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dual-Write and 2PC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Multi-Level%20Indexing%20in%20Databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Level Indexing in Databases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Version Concurrency Control (MVCC)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Version Concurrency Control (MVCC)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-problem-pessimistic-locking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Problem: Pessimistic Locking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. The Problem: Pessimistic Locking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-naive-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Naive Solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-hardware-reality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Hardware Reality
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-solution-mvcc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Solution: MVCC
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. The Solution: MVCC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-concept" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Concept
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-analogy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Analogy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Result
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-under-the-hood-how-postgres-does-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Under the Hood: How Postgres Does This
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Under the Hood: How Postgres Does This">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-update-illusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The UPDATE Illusion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visibility-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visibility Rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-practical-code-example-simulating-mvcc-in-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Practical Code Example: Simulating MVCC in Java
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-the-trade-off-table-bloat-and-vacuum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. The Trade-off: Table Bloat and VACUUM
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. The Trade-off: Table Bloat and VACUUM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-flaw-dead-tuples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Flaw (Dead Tuples)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-read-penalty" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Read Penalty
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-fix-vacuum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Fix: VACUUM
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resources
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PostgreSQL%20Internals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PostgreSQL Internals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DSA
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DSA/Graph_Algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graph Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../OS/Hardware%20Mechanical%20Sympathy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware Mechanical Sympathy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    System Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../System%20Design/System%20Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design Concepts: A Comprehensive Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-problem-pessimistic-locking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Problem: Pessimistic Locking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. The Problem: Pessimistic Locking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-naive-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Naive Solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-hardware-reality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Hardware Reality
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-solution-mvcc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Solution: MVCC
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. The Solution: MVCC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-concept" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Concept
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-analogy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Analogy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Result
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-under-the-hood-how-postgres-does-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Under the Hood: How Postgres Does This
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Under the Hood: How Postgres Does This">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-update-illusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The UPDATE Illusion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visibility-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visibility Rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-practical-code-example-simulating-mvcc-in-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Practical Code Example: Simulating MVCC in Java
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-the-trade-off-table-bloat-and-vacuum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. The Trade-off: Table Bloat and VACUUM
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. The Trade-off: Table Bloat and VACUUM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-flaw-dead-tuples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Flaw (Dead Tuples)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-read-penalty" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Read Penalty
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-fix-vacuum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Fix: VACUUM
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resources
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="multi-version-concurrency-control-mvcc">Multi-Version Concurrency Control (MVCC)</h1>
+<h2 id="1-introduction">1. Introduction</h2>
+<p>How do PostgreSQL and MySQL allow 10,000 users to read a row at the exact same time that 500 other users are trying to update it, all without the database crashing or grinding to a halt?</p>
+<p>The secret is <strong>Multi-Version Concurrency Control (MVCC)</strong>. Let's break down why traditional locking struggles here, and how MVCC fixes it.</p>
+<div class="admonition note">
+<p class="admonition-title">The Basic Idea</p>
+<p>Don't lock a row to update it. Instead, keep the old version around and insert a new version next to it, so readers can keep reading the old version while the write is happening.</p>
+</div>
+<hr />
+<h2 id="2-the-problem-pessimistic-locking">2. The Problem: Pessimistic Locking</h2>
+<h3 id="the-architecture">The Architecture</h3>
+<p>Imagine you are building a banking app. User A is checking their balance (a read) while a direct deposit is updating their balance (a write) at the same time.</p>
+<h3 id="the-naive-solution">The Naive Solution</h3>
+<p>You use a lock, for example a Read-Write Lock. When the direct deposit starts, it takes a write lock on the row. While that lock is held, User A (and anyone else) is blocked from reading the balance, because a write lock conflicts with a read lock.</p>
+<h3 id="the-hardware-reality">The Hardware Reality</h3>
+<p>This hurts performance. When a database thread has to wait on a lock, it gets put to sleep and another thread is scheduled in its place, which is a context switch. Every context switch has a cost, and it also disturbs the CPU cache, since the new thread's data usually isn't the data sitting in the cache anymore. If you have thousands of concurrent transactions all fighting over the same rows, a meaningful chunk of your CPU cycles go into putting threads to sleep and waking them up again, instead of doing actual work.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>In a pessimistic locking model, writers block readers, and readers block writers, for the same row. If someone runs a slow analytical query that takes 10 seconds to read a table, every update to that table can pile up in a queue behind it, exhausting your database connection pool and taking down your API.</p>
+</div>
+<hr />
+<h2 id="3-the-solution-mvcc">3. The Solution: MVCC</h2>
+<p>To achieve high throughput, modern databases like PostgreSQL and MySQL's InnoDB engine follow a simple rule: <strong>never overwrite data in place.</strong></p>
+<h3 id="the-concept">The Concept</h3>
+<p>Instead of locking a row to update it, the database inserts a brand new version of the row right next to the old one.</p>
+<h3 id="the-analogy">The Analogy</h3>
+<p>Think of MVCC like Git. When you edit a file on a branch, you don't lock the <code>main</code> branch so nobody else can look at it. You just make a new commit. Other developers keep seeing the old version of the code until you finally merge your changes.</p>
+<h3 id="the-result">The Result</h3>
+<p>A read query looks at a snapshot of the database as it stood at the moment the query started, so readers don't need to wait for writers to finish, and writers don't need to wait for readers to finish.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>This mainly removes read-write blocking. Two writers updating the <em>same row</em> at the same time can still block each other, since only one of them can hold the row-level write lock at a time. What MVCC removes is readers having to wait on writers, and writers having to wait on readers.</p>
+</div>
+<hr />
+<h2 id="4-under-the-hood-how-postgres-does-this">4. Under the Hood: How Postgres Does This</h2>
+<p>Let's look at the physical disk layout of PostgreSQL to see how this works.</p>
+<p>Every table in Postgres secretly carries a few hidden system columns on every row. The two most important are:</p>
+<ul>
+<li><code>xmin</code>: the Transaction ID (TXID) that inserted this row version.</li>
+<li><code>xmax</code>: the Transaction ID (TXID) that deleted or updated this row version (<code>0</code> by default, meaning it hasn't been touched).</li>
+</ul>
+<h3 id="the-update-illusion">The UPDATE Illusion</h3>
+<p>When you run <code>UPDATE users SET balance = 100 WHERE id = 1;</code>, Postgres does not overwrite the row:</p>
+<ol>
+<li>It finds the old row and sets its <code>xmax</code> to your current TXID (marking it as superseded).</li>
+<li>It inserts a brand new row with the new balance of 100, setting its <code>xmin</code> to your current TXID.</li>
+</ol>
+<div class="highlight"><pre><span></span><code>Before UPDATE:
+  id=1, balance=50,  xmin=10, xmax=0
+
+After UPDATE (by transaction 42):
+  id=1, balance=50,  xmin=10, xmax=42   &lt;- old version, now superseded
+  id=1, balance=100, xmin=42, xmax=0    &lt;- new version, currently live
+</code></pre></div>
+<h3 id="visibility-rules">Visibility Rules</h3>
+<p>When another query reads the <code>users</code> table, the database engine compares the query's snapshot against the <code>xmin</code> and <code>xmax</code> of every row version. If a row was marked as deleted by a transaction that hadn't committed yet when the reading query's snapshot was taken, the database ignores that deletion and returns the old row instead.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>This is more than just comparing transaction ID numbers. A snapshot in Postgres also tracks which transactions were still in progress when it was taken. That matters because a transaction's TXID being numerically smaller than yours doesn't tell you whether it actually committed, aborted, or is still running, and only a <em>committed</em> xmin makes a row visible. Section 5 simplifies this into plain number comparisons to keep the example approachable, but real Postgres also checks commit status via its commit log, not just TXID order.</p>
+</div>
+<hr />
+<h2 id="5-practical-code-example-simulating-mvcc-in-java">5. Practical Code Example: Simulating MVCC in Java</h2>
+<p>To build intuition, here is a simplified Java class that mimics how a database might decide which version of a row to show a given transaction.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">MVCCDatabaseRow</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">id</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// The hidden MVCC columns</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">xmin</span><span class="p">;</span><span class="w"> </span><span class="c1">// Transaction that created this version</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">xmax</span><span class="p">;</span><span class="w">       </span><span class="c1">// Transaction that deleted/replaced this version (0 if still live)</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">MVCCDatabaseRow</span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">xmin</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span><span class="p">;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">xmin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">xmin</span><span class="p">;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">xmax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="c1">// 0 means it hasn't been deleted or updated yet</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="cm">/**</span>
+<span class="cm">     * A simplified MVCC visibility check.</span>
+<span class="cm">     * Determines if a specific transaction is allowed to see this row version,</span>
+<span class="cm">     * assuming every transaction with a smaller TXID has already committed.</span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">isVisibleTo</span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="n">currentTransactionId</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Rule 1: Was this row created AFTER our transaction started?</span>
+<span class="w">        </span><span class="c1">// If yes, we can't see it yet.</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">xmin</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">currentTransactionId</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="c1">// Rule 2: Has this row been superseded (deleted or updated)?</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">xmax</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// Rule 3: Was it superseded BEFORE our transaction started?</span>
+<span class="w">            </span><span class="c1">// If yes, it's dead to us.</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">xmax</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">currentTransactionId</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="c1">// If xmax &gt; currentTransactionId, it was superseded by</span>
+<span class="w">            </span><span class="c1">// something in our future, so for our snapshot it's still valid.</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="c1">// If it passes the checks, this is the version we should read.</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This example assumes every transaction with a smaller TXID has already committed, which keeps the logic easy to follow. Real Postgres cannot make that assumption: a transaction can also abort, and an aborted transaction's changes must never become visible, no matter what its TXID is. That's why a real snapshot also carries the list of transactions that were still in progress when it was taken, and checks each row's <code>xmin</code>/<code>xmax</code> against Postgres's commit log to see whether the relevant transaction actually committed.</p>
+</div>
+<hr />
+<h2 id="6-the-trade-off-table-bloat-and-vacuum">6. The Trade-off: Table Bloat and VACUUM</h2>
+<p>You don't get this kind of concurrency for free.</p>
+<h3 id="the-flaw-dead-tuples">The Flaw (Dead Tuples)</h3>
+<p>If you run an <code>UPDATE</code> on a row a million times, you now have a million "dead" row versions sitting on disk. They are invisible to new transactions, but they still physically take up space.</p>
+<h3 id="the-read-penalty">The Read Penalty</h3>
+<p>When you run a sequential scan (<code>SELECT * FROM users</code>, without an index), the database still has to physically read past all those dead versions to find the live one, which hurts your read throughput.</p>
+<h3 id="the-fix-vacuum">The Fix: VACUUM</h3>
+<p>PostgreSQL relies on a background process called <strong>VACUUM</strong> (and its automatic counterpart, <code>autovacuum</code>). This process sweeps through the table's files, finds row versions whose <code>xmax</code> transaction has committed and is old enough that no active snapshot could still need them, and marks that space as reusable.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If your database has sustained, heavy write traffic, it can generate dead row versions faster than autovacuum can clean them up. This is called <strong>table bloat</strong>: your tables and indexes grow larger than the live data warrants, queries slow down, and disk usage keeps climbing. Left unmanaged for long enough, it can also block Postgres's transaction ID wraparound protection from running (this actually stops writes to protect data integrity, rather than causing a crash outright). Tuning autovacuum is a genuinely important skill for running Postgres at scale.</p>
+</div>
+<hr />
+<h2 id="7-summary">7. Summary</h2>
+<p>To handle heavy concurrent read and write traffic without constant thread locking, modern databases use Multi-Version Concurrency Control (MVCC). Instead of locking and overwriting data, the database treats row versions as mostly immutable: an <code>UPDATE</code> is really an <code>INSERT</code> of a new version alongside a soft-delete of the old one, using the hidden <code>xmin</code>/<code>xmax</code> transaction ID columns to mark which version applies when.</p>
+<p>Each query gets a consistent snapshot of the database, so readers and writers can proceed at the same time without blocking each other on the same row. In exchange, the database pays a real cost in disk space, since old row versions have to be cleaned up by VACUUM before they pile up into table bloat.</p>
+<hr />
+<h2 id="resources">Resources</h2>
+<ul>
+<li><strong>Article:</strong> <a href="https://brandur.org/postgres-atomicity">How Postgres Makes Transactions Atomic (Brandur Leach)</a> - Goes into the actual <code>xmin</code>/<code>xmax</code> fields at the source level, with real struct definitions from the Postgres codebase.</li>
+<li><strong>Article:</strong> <a href="https://planetscale.com/blog/postgresql-mvcc">Every UPDATE Leaves a Ghost: MVCC, Bloat, and VACUUM in PostgreSQL (PlanetScale)</a> - A practical walkthrough of how dead tuples accumulate and how VACUUM cleans them up.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

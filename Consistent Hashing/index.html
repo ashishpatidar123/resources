@@ -1,0 +1,1546 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../Distributed%20Rate%20Limiting%20with%20Redis%20and%20Lua%20Scripting/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Consistent Hashing - Resources</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#consistent-hashing-and-virtual-nodes" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Resources" class="md-header__button md-logo" aria-label="Resources" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Resources
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Consistent Hashing
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Resources" class="md-nav__button md-logo" aria-label="Resources" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Resources
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Consistent Hashing
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Consistent Hashing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-problem-modulo-hashing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Problem: Modulo Hashing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. The Problem: Modulo Hashing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-analogy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Analogy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-massive-flaw" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Massive Flaw
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-fix-the-consistent-hashing-ring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Fix: The Consistent Hashing Ring
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. The Fix: The Consistent Hashing Ring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-ring-concept" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Ring Concept
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#placing-servers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Placing Servers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#placing-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Placing Data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-routing-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Routing Rule
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-this-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why This Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-new-flaw-hotspots-and-uneven-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The New Flaw: Hotspots and Uneven Data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-the-final-polish-virtual-nodes-vnodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. The Final Polish: Virtual Nodes (vNodes)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. The Final Polish: Virtual Nodes (vNodes)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-trick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Trick
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Result
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-practical-implementation-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Practical Implementation (Java)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-trade-offs-and-practical-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Trade-offs and Practical Considerations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Trade-offs and Practical Considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#choice-of-hash-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choice of Hash Function
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-and-lookup-cost-of-the-ring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory and Lookup Cost of the Ring
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-this-is-used-in-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where This Is Used in Practice
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources-for-further-deep-diving" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resources for Further Deep Diving
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Distributed%20Rate%20Limiting%20with%20Redis%20and%20Lua%20Scripting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Rate Limiting with Redis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LSM-Tress%20vs%20B%2B%20Trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LSM Tress vs B+ Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Lock%20Free%20Concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lock-Free Concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Message%20Broker%20Hardware%20Sympathy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message Broker Hardware Sympathy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Microservices%20Data%20Consistency%3A%20Dual-Write%2C%202PC%20and%20the%20Transactional%20Outbox%20Pattern/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dual-Write and 2PC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Multi-Level%20Indexing%20in%20Databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Level Indexing in Databases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Multi-Version%20Concurrency%20Control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Version Concurrency Control (MVCC)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PostgreSQL%20Internals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PostgreSQL Internals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DSA
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DSA/Graph_Algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graph Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../OS/Hardware%20Mechanical%20Sympathy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware Mechanical Sympathy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    System Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../System%20Design/System%20Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design Concepts: A Comprehensive Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-problem-modulo-hashing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Problem: Modulo Hashing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. The Problem: Modulo Hashing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-analogy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Analogy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-massive-flaw" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Massive Flaw
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-fix-the-consistent-hashing-ring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Fix: The Consistent Hashing Ring
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. The Fix: The Consistent Hashing Ring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-ring-concept" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Ring Concept
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#placing-servers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Placing Servers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#placing-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Placing Data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-routing-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Routing Rule
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-this-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why This Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-new-flaw-hotspots-and-uneven-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The New Flaw: Hotspots and Uneven Data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-the-final-polish-virtual-nodes-vnodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. The Final Polish: Virtual Nodes (vNodes)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. The Final Polish: Virtual Nodes (vNodes)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-trick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Trick
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Result
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-practical-implementation-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Practical Implementation (Java)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-trade-offs-and-practical-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Trade-offs and Practical Considerations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Trade-offs and Practical Considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#choice-of-hash-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choice of Hash Function
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-and-lookup-cost-of-the-ring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory and Lookup Cost of the Ring
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-this-is-used-in-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where This Is Used in Practice
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources-for-further-deep-diving" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resources for Further Deep Diving
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="consistent-hashing-and-virtual-nodes">Consistent Hashing and Virtual Nodes</h1>
+<h2 id="1-introduction">1. Introduction</h2>
+<p>If you are building an app with millions of users, a single Redis server will run out of RAM pretty fast. You have to split the data across multiple servers. But doing this the wrong way can take your whole system down the moment a server crashes or a new one is added.</p>
+<div class="admonition note">
+<p class="admonition-title">The Basic Idea</p>
+<p>Don't decide a key's server using the <em>count</em> of servers (like <code>hash(key) % N</code>). Instead, place both the servers and the keys on the same ring, so that adding or removing a server only affects its nearby neighbors.</p>
+</div>
+<p>In this article we go through why naive hashing breaks, how the consistent hashing ring fixes it, and why virtual nodes are needed on top of it.</p>
+<hr />
+<h2 id="2-the-problem-modulo-hashing">2. The Problem: Modulo Hashing</h2>
+<h3 id="how-it-works">How It Works</h3>
+<p>Let's say you have 4 Redis servers (Server 0, 1, 2, 3). You want to cache a user's profile. You take the <code>userId</code>, run it through a hash function to get a big number, and then use the modulo operator (<code>% 4</code>). If the result is <code>2</code>, you save the data on Server 2.</p>
+<div class="highlight"><pre><span></span><code>server_index = hash(userId) % N
+</code></pre></div>
+<h3 id="the-analogy">The Analogy</h3>
+<p>Think of this like sorting playing cards into 4 buckets by dealing them out one by one. It works great and keeps the buckets perfectly even, as long as the number of buckets never changes.</p>
+<h3 id="the-massive-flaw">The Massive Flaw</h3>
+<p>What happens if Server 2 catches on fire and dies? You now have 3 servers, so your math changes to <code>hash(userId) % 3</code>.</p>
+<ul>
+<li>A key that used to map to Server 1 (<code>hash % 4 == 1</code>) might now map to Server 0 (<code>hash % 3 == 0</code>).</li>
+<li>A key that used to map to Server 3 might now map to Server 1.</li>
+<li>Since <code>% 4</code> and <code>% 3</code> are unrelated calculations, almost every single key ends up mapping to a different server, not just the keys that were on Server 2.</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>This isn't just a rough guess. Changing <code>N</code> in <code>hash(key) % N</code> causes roughly <code>(N-1)/N</code> of <em>all</em> keys to move, on average, not only the fraction that was on the removed server. For our 4-server example, that's about 75% of all keys.</p>
+</div>
+<p>When your app tries to read the cache, it gets a "miss" for most of its data. The app then panics and asks your main database (like PostgreSQL) for all that data at once. Your database gets hammered by a sudden flood of queries and can crash. This is called a <strong>cache stampede</strong>.</p>
+<hr />
+<h2 id="3-the-fix-the-consistent-hashing-ring">3. The Fix: The Consistent Hashing Ring</h2>
+<p>To fix this, we need a way to add or remove servers where only a small fraction of the data has to move. This is what <strong>Consistent Hashing</strong> gives us.</p>
+<h3 id="the-ring-concept">The Ring Concept</h3>
+<p>Imagine a giant circle, or a clock face, representing all possible outputs of a hash function (for example, from <code>0</code> to <code>2^32 - 1</code>).</p>
+<h3 id="placing-servers">Placing Servers</h3>
+<p>You take the IP addresses of your 4 servers, hash them, and place them on this ring. So Server A might land at 12 o'clock, Server B at 3, Server C at 6, and Server D at 9.</p>
+<h3 id="placing-data">Placing Data</h3>
+<p>When a user requests data, you hash their <code>userId</code> and find its spot on the same ring.</p>
+<h3 id="the-routing-rule">The Routing Rule</h3>
+<p>To figure out which server holds the data, you walk clockwise around the ring from the data's position until you hit a server.</p>
+<h3 id="why-this-works">Why This Works</h3>
+<p>If Server C (at 6 o'clock) crashes, the only data affected is the stuff between 3 o'clock and 6 o'clock. When the app looks for that data, it walks clockwise, skips the dead Server C, and lands on Server D instead. Only the data that belonged to Server C moves, and it all moves to Server D.</p>
+<p>The rest of the ring — Servers A, B, and the data they hold — is completely untouched. No cache stampede.</p>
+<div class="highlight"><pre><span></span><code>     A (12:00)
+   /            \
+ D (9:00)      B (3:00)
+   \            /
+     C (6:00) ✗  crashed → its data (3:00-6:00) moves to D
+</code></pre></div>
+<hr />
+<h2 id="4-the-new-flaw-hotspots-and-uneven-data">4. The New Flaw: Hotspots and Uneven Data</h2>
+<p>The ring sounds perfect, but hashing IP addresses is essentially random. What if your servers end up at 12 o'clock, 1 o'clock, 2 o'clock, and 3 o'clock?</p>
+<p>Going clockwise, the server at 12 o'clock is now responsible for the entire gap from 3 o'clock all the way around back to 12, which is 9 out of 12 hours, or 75% of the ring. It gets slammed with 75% of the traffic, while the other three servers sit around mostly idle.</p>
+<p>We call this a <strong>hotspot</strong>.</p>
+<hr />
+<h2 id="5-the-final-polish-virtual-nodes-vnodes">5. The Final Polish: Virtual Nodes (vNodes)</h2>
+<h3 id="the-trick">The Trick</h3>
+<p>Instead of putting Server A on the ring just once, we put it on the ring 100 times, using different labels (for example <code>ServerA_1</code>, <code>ServerA_2</code>, and so on). We do this for every server.</p>
+<h3 id="the-result">The Result</h3>
+<p>Now there are 400 "virtual" servers scattered randomly all over the ring. With enough virtual nodes, the law of large numbers takes over: the gaps between them average out to be roughly equal, and each physical server ends up owning a similar-sized share of the ring.</p>
+<p>Virtual nodes also give us a flexible way to balance load based on actual hardware. If you add a powerful new server with lots of RAM, give it 200 virtual nodes so it handles more traffic. If a server is weak, give it 50.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>More virtual nodes per server give a more even distribution, but each vnode is one more entry to store and look up on the ring. In practice, somewhere between 100 and a few hundred virtual nodes per physical server is a common starting point; you can tune it based on how even the load looks in production.</p>
+</div>
+<hr />
+<h2 id="6-practical-implementation-java">6. Practical Implementation (Java)</h2>
+<p>In Java, we can implement the ring easily using a <code>TreeMap</code>. A <code>TreeMap</code> is built on a Red-Black tree, which keeps all the keys sorted in memory. It has a handy method called <code>ceilingEntry()</code>, which does exactly what we want: "find the next item greater than or equal to my current spot", and wraps around to the first entry if we've gone past the end.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.Map</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">java.util.TreeMap</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">java.security.MessageDigest</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">java.security.NoSuchAlgorithmException</span><span class="p">;</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ConsistentHashRing</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// The ring, storing the hash and the Server name</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">TreeMap</span><span class="o">&lt;</span><span class="n">Long</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ring</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TreeMap</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">virtualNodes</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">ConsistentHashRing</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">virtualNodes</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">virtualNodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">virtualNodes</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Add a server to the ring with virtual clones</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">addServer</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">serverName</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">virtualNodes</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kt">long</span><span class="w"> </span><span class="n">hash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getHash</span><span class="p">(</span><span class="n">serverName</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">"_vnode_"</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">);</span>
+<span class="w">            </span><span class="n">ring</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">hash</span><span class="p">,</span><span class="w"> </span><span class="n">serverName</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Remove a server and all of its virtual clones</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">removeServer</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">serverName</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">virtualNodes</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kt">long</span><span class="w"> </span><span class="n">hash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getHash</span><span class="p">(</span><span class="n">serverName</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">"_vnode_"</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">);</span>
+<span class="w">            </span><span class="n">ring</span><span class="p">.</span><span class="na">remove</span><span class="p">(</span><span class="n">hash</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Find the right server for a given data key</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getServer</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">dataKey</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ring</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">())</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+
+<span class="w">        </span><span class="kt">long</span><span class="w"> </span><span class="n">hash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getHash</span><span class="p">(</span><span class="n">dataKey</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Find the next server clockwise on the ring</span>
+<span class="w">        </span><span class="n">Map</span><span class="p">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">Long</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">entry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ring</span><span class="p">.</span><span class="na">ceilingEntry</span><span class="p">(</span><span class="n">hash</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// If we went past the end of the ring, loop back to the first server</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">entry</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">entry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ring</span><span class="p">.</span><span class="na">firstEntry</span><span class="p">();</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">entry</span><span class="p">.</span><span class="na">getValue</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Helper: MD5 hash, folded down into a long</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="nf">getHash</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">key</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">MessageDigest</span><span class="w"> </span><span class="n">md</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MessageDigest</span><span class="p">.</span><span class="na">getInstance</span><span class="p">(</span><span class="s">"MD5"</span><span class="p">);</span>
+<span class="w">            </span><span class="kt">byte</span><span class="o">[]</span><span class="w"> </span><span class="n">digest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">md</span><span class="p">.</span><span class="na">digest</span><span class="p">(</span><span class="n">key</span><span class="p">.</span><span class="na">getBytes</span><span class="p">());</span>
+<span class="w">            </span><span class="c1">// Use the first 8 bytes of the MD5 digest as a long</span>
+<span class="w">            </span><span class="kt">long</span><span class="w"> </span><span class="n">hash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">hash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">hash</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="n">digest</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0xFF</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">hash</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">NoSuchAlgorithmException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">RuntimeException</span><span class="p">(</span><span class="s">"MD5 not supported"</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We're using <code>ceilingEntry()</code> directly here, which is simpler than searching a <code>tailMap()</code> for its first key — both approaches work, but <code>ceilingEntry()</code> says exactly what we mean: find the next key clockwise, or wrap around if none exists.</p>
+</div>
+<hr />
+<h2 id="7-trade-offs-and-practical-considerations">7. Trade-offs and Practical Considerations</h2>
+<h3 id="choice-of-hash-function">Choice of Hash Function</h3>
+<p>MD5 works fine for building the ring, and is common in reference implementations, but it is a cryptographic hash, which is slower than it needs to be for this job. Real systems often use a faster, non-cryptographic hash instead, like MurmurHash or FNV, since we only need a good spread of values here, not cryptographic security.</p>
+<h3 id="memory-and-lookup-cost-of-the-ring">Memory and Lookup Cost of the Ring</h3>
+<p>Every virtual node is one more entry in the <code>TreeMap</code>. With 10 physical servers and 200 virtual nodes each, that's 2,000 entries to hold in memory, and <code>ceilingEntry()</code> is an <code>O(log n)</code> lookup on top of that. This is usually a small cost, but it does grow with the number of virtual nodes and servers.</p>
+<h3 id="where-this-is-used-in-practice">Where This Is Used in Practice</h3>
+<p>Consistent hashing (with virtual nodes) isn't just a textbook idea. It is the technique behind how Amazon DynamoDB, Apache Cassandra, and several CDNs distribute data across their nodes, and it's also used by client libraries like the Ketama algorithm for Memcached.</p>
+<hr />
+<h2 id="8-summary">8. Summary</h2>
+<p>Splitting data across multiple cache servers using simple modulo math (<code>hash(key) % N</code>) is risky, because adding or removing a server changes almost every key's target server, causing a flood of cache misses that can crash your database.</p>
+<p>Consistent Hashing fixes this by mapping both servers and data onto the same circular ring, where a key simply goes to the next server it finds going clockwise. This means only the data belonging to a crashed (or newly added) server needs to move. To stop one unlucky server from taking all the traffic, we use Virtual Nodes: placing hundreds of clones of each server onto the ring, which evens out the load and lets us tune how much traffic a given physical server takes on.</p>
+<hr />
+<h2 id="resources-for-further-deep-diving">Resources for Further Deep Diving</h2>
+<ul>
+<li><strong>Guide:</strong> <a href="https://bytebytego.com/guides/consistent-hashing/">Consistent Hashing Explained (ByteByteGo)</a> - Covers the rehashing problem, the ring, virtual nodes, and where the technique is used in the real world (DynamoDB, Cassandra, Discord, Akamai).</li>
+<li><strong>Article:</strong> <a href="https://eli.thegreenplace.net/2025/consistent-hashing/">Consistent Hashing (Eli Bendersky)</a> - A hands-on walkthrough with working Go code, including the same MD5-folding trick used above.</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

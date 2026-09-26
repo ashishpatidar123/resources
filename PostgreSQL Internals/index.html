@@ -1,0 +1,1114 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Multi-Version%20Concurrency%20Control/">
+      
+      
+        <link rel="next" href="../DSA/Graph_Algorithms/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>PostgreSQL Internals - Resources</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-storage-hierarchy-files-pages-and-the-heap" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Resources" class="md-header__button md-logo" aria-label="Resources" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Resources
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              PostgreSQL Internals
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Resources" class="md-nav__button md-logo" aria-label="Resources" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Resources
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Consistent%20Hashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Consistent Hashing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Distributed%20Rate%20Limiting%20with%20Redis%20and%20Lua%20Scripting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Rate Limiting with Redis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LSM-Tress%20vs%20B%2B%20Trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LSM Tress vs B+ Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Lock%20Free%20Concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lock-Free Concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Message%20Broker%20Hardware%20Sympathy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message Broker Hardware Sympathy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Microservices%20Data%20Consistency%3A%20Dual-Write%2C%202PC%20and%20the%20Transactional%20Outbox%20Pattern/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dual-Write and 2PC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Multi-Level%20Indexing%20in%20Databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Level Indexing in Databases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Multi-Version%20Concurrency%20Control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Version Concurrency Control (MVCC)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PostgreSQL Internals
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PostgreSQL Internals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-storage-hierarchy-files-pages-and-the-heap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Storage Hierarchy: Files, Pages, and the Heap
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-tuples-and-the-ctid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Tuples and the CTID
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-how-b-tree-indexes-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. How B-Tree Indexes Function
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-append-only-update-mechanism" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The Append-Only Update Mechanism
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-multi-version-concurrency-control-mvcc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Multi-Version Concurrency Control (MVCC)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-dead-tuples-vacuuming-and-bloat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Dead Tuples, Vacuuming, and Bloat
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extra-related-useful-information-the-shared-buffer-toast" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extra Related Useful Information: The Shared Buffer &amp; TOAST
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#relevant-links-for-further-exploration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relevant Links for Further Exploration
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DSA
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DSA/Graph_Algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graph Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../OS/Hardware%20Mechanical%20Sympathy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware Mechanical Sympathy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    System Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../System%20Design/System%20Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design Concepts: A Comprehensive Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-storage-hierarchy-files-pages-and-the-heap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Storage Hierarchy: Files, Pages, and the Heap
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-tuples-and-the-ctid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Tuples and the CTID
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-how-b-tree-indexes-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. How B-Tree Indexes Function
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-append-only-update-mechanism" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The Append-Only Update Mechanism
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-multi-version-concurrency-control-mvcc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Multi-Version Concurrency Control (MVCC)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-dead-tuples-vacuuming-and-bloat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Dead Tuples, Vacuuming, and Bloat
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extra-related-useful-information-the-shared-buffer-toast" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extra Related Useful Information: The Shared Buffer &amp; TOAST
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#relevant-links-for-further-exploration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relevant Links for Further Exploration
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>PostgreSQL Internals</h1>
+
+<p>Here is a highly detailed, point-by-point breakdown of the internal PostgreSQL mechanics.</p>
+<h3 id="1-storage-hierarchy-files-pages-and-the-heap">1. Storage Hierarchy: Files, Pages, and the Heap</h3>
+<ul>
+<li><strong>Disk Representation:</strong> Every table you create in PostgreSQL is ultimately stored as a file on the file system.</li>
+<li><strong>The Page Architecture:</strong> Postgres does not view this file as a continuous stream of text. Instead, it partitions the file into an array of fixed-size blocks called <strong>Pages</strong>. By default, a page is strictly 8 Kilobytes (8KB).</li>
+<li><strong>The Heap:</strong> This entire collection of pages—whether it is sitting on the hard drive or pulled into RAM—is referred to as the "Heap." The Heap is where the actual raw data of your rows lives.</li>
+<li><strong>Allocation:</strong> When a table is empty, it occupies virtually no space. Postgres dynamically allocates these 8KB pages one by one as you insert data into the table.</li>
+</ul>
+<h3 id="2-tuples-and-the-ctid">2. Tuples and the CTID</h3>
+<ul>
+<li><strong>Tuples vs. Rows:</strong> In Postgres terminology, you do not insert a "row." You insert a <strong>Tuple</strong>. A tuple is a specific immutable <em>version</em> of a row.</li>
+<li><strong>Line Pointers:</strong> Inside an 8KB page, Postgres creates an array of "Line Pointers." These pointers map to the exact byte offset within that specific page where the tuple's data physically begins.</li>
+<li><strong>The CTID (Current Tuple ID):</strong> Every tuple is assigned a strictly unique coordinate called the CTID. It is a pair of numbers formatted as <code>(Page_Number, Index_Position)</code>.</li>
+<li><em>Example:</em> A CTID of <code>(0, 1)</code> means the tuple lives in Page 0, at Line Pointer position 1.</li>
+</ul>
+<h3 id="3-how-b-tree-indexes-function">3. How B-Tree Indexes Function</h3>
+<ul>
+<li><strong>Key-Value Mapping:</strong> An index in Postgres (defaulting to a B-Tree) operates conceptually like a key-value store. The "Key" is the data you are indexing (e.g., <code>item_id = 100</code>), and the "Value" is the CTID.</li>
+<li><strong>The Lookup Process:</strong> When you run a query using an index, the database traverses the B-Tree nodes until it hits the leaf node. The leaf node hands back the CTID (e.g., <code>(0, 1)</code>).</li>
+<li><strong>O(1) Heap Fetch:</strong> Because Postgres now knows the exact file, the exact 8KB page, and the exact offset, it executes a single, highly efficient I/O jump directly to that physical location to retrieve the rest of the row's data.</li>
+</ul>
+<h3 id="4-the-append-only-update-mechanism">4. The Append-Only Update Mechanism</h3>
+<ul>
+<li><strong>No In-Place Updates:</strong> This is a critical design choice. Postgres <strong>never</strong> overwrites existing data when you execute an <code>UPDATE</code> statement.</li>
+<li><strong>Creating a New Tuple:</strong> If you update the price of item 100 from $10 to $20, Postgres searches for free space (ideally on the same 8KB page). It writes an entirely brand-new tuple with the $20 price.</li>
+<li><strong>Index Amplification:</strong> Because a new tuple means a new CTID (e.g., moving from <code>(0,1)</code> to <code>(0,2)</code>), Postgres must now traverse the B-Tree index and insert a new entry pointing to this new CTID.</li>
+</ul>
+<h3 id="5-multi-version-concurrency-control-mvcc">5. Multi-Version Concurrency Control (MVCC)</h3>
+<ul>
+<li><strong>The Visibility Problem:</strong> After an update, the index now has two entries for <code>item_id = 100</code>. One points to the old $10 tuple, and one points to the new $20 tuple. When a user runs a <code>SELECT</code> query, which one should Postgres return?</li>
+<li><strong>Hidden System Columns:</strong> Postgres resolves this using two hidden 32-bit transaction integer columns stamped onto the header of every tuple:</li>
+<li><code>xmin</code>: The ID of the transaction that <strong>created</strong> the tuple.</li>
+<li>
+<p><code>xmax</code>: The ID of the transaction that <strong>deleted or updated</strong> the tuple. (If the tuple is currently active and the newest version, <code>xmax</code> is <code>0</code>).</p>
+</li>
+<li>
+<p><strong>Snapshot Isolation:</strong> When your transaction starts (let's say Transaction ID 10), Postgres fetches <em>both</em> tuples from the Heap. It looks at the <code>xmin</code> and <code>xmax</code> of each tuple. If Transaction 10 falls between the tuple's <code>xmin</code> and <code>xmax</code> lifespan, that tuple is returned.</p>
+</li>
+<li><strong>Time Travel:</strong> If a very old, long-running transaction (Transaction ID 5) executes a query, it will evaluate the headers and determine that the new $20 tuple is in "the future." It will intentionally read the older $10 tuple, ensuring consistent database snapshots without locking the table.</li>
+</ul>
+<h3 id="6-dead-tuples-vacuuming-and-bloat">6. Dead Tuples, Vacuuming, and Bloat</h3>
+<ul>
+<li><strong>Dead Tuples:</strong> The old $10 tuple is left behind on the 8KB page. It is considered "dead" only when absolutely no active or sleeping transactions exist that might need to read it (e.g., Transaction 5 finally finishes).</li>
+<li><strong>The Vacuum Process:</strong> Because Postgres is append-only, these dead tuples consume physical disk space. A background process called <strong>Vacuum</strong> scans pages to find truly dead tuples and marks their space as available for future <code>INSERT</code> or <code>UPDATE</code> operations.</li>
+<li><strong>Database Bloat:</strong> If a rogue transaction is left open for days, it "pins" the database snapshot. Vacuum cannot clean up <em>any</em> dead tuples created after that transaction started because the old transaction <em>might</em> need to read them. This causes the 8KB pages to multiply endlessly, inflating the physical file size on the disk (Bloat).</li>
+</ul>
+<hr />
+<h3 id="extra-related-useful-information-the-shared-buffer-toast">Extra Related Useful Information: The Shared Buffer &amp; TOAST</h3>
+<ul>
+<li><strong>Shared Buffers (Memory vs. Disk):</strong> When Postgres needs to read an 8KB page, it doesn't always go to the hard drive. It first checks its RAM, specifically a memory allocation called <code>shared_buffers</code>. If the page is there (a "cache hit"), it reads it instantly. If not, it pulls the 8KB block from the disk into the <code>shared_buffers</code>, potentially evicting an older page. Tuning the size of <code>shared_buffers</code> is one of the most critical steps in Postgres performance optimization.</li>
+<li><strong>TOAST (The Oversized-Attribute Storage Technique):</strong> Because a page is strictly 8KB, Postgres faces a physics problem: <em>What happens if a user inserts a massive JSON payload or text string that is 10KB long into a single row?</em> It cannot fit in the page. Postgres solves this seamlessly using TOAST. It compresses the large column data, chops it into smaller chunks, and stores those chunks in a hidden side-table (the TOAST table). The main tuple in the Heap simply gets a lightweight pointer to the TOAST chunks.</li>
+</ul>
+<hr />
+<h3 id="summary">Summary</h3>
+<p>PostgreSQL utilizes a fixed-page storage architecture where data is stored immutably. Instead of updating rows in place, it appends new "tuples" to the Heap and updates B-Tree indexes with direct physical pointers (CTIDs) to the new data. To manage concurrent users without data corruption, it relies on MVCC, using hidden <code>xmin</code> and <code>xmax</code> transaction IDs on every tuple to determine which data snapshot a specific query should see. Because this leaves obsolete data behind, the Vacuum process is required to reclaim space and prevent file bloat.</p>
+<h3 id="relevant-links-for-further-exploration">Relevant Links for Further Exploration</h3>
+<ul>
+<li><strong>YouTube:</strong> <a href="https://www.youtube.com/watch?v=q9jixKv4h2I">PostgreSQL Internals</a> (The main video).</li>
+<li><strong>YouTube:</strong> <a href="https://www.youtube.com/watch?v=TBmDBw1IIoY">PostgreSQL MVCC Internals Explained</a> (A great follow-up video diving deeper into <code>xmin</code>, <code>xmax</code>, and isolation levels).</li>
+<li><strong>Article:</strong> <a href="https://www.postgresql.org/docs/current/storage-page-layout.html">PostgreSQL Official Documentation: Database Page Layout</a> (The official documentation showing exactly how the 8KB page is structured byte-by-byte).</li>
+<li><strong>Article:</strong> <a href="https://www.cloudthat.com/resources/blog/toast-in-postgresql-for-large-data-management">Understanding Postgres TOAST</a> (A practical breakdown of how Postgres handles oversized rows).</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
