@@ -1515,25 +1515,7 @@ vector<long long> dagShortestPath(
 
 ---
 
-## 16. Patterns, Templates & Cheat Sheet
-
-### Interview Problem Patterns
-
-| Pattern | Trigger Words | Algorithm |
-| --- | --- | --- |
-| **Shortest path, unweighted** | "minimum steps/hops" | BFS |
-| **Shortest path, weighted** | "minimum cost/distance" | Dijkstra |
-| **Shortest path, negative edges** | "can gain points along path" | Bellman-Ford |
-| **All pairs shortest** | "between every pair" | Floyd-Warshall / Johnson |
-| **Ordering with dependencies** | "prerequisite", "before/after" | Topological Sort |
-| **Group/cluster** | "number of islands", "connected regions" | DFS/BFS + components |
-| **Minimum connections** | "minimum cables/roads to connect all" | Kruskal / Prim MST |
-| **Cycle check** | "can get stuck in loop" | Directed: 3-color DFS; Undirected: DSU |
-| **Critical edges** | "if this road is blocked" | Bridges (Tarjan) |
-
----
-
-### 16.6.1 More Challenging Graph Problems by Category
+## 16. Problems
 
 | Category | Problem | Platform |
 |----------|---------|----------|
