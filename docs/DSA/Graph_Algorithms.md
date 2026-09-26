@@ -1,5 +1,4 @@
-# Graph Algorithms: Comprehensive DSA Interview & Competitive Programming Guide > 💫
-> Covers fundamentals → advanced → competitive programming level. Code in C++17. Implementations are written to be reusable, with important assumptions and complexity stated explicitly.
+# Graph Algorithms
 
 ---
 
@@ -17,8 +16,6 @@
 10. [Connected Components & SCC](#10-connected-components--scc)
 11. [Bridges & Articulation Points](#11-bridges--articulation-points)
 12. [Bipartite Graphs & Matching](#12-bipartite-graphs--matching)
-13. [Network Flow](#13-network-flow)
-14. [Tree Algorithms on Graphs](#14-tree-algorithms-on-graphs)
 15. [Advanced & Competitive Programming](#15-advanced--competitive-programming)
 16. [Patterns, Templates & Cheat Sheet](#16-patterns-templates--cheat-sheet)
 17. [Algorithm Selection Decision Framework](#17-algorithm-selection-decision-framework)
@@ -76,9 +73,6 @@ A graph G = (V, E), where 'V' = vertices (nodes) and 'E' = edges (connections).
 | Topological Sort | O(V+E) | O(V) |
 | Tarjan's SCC | O(V+E) | O(V) |
 | Bridges / Articulation Points | O(V+E) | O(V) |
-| Hopcroft-Karp | O(E√V) | O(V) auxiliary |
-| Edmonds-Karp | O(VE²) | O(V²) with adjacency-matrix capacities |
-| Dinic | O(V²E) general bound | O(V+E) auxiliary graph |
 
 
 ---
@@ -1389,506 +1383,8 @@ bool isBipartite(vector<vector<int>>& graph) {
 }
 ```
 
-### Maximum Bipartite Matching - Kuhn Algorithm (DFS Augmenting Paths)
-
-```cpp
-int maxBipartiteMatching(vector<vector<int>>& graph, int leftN, int rightN) {
-
-    vector<int> matchL(leftN, -1); // Initialize all left nodes as unmatched
-    vector<int> matchR(rightN, -1);// Initialize all right nodes as unmatched
-
-    function<bool(int, vector<bool>&)> tryAugment = [&](int u, vector<bool>& seen)  -> bool {
-        for (int v : graph[u]) {
-            if (!seen[v]) {
-                seen[v] = true;
-                if (matchR[v] < 0 || tryAugment(matchR[v], seen)) {
-                    matchL[u] = v;
-                    matchR[v] = u;
-                    return true;
-                }
-            }
-        }
-        return false;
-    };
-    int result = 0;
-    for (int u = 0; u < leftN; u++) {
-        vector<bool> seen(rightN, false);
-        if (tryAugment(u, seen)) {
-            result++;
-        }
-    }
-    return result;
-}
-```
-> **König's Theorem:** In a bipartite graph, the size of a maximum matching equals the size of a minimum vertex cover.
-> **Kuhn complexity:** O(VE) in the standard adjacency-list implementation.
-> **Dilworth's Theorem:** In a DAG, a minimum vertex-disjoint path cover has size `n - maximum matching` in the standard split-bipartite reduction.
-
-### Hopcroft-KARP (O(E * sqrt(V)) bipartite matching)
-
-```cpp
-int hopcroftKarp(const vector<vector<int>>& graph, int leftN, int rightN) {
-    vector<int> pairU(leftN, -1), pairV(rightN, -1);
-    vector<int> dist(leftN, 0);
-    const int INF = 1e9;
-
-    function<bool()> bfs = [&]() {
-        queue<int> q;
-        int shortest = INF;
-
-        for (int u = 0; u < leftN; ++u) {
-            if (pairU[u] == -1) {
-                dist[u] = 0;
-                q.push(u);
-            } else {
-                dist[u] = INF;
-            }
-        }
-
-        while (!q.empty()) {
-            int u = q.front(); q.pop();
-            if (dist[u] >= shortest) continue;
-
-            for (int v : graph[u]) {
-                int matchedU = pairV[v];
-                if (matchedU == -1) {
-                    shortest = dist[u] + 1;
-                } else if (dist[matchedU] == INF) {
-                    dist[matchedU] = dist[u] + 1;
-                    q.push(matchedU);
-                }
-            }
-        }
-        return shortest != INF;
-    };
-
-    function<bool(int)> dfs = [&](int u) -> bool {
-        for (int v : graph[u]) {
-            int matchedU = pairV[v];
-            if (matchedU == -1 ||
-                (dist[matchedU] == dist[u] + 1 && dfs(matchedU))) {
-                pairU[u] = v;
-                pairV[v] = u;
-                return true;
-            }
-        }
-        dist[u] = INF;
-        return false;
-    };
-
-    int matching = 0;
-    while (bfs()) {
-        for (int u = 0; u < leftN; ++u) {
-            if (pairU[u] == -1 && dfs(u))
-                ++matching;
-        }
-    }
-    return matching;
-}
-```
-
 ---
 
-## 13. Network Flow
-
-> **Max-Flow**: Maximum amount of flow that can be pushed from source `s` to sink `t`.
-> **Min-Cuts**: Minimum capacity set of edges whose removal disconnects `s` from `t`.
-> **Max-Flow Min-Cut Theorem:** The maximum s-t flow equals the minimum s-t cut capacity. Ford-Fulkerson and Edmonds-Karp are algorithms for computing a maximum flow.
-
-### Edmonds-Karp (Ford-Fulkerson with BFS augmenting paths)
-
-> Edmonds-Karp runs in **O(VE²)** and is a useful teaching/reference implementation. Generic Ford-Fulkerson has a different bound that depends on the capacities and path-selection rule.
-
-```cpp
-struct MaxFlow{
-    int n;
-    vector<vector<int>> cap, adj;
-
-    MaxFlow(int n): n(n), cap(n, vector<int>(n)), adj(n) {}
-
-    void add_edge(int u, int v, int c){
-        cap[u][v] += c;
-        adj[u].push_back(v);
-        adj[v].push_back(u);
-    }
-
-    bool bfs(int s, int t, vector<int>& parent){
-        fill(parent.begin(), parent.end(), -1);
-        parent[s] = s;
-        queue<int> q;
-        q.push(s);
-        while(!q.empty()){
-            int u = q.front(); q.pop();
-            for(int v: adj[u]){
-                if(parent[v] == -1 && cap[u][v] > 0){
-                    parent[v] = u;
-                    if(v == t) return true;
-                    q.push(v);
-                }
-            }
-        }
-        return false;
-    }
-
-    int maxFlow(int s, int t){
-        vector<int> parent(n);
-        int flow = 0;
-        while(bfs(s, t, parent)){
-            int path_flow = INT_MAX;
-            for(int v = t; v != s; v = parent[v]){
-                int u = parent[v];
-                path_flow = min(path_flow, cap[u][v]);
-            }
-            for(int v = t; v != s; v = parent[v]){
-                int u = parent[v];
-                cap[u][v] -= path_flow;
-                cap[v][u] += path_flow;
-            }
-            flow += path_flow;
-        }
-        return flow;
-    }
-};
-```
-
-### Dinic's Algorithm (general bound O(V²E))
-
-```cpp
-struct Dinic{
-    struct Edge{
-        int to, cap, rev;
-    };
-    int n;
-
-    vector<vector<Edge>> graph;
-    vector<int> level, iter;
-
-    Dinic(int n): n(n), graph(n), level(n), iter(n) {}
-
-    void add_edge(int from, int to, int cap){
-        graph[from].push_back({to, cap, (int)graph[to].size()});
-        graph[to].push_back({from, 0, (int)graph[from].size() - 1});
-    }
-
-    bool bfs(int s, int t){
-        fill(level.begin(), level.end(), -1);
-        queue<int> que;
-        level[s] = 0;
-        que.push(s);
-        while(!que.empty()){
-            int v = que.front(); que.pop();
-            for(auto &e : graph[v]){
-                if(e.cap > 0 && level[e.to] < 0){
-                    level[e.to] = level[v] + 1;
-                    que.push(e.to);
-                }
-            }
-        }
-        return level[t] != -1;
-    }
-
-    int dfs(int v, int t, int f){
-        if(v == t) return f;
-        for(int &i = iter[v]; i < (int)graph[v].size(); i++){
-            Edge &e = graph[v][i];
-            if(e.cap > 0 && level[v] < level[e.to]){
-                int d = dfs(e.to, t, min(f, e.cap));
-                if(d > 0){
-                    e.cap -= d;
-                    graph[e.to][e.rev].cap += d;
-                    return d;
-                }
-            }
-        }
-        return 0;
-    }
-
-    int max_flow(int s, int t){
-        int flow = 0;
-        while(bfs(s, t)){
-            fill(iter.begin(), iter.end(), 0);
-            int f;
-            while((f = dfs(s, t, INT_MAX)) > 0){
-                flow += f;
-            }
-        }
-        return flow;
-    }
-
-    vector<bool> min_cut(int s){
-        vector<bool> visited(n, false);
-        queue<int> que;
-        que.push(s);
-        visited[s] = true;
-        while(!que.empty()){
-            int v = que.front(); que.pop();
-            for(auto &e : graph[v]){
-                if(e.cap > 0 && !visited[e.to]){
-                    visited[e.to] = true;
-                    que.push(e.to);
-                }
-            }
-        }
-        return visited;
-    }
-};
-```
-
-### Usage
-```cpp
-int main() {
-    Dinic d(6);
-    d.add_edge(0,1,10); d.add_edge(0,2,10);
-    d.add_edge(1,3,4);  d.add_edge(1,4,8);
-    d.add_edge(2,4,9);  d.add_edge(3,5,10); d.add_edge(4,5,10);
-
-    cout << d.max_flow(0,5) << endl; // Output: 14
-    return 0;
-}
-```
-
-### Network Flow Applications 
-
-| Problem | Reduction to Max Flow |
-|---------|----------------------|
-|Bipartite Matching|Connect source → left partition → right partition → sink, with capacity 1 on matching edges and partition edges. |
-|Edge-Disjoint Paths|Give each original edge capacity 1 and compute max flow. |
-|Vertex-Disjoint Paths|Split each vertex into `in -> out` with capacity 1; redirect original edges through the split. |
-|Circulation with Demands|Use lower-bound transformation and super-source/super-sink to test feasibility / optimize as required. |
-|Project Selection|Model profitable projects and dependency constraints as a min-cut. |
-|Baseball Elimination|Model remaining games and possible wins as a flow feasibility problem. |
-
-**Bipartite Matching via Flow:**
-
-```cpp
-int bipartiteViaFlow(int leftN, int rightN, vector<pair<int,int>>& edges){
-    int totalN = leftN + rightN + 2;
-    int S = totalN - 2; 
-    int T = totalN - 1;
-    Dinic d(totalN);
-    for(int i = 0; i < leftN; i++){
-        d.add_edge(S, i, 1);
-    }
-    for(int i = 0; i < rightN; i++){
-        d.add_edge(leftN + i, T, 1);
-    }
-    for(auto &edge : edges){
-        int u = edge.first;
-        int v = edge.second;
-        d.add_edge(u, leftN + v, 1);
-    }
-    return d.max_flow(S, T);
-}
-```
-
----
-
-## 14. Tree Algorithms on Graphs
-
-### Lowest Common Ancestor (LCA) - Binary Lifting
-
-> **LCA(u,v)** is the deepest node that is an ancestor of both `u` and `v`.
-> Build: O(N log N). Query: O(log N). Assumes the input is a connected tree rooted at `root`.
-
-```cpp
-struct LCA {
-    int n, LOG;
-    vector<int> depth;
-    vector<vector<int>> up;
-
-    LCA(int n) : n(n) {
-        LOG = 1;
-        while ((1LL << LOG) <= max(1, n)) ++LOG;
-        depth.assign(n, 0);
-        up.assign(n, vector<int>(LOG));
-    }
-
-    void build(const vector<vector<int>>& graph, int root = 0) {
-        vector<int> parent(n, root);
-        vector<bool> visited(n, false);
-        queue<int> q;
-        q.push(root);
-        visited[root] = true;
-        depth[root] = 0;
-
-        while (!q.empty()) {
-            int u = q.front(); q.pop();
-            for (int v : graph[u]) {
-                if (!visited[v]) {
-                    visited[v] = true;
-                    parent[v] = u;
-                    depth[v] = depth[u] + 1;
-                    q.push(v);
-                }
-            }
-        }
-
-        for (int v = 0; v < n; ++v)
-            up[v][0] = parent[v];
-
-        for (int k = 1; k < LOG; ++k)
-            for (int v = 0; v < n; ++v)
-                up[v][k] = up[up[v][k - 1]][k - 1];
-    }
-
-    int lca(int u, int v) const {
-        if (depth[u] < depth[v]) swap(u, v);
-
-        for (int k = LOG - 1; k >= 0; --k)
-            if (depth[u] - (1 << k) >= depth[v])
-                u = up[u][k];
-
-        if (u == v) return u;
-
-        for (int k = LOG - 1; k >= 0; --k) {
-            if (up[u][k] != up[v][k]) {
-                u = up[u][k];
-                v = up[v][k];
-            }
-        }
-        return up[u][0];
-    }
-
-    int distance(int u, int v) const {
-        int a = lca(u, v);
-        return depth[u] + depth[v] - 2 * depth[a];
-    }
-
-    int kth_ancestor(int u, int k) const {
-        // The root is its own ancestor, so jumps beyond the root stay at root.
-        for (int i = 0; i < LOG; ++i)
-            if ((k >> i) & 1)
-                u = up[u][i];
-        return u;
-    }
-};
-```
-
-
-### Euler Tour (Flattening a Tree)
-
-> Converts tree problem to range problems (use with segment trees).
-
-
-```cpp
-void eulerTour(vector<vector<int>>& graph, int root, int n, 
-               vector<int>& tin, vector<int>& tout, vector<int>& order) {
-    tin.assign(n, 0); tout.assign(n, 0);
-    int timer = 0;
-    function<void(int, int)> dfs = [&](int u, int par) {
-        tin[u] = timer++;
-        order.push_back(u);
-        for (int v : graph[u]) if (v != par) dfs(v, u);
-        tout[u] = timer - 1;
-    };
-    dfs(root, -1);
-}
-
-// Check if v is ancestor of u
-bool isAncestor(vector<int>& tin, vector<int>& tout, int u, int v) {
-    return tin[v] <= tin[u] && tout[u] <= tout[v];
-}
-
-```
-
----
-
-### Heavy-Light Decomposition (HLD)
-
-```cpp
-struct HLD {
-    int n, curPos = 0;
-    vector<int> sz, depth, parent, heavy, head, pos;
-
-    HLD(int n) : n(n), sz(n, 1), depth(n, 0), parent(n, -1),
-                 heavy(n, -1), head(n, 0), pos(n, 0) {}
-
-    void build(vector<vector<int>>& graph, int root = 0) {
-        // Iterative DFS to compute sizes and heavy children
-        stack<pair<int, pair<int, bool>>> stk;
-        stk.push({root, {-1, false}});
-        while (!stk.empty()) {
-            auto [u, pp] = stk.top(); stk.pop();
-            auto [p, processed] = pp;
-            if (processed) {
-                for (int v : graph[u]) if (v != p) {
-                    sz[u] += sz[v];
-                    if (heavy[u] == -1 || sz[v] > sz[heavy[u]]) heavy[u] = v;
-                }
-            } else {
-                parent[u] = p;
-                stk.push({u, {p, true}});
-                for (int v : graph[u]) if (v != p) {
-                    depth[v] = depth[u] + 1;
-                    stk.push({v, {u, false}});
-                }
-            }
-        }
-
-        // Assign positions along chains
-        function<void(int, int)> decompose = [&](int u, int h) {
-            head[u] = h; pos[u] = curPos++;
-            if (heavy[u] != -1) decompose(heavy[u], h);
-            for (int v : graph[u])
-                if (v != parent[u] && v != heavy[u]) decompose(v, v);
-        };
-        decompose(root, root);
-    }
-
-    // This helper is specifically a path-sum query.
-    // `seg_query(l, r)` must return the sum over the inclusive segment [l, r].
-    template<typename F>
-    long long pathSumQuery(int u, int v, F seg_query) {
-        long long result = 0;
-        while (head[u] != head[v]) {
-            if (depth[head[u]] < depth[head[v]]) swap(u, v);
-            result += seg_query(pos[head[u]], pos[u]);
-            u = parent[head[u]];
-        }
-        if (depth[u] > depth[v]) swap(u, v);
-        result += seg_query(pos[u], pos[v]);
-        return result;
-    }
-};
-
-```
-
-### Centroid Decomposition
-
-> Recursively find centroid (removal splits tree into parts ≤ n/2).
-
-```cpp
-vector<int> centroidDecomp(vector<vector<int>>& graph, int n) {
-    vector<int> sz(n, 1), centPar(n, -1);
-    vector<bool> removed(n, false);
-
-    function<void(int, int)> getSize = [&](int u, int p) {
-        sz[u] = 1;
-        for (int v : graph[u]) if (v != p && !removed[v]) { getSize(v, u); sz[u] += sz[v]; }
-    };
-
-    function<int(int, int, int)> getCentroid = [&](int u, int p, int ts) -> int {
-        for (int v : graph[u])
-            if (v != p && !removed[v] && sz[v] > ts/2)
-                return getCentroid(v, u, ts);
-        return u;
-    };
-
-    function<void(int, int)> decompose = [&](int u, int pc) {
-        getSize(u, -1);
-        int c = getCentroid(u, -1, sz[u]);
-        centPar[c] = pc;
-        removed[c] = true;
-        for (int v : graph[c]) if (!removed[v]) decompose(v, c);
-    };
-
-    decompose(0, -1);
-    return centPar;
-}
-
-```
-
----
 
 ### Tree DP Patterns
 
@@ -1955,181 +1451,6 @@ vector<int> reroot(vector<vector<int>>& graph, int n) {
 
 ---
 
-## 15. Advanced & Competitive Programming
-
-### Eulerian Path & Circuit
-
-* **Eulerian Circuit:** Visit every edge exactly once and return to the start.
-* **Eulerian Path:** Visit every edge exactly once (the start and end may differ).
-
-**Conditions for existence:**
-
-* **Undirected Circuit:** Every non-isolated vertex has even degree, and all non-isolated vertices lie in one connected component.
-* **Undirected Path:** Exactly 0 or 2 vertices have odd degree, and all non-isolated vertices lie in one connected component. With 0 odd vertices, the result is a circuit.
-* **Directed Circuit:** `in-degree == out-degree` for every vertex, and all vertices with non-zero degree belong to one connected component of the underlying undirected graph.
-* **Directed Path:** One vertex has `out = in + 1`, one has `in = out + 1`, every other non-zero-degree vertex has `in == out`, and all non-zero-degree vertices belong to one connected component of the underlying undirected graph.
-
-### Hierholzer's Algorithm — O(E) with edge IDs
-
-> The edge-ID version below handles undirected multigraphs in O(E) because each edge is consumed exactly once. The final size check prevents returning a partial traversal when the graph is not Eulerian.
-
-```cpp
-vector<int> hierholzerUndirected(
-    int n,
-    const vector<pair<int,int>>& edges,
-    int start) {
-
-    struct AdjEdge { int to, id; };
-    vector<vector<AdjEdge>> adj(n);
-    for (int id = 0; id < (int)edges.size(); ++id) {
-        auto [u, v] = edges[id];
-        adj[u].push_back({v, id});
-        adj[v].push_back({u, id});
-    }
-
-    vector<char> used(edges.size(), false);
-    vector<int> ptr(n, 0), st = {start}, circuit;
-
-    while (!st.empty()) {
-        int u = st.back();
-        while (ptr[u] < (int)adj[u].size() && used[adj[u][ptr[u]].id])
-            ++ptr[u];
-
-        if (ptr[u] == (int)adj[u].size()) {
-            circuit.push_back(u);
-            st.pop_back();
-            continue;
-        }
-
-        auto [v, id] = adj[u][ptr[u]++];
-        if (used[id]) continue;
-        used[id] = true;
-        st.push_back(v);
-    }
-
-    if ((int)circuit.size() != (int)edges.size() + 1)
-        return {};
-    reverse(circuit.begin(), circuit.end());
-    return circuit;
-}
-
-vector<int> hierholzerDirected(
-    const vector<vector<int>>& graph,
-    int start,
-    int edgeCount) {
-
-    vector<vector<int>> adj = graph;
-    vector<int> st = {start}, circuit;
-
-    while (!st.empty()) {
-        int u = st.back();
-        if (adj[u].empty()) {
-            circuit.push_back(u);
-            st.pop_back();
-        } else {
-            int v = adj[u].back();
-            adj[u].pop_back();
-            st.push_back(v);
-        }
-    }
-
-    if ((int)circuit.size() != edgeCount + 1)
-        return {};
-    reverse(circuit.begin(), circuit.end());
-    return circuit;
-}
-```
-
-
-### Hamiltonian Path & TSP (Bitmask DP)
-
-> **TSP:** Find a minimum-cost Hamiltonian cycle. NP-hard in general.
-> **Bitmask DP:** O(2^N · N²), practical only for small N (roughly N ≤ 20 depending on memory/time limits).
-> Use `long long` and treat `INF` carefully when the graph may contain missing edges.
-
-```cpp
-// dp[mask][i] = minimum cost to start at 0, visit exactly `mask`, and end at i.
-long long tsp(const vector<vector<int>>& dist, int n) {
-    if (n == 1) return 0;
-
-    const long long INF = (1LL << 60);
-    vector<vector<long long>> dp(1 << n, vector<long long>(n, INF));
-    dp[1][0] = 0;
-
-    for (int mask = 0; mask < (1 << n); ++mask) {
-        for (int u = 0; u < n; ++u) {
-            if (!(mask >> u & 1) || dp[mask][u] == INF) continue;
-            for (int v = 0; v < n; ++v) {
-                if (mask >> v & 1) continue;
-                int nm = mask | (1 << v);
-                if (dist[u][v] >= INT_MAX / 2) continue; // no edge
-                dp[nm][v] = min(dp[nm][v], dp[mask][u] + dist[u][v]);
-            }
-        }
-    }
-
-    int full = (1 << n) - 1;
-    long long ans = INF;
-    for (int last = 1; last < n; ++last) {
-        if (dp[full][last] == INF || dist[last][0] >= INT_MAX / 2) continue;
-        ans = min(ans, dp[full][last] + dist[last][0]);
-    }
-    return ans == INF ? -1 : ans;
-}
-
-// Reconstruct one optimal TSP cycle: 0 -> ... -> 0.
-vector<int> tspPath(const vector<vector<int>>& dist, int n) {
-    if (n == 1) return {0, 0};
-
-    const long long INF = (1LL << 60);
-    vector<vector<long long>> dp(1 << n, vector<long long>(n, INF));
-    vector<vector<int>> par(1 << n, vector<int>(n, -1));
-    dp[1][0] = 0;
-
-    for (int mask = 0; mask < (1 << n); ++mask) {
-        for (int u = 0; u < n; ++u) {
-            if (!(mask >> u & 1) || dp[mask][u] == INF) continue;
-            for (int v = 0; v < n; ++v) {
-                if (mask >> v & 1 || dist[u][v] >= INT_MAX / 2) continue;
-                int nm = mask | (1 << v);
-                long long nd = dp[mask][u] + dist[u][v];
-                if (nd < dp[nm][v]) {
-                    dp[nm][v] = nd;
-                    par[nm][v] = u;
-                }
-            }
-        }
-    }
-
-    int full = (1 << n) - 1;
-    int last = -1;
-    long long best = INF;
-    for (int i = 1; i < n; ++i) {
-        if (dp[full][i] == INF || dist[i][0] >= INT_MAX / 2) continue;
-        long long total = dp[full][i] + dist[i][0];
-        if (total < best) {
-            best = total;
-            last = i;
-        }
-    }
-
-    if (last == -1) return {};
-
-    vector<int> path;
-    int mask = full, cur = last;
-    while (cur != 0) {
-        path.push_back(cur);
-        int p = par[mask][cur];
-        mask ^= (1 << cur);
-        cur = p;
-    }
-    path.push_back(0);
-    reverse(path.begin(), path.end());
-    path.push_back(0); // return to start
-    return path;
-}
-```
-
 ### Graph Coloring
 
 **Greedy Coloring** (not optimal; with the `set` used below, roughly O((V+E) log V)):
@@ -2170,84 +1491,6 @@ bool isKColorable(vector<vector<int>>& graph, int n, int k) {
     return backtrack(0);
 }
 
-```
-
----
-
-### Bidirectional Dijkstra
-
-> Useful for non-negative edge weights when you have a single source and target. For directed graphs, `revGraph` must contain all edges reversed. Return `-1` if the target is unreachable.
-
-```cpp
-long long bidirectionalDijkstra(
-    const vector<vector<pair<int,int>>>& graph,
-    const vector<vector<pair<int,int>>>& revGraph,
-    int start,
-    int target) {
-
-    if (start == target) return 0;
-
-    const long long INF = (1LL << 60);
-    int n = graph.size();
-    vector<long long> distF(n, INF), distB(n, INF);
-    vector<bool> doneF(n, false), doneB(n, false);
-
-    priority_queue<pair<long long,int>,
-                   vector<pair<long long,int>>, greater<>> pqF, pqB;
-    distF[start] = 0;
-    distB[target] = 0;
-    pqF.push({0, start});
-    pqB.push({0, target});
-
-    long long best = INF;
-
-    auto expandForward = [&]() {
-        auto [d, u] = pqF.top(); pqF.pop();
-        if (d != distF[u]) return;
-        if (doneF[u]) return;
-        doneF[u] = true;
-        if (doneB[u]) best = min(best, distF[u] + distB[u]);
-
-        for (auto [v, w] : graph[u]) {
-            long long nd = d + w;
-            if (nd < distF[v]) {
-                distF[v] = nd;
-                pqF.push({nd, v});
-            }
-            if (distB[v] != INF)
-                best = min(best, d + w + distB[v]);
-        }
-    };
-
-    auto expandBackward = [&]() {
-        auto [d, u] = pqB.top(); pqB.pop();
-        if (d != distB[u]) return;
-        if (doneB[u]) return;
-        doneB[u] = true;
-        if (doneF[u]) best = min(best, distF[u] + distB[u]);
-
-        for (auto [v, w] : revGraph[u]) {
-            long long nd = d + w;
-            if (nd < distB[v]) {
-                distB[v] = nd;
-                pqB.push({nd, v});
-            }
-            if (distF[v] != INF)
-                best = min(best, distF[v] + w + d);
-        }
-    };
-
-    while (!pqF.empty() && !pqB.empty()) {
-        long long minF = pqF.top().first;
-        long long minB = pqB.top().first;
-        if (minF + minB >= best) break;
-
-        if (minF <= minB) expandForward();
-        else expandBackward();
-    }
-
-    return best == INF ? -1 : best;
-}
 ```
 
 ---
@@ -2303,75 +1546,6 @@ pair<vector<vector<int>>, vector<vector<int>>> voronoiBFS(vector<string>& grid, 
 
 ---
 
-### DSU on Tree (Small-to-Large Merging)
-
-> A standard DSU-on-tree / "sack" technique for subtree queries. The example below computes the number of distinct values in every subtree in O(N log N) expected time with an `unordered_map`.
-
-```cpp
-void dsuOnTree(
-    vector<vector<int>>& graph,
-    vector<int>& values,
-    int n,
-    vector<int>& answer,
-    int root = 0) {
-
-    vector<int> sz(n, 1), heavy(n, -1);
-    unordered_map<int,int> cnt;
-    int distinct = 0;
-
-    function<void(int,int)> calcSize = [&](int u, int p) {
-        sz[u] = 1;
-        for (int v : graph[u]) {
-            if (v == p) continue;
-            calcSize(v, u);
-            sz[u] += sz[v];
-            if (heavy[u] == -1 || sz[v] > sz[heavy[u]])
-                heavy[u] = v;
-        }
-    };
-
-    auto addValue = [&](int value, int delta) {
-        int before = cnt[value];
-        int after = before + delta;
-        cnt[value] = after;
-        if (before == 0 && after == 1) ++distinct;
-        if (before == 1 && after == 0) --distinct;
-    };
-
-    function<void(int,int,int)> addSubtree = [&](int u, int p, int delta) {
-        addValue(values[u], delta);
-        for (int v : graph[u])
-            if (v != p)
-                addSubtree(v, u, delta);
-    };
-
-    function<void(int,int,bool)> dfs = [&](int u, int p, bool keep) {
-        // Remove all light subtrees after their answers are computed.
-        for (int v : graph[u])
-            if (v != p && v != heavy[u])
-                dfs(v, u, false);
-
-        // Keep the heavy child's data structure.
-        if (heavy[u] != -1)
-            dfs(heavy[u], u, true);
-
-        // The heavy subtree is already present, so add only u and the
-        // light subtrees. This is the key detail that prevents double-counting.
-        addValue(values[u], +1);
-        for (int v : graph[u])
-            if (v != p && v != heavy[u])
-                addSubtree(v, u, +1);
-
-        answer[u] = distinct;
-
-        if (!keep)
-            addSubtree(u, p, -1);
-    };
-
-    calcSize(root, -1);
-    dfs(root, -1, false);
-}
-```
 
 
 ### Shortest Path in DAG (DP)
@@ -2401,38 +1575,6 @@ vector<long long> dagShortestPath(
 
 ---
 
-### Tree Canonical Form / Isomorphism
-
-> Rooted unordered tree canonical form (AHU-style). For unrooted tree isomorphism, find the tree center(s), root at the center, and compare the canonical forms.
-
-```cpp
-string treeCanonical(vector<vector<int>>& graph, int root, int parent) {
-    vector<string> children;
-    for (int v : graph[root])
-        if (v != parent) children.push_back(treeCanonical(graph, v, root));
-    sort(children.begin(), children.end());
-    string result = "(";
-    for (auto& c : children) result += c;
-    return result + ")";
-}
-
-```
-
----
-
-### Important Theorems & Facts for Interviews
-| Theorem | Statement |
-| --- | --- |
-| **Handshaking Lemma** | Sum of all degrees = $2E$ (undirected) |
-| **Euler's Formula** | For connected planar graph: $V - E + F = 2$ |
-| **König's Theorem** | Bipartite: max matching = min vertex cover |
-| **Hall's Theorem** | Bipartite graph has perfect matching iff for all $S \subseteq L$: $\vert N(S) \vert ≥ \vert S \vert$ |
-| **Menger's Theorem** | Maximum internally vertex-disjoint paths between two vertices equals the minimum size of a vertex separator; there is an analogous edge version. |
-| **Max-Flow Min-Cut Theorem** | Maximum s-t flow equals minimum s-t cut capacity. |
-| **Dilworth's Theorem** | Min chain cover = max antichain in poset |
-
----
-
 ## 16. Patterns, Templates & Cheat Sheet
 
 ### Interview Problem Patterns
@@ -2453,33 +1595,6 @@ string treeCanonical(vector<vector<int>>& graph, int root, int parent) {
 
 ---
 
-### Grid Graph Template
-
-```cpp
-void solveGrid(vector<string>& grid) {
-    int rows = grid.size(), cols = grid[0].size();
-    const int DIRS[4][2] = {{0,1},{0,-1},{1,0},{-1,0}};
-    vector<vector<bool>> visited(rows, vector<bool>(cols, false));
-
-    auto bfs = [&](int sr, int sc) {
-        queue<pair<int,int>> q;
-        visited[sr][sc] = true;
-        q.push({sr, sc});
-        while (!q.empty()) {
-            auto [r, c] = q.front(); q.pop();
-            for (auto& d : DIRS) {
-                int nr = r+d[0], nc = c+d[1];
-                if (nr >= 0 && nr < rows && nc >= 0 && nc < cols 
-                    && !visited[nr][nc] && grid[nr][nc] != '#') {
-                    visited[nr][nc] = true;
-                    q.push({nr, nc});
-                }
-            }
-        }
-    };
-}
-
-```
 
 ### Common Mistakes & Fixes
 
@@ -2507,51 +1622,92 @@ void solveGrid(vector<string>& grid) {
 * **Topological Sort:** $O(V+E)$
 * **Tarjan SCC:** $O(V+E)$
 * **Bridge Finding:** $O(V+E)$
-* **Kuhn bipartite matching:** $O(VE)$
-* **Hopcroft-Karp:** $O(E\sqrt{V})$
-* **Dinic's Max Flow:** $O(V^2E)$
-* **Dinic on unit networks:** $O(E\sqrt{V})$ (special case)
-* **TSP Bitmask DP:** $O(2^N \cdot N^2)$
-* **LCA Binary Lifting:** $O(N \log N)$ build, $O(\log N)$ query
-* **HLD:** $O(N \log N)$ build, $O(\log^2 N)$ query
-* **Centroid Decomp:** $O(N \log N)$
+
 
 ---
 
-### Top 30 LeetCode Graph Problems
+### 16.6.1 More Challenging Graph Problems by Category
 
-| # | Problem | Key Algorithm |
-| --- | --- | --- |
-| 200 | Number of Islands | DFS/BFS components |
-| 207 | Course Schedule | Topological sort / cycle |
-| 210 | Course Schedule II | Topological sort |
-| 133 | Clone Graph | BFS/DFS + hashmap |
-| 743 | Network Delay Time | Dijkstra |
-| 787 | Cheapest Flights K Stops | Bellman-Ford modified |
-| 684 | Redundant Connection | Union-Find |
-| 695 | Max Area of Island | DFS/BFS |
-| 994 | Rotting Oranges | Multi-source BFS |
-| 127 | Word Ladder | BFS |
-| 269 | Alien Dictionary | Topological sort |
-| 323 | Number of Connected Components | DSU |
-| 547 | Number of Provinces | DFS/DSU |
-| 1091 | Shortest Path Binary Matrix | BFS |
-| 778 | Swim in Rising Water | Dijkstra / Binary Search |
-| 1514 | Path with Maximum Probability | Dijkstra (max variant) |
-| 1631 | Path with Minimum Effort | Dijkstra / Binary Search |
-| 332 | Reconstruct Itinerary | Hierholzer Eulerian path |
-| 1192 | Critical Connections | Tarjan Bridges |
-| 802 | Find Eventual Safe States | Reverse graph + topo |
-| 847 | Shortest Path Visiting All Nodes | BFS + bitmask |
-| 721 | Accounts Merge | Union-Find |
-| 785 | Is Graph Bipartite | BFS 2-coloring |
-| 886 | Possible Bipartition | Bipartite check |
-| 1579 | Remove Max Edges | DSU |
-| 1489 | Find Critical/Pseudo-Critical Edges | MST + Kruskal |
-| 399 | Evaluate Division | Weighted DFS/BFS |
-| 1203 | Sort Items by Groups | Topological sort × 2 |
-| 2092 | Find All People with Secret | DSU per meeting time |
-| 1970 | Last Day Where You Can Still Cross | DSU / Binary Search |
+| Category | Problem | Platform |
+|----------|---------|----------|
+| **DFS / BFS** | Pacific Atlantic Water Flow | LeetCode 417 |
+| | Walls and Gates | LeetCode 286 |
+| | Shortest Path in Grid with Obstacles | LeetCode 1293 |
+| | Labyrinth | CSES |
+| | Grid - Shortest Path | AtCoder ABC088D |
+| | Number of Islands | LeetCode 200 |
+| | Clone Graph | LeetCode 133 |
+| | Max Area of Island | LeetCode 695 |
+| | Rotting Oranges | LeetCode 994 |
+| | Word Ladder | LeetCode 127 |
+| | Shortest Path Binary Matrix | LeetCode 1091 |
+| | Shortest Path Visiting All Nodes | LeetCode 847 |
+| | Evaluate Division | LeetCode 399 |
+| **Topological Sort** | Parallel Courses | LeetCode 1136 |
+| | Longest Path in DAG | GeeksForGeeks |
+| | Course Schedule IV | LeetCode 1462 |
+| | Game Routes | CSES |
+| | Fox and Names | Codeforces 510C |
+| | Course Schedule | LeetCode 207 |
+| | Course Schedule II | LeetCode 210 |
+| | Alien Dictionary | LeetCode 269 |
+| | Find Eventual Safe States | LeetCode 802 |
+| | Sort Items by Groups | LeetCode 1203 |
+| **Shortest Path (Dijkstra / Bellman-Ford)** | Path with Maximum Probability | LeetCode 1514 |
+| | Number of Ways to Arrive at Destination | LeetCode 1976 |
+| | Find the City With the Smallest Number of Neighbors | LeetCode 1334 |
+| | Shortest Routes I | CSES |
+| | Dijkstra? | Codeforces 20C |
+| | Network Delay Time | LeetCode 743 |
+| | Cheapest Flights K Stops | LeetCode 787 |
+| | Swim in Rising Water | LeetCode 778 |
+| | Path with Minimum Effort | LeetCode 1631 |
+| **MST (Kruskal / Prim)** | Min Cost to Connect All Points | LeetCode 1584 |
+| | Optimize Water Distribution | LeetCode 1168 |
+| | Road Reparation | CSES |
+| | Dark Roads | UVa 11631 |
+| | MST - Kruskal | AtCoder ABC065D |
+| | Find Critical/Pseudo-Critical Edges | LeetCode 1489 |
+| **Union-Find / DSU** | Largest Component Size by Common Factor | LeetCode 952 |
+| | Satisfiability of Equality Equations | LeetCode 990 |
+| | Regions Cut by Slashes | LeetCode 959 |
+| | Road Construction | CSES |
+| | Roads Not Only in Berland | Codeforces 25D |
+| | Redundant Connection | LeetCode 684 |
+| | Number of Connected Components | LeetCode 323 |
+| | Number of Provinces | LeetCode 547 |
+| | Accounts Merge | LeetCode 721 |
+| | Remove Max Edges | LeetCode 1579 |
+| | Find All People with Secret | LeetCode 2092 |
+| | Last Day Where You Can Still Cross | LeetCode 1970 |
+| **SCC / Tarjan** | Strongly Connected Components | CSES |
+| | Minimum Number of Days to Disconnect Island | LeetCode 1568 |
+| | 2-SAT Problem | CSES |
+| | Condensation Graph | Codeforces EDU |
+| | Kosaraju's SCC | GeeksForGeeks |
+| | Critical Connections | LeetCode 1192 |
+| **Bipartite / Matching** | Maximum Number of Accepted Invitations | LeetCode 1820 |
+| | Is Graph Bipartite | LeetCode 785 |
+| | Building Teams | CSES |
+| | König's Theorem - Minimum Vertex Cover | CP-Algorithms |
+| | MATCHING - Hopcroft-Karp | SPOJ |
+| | Possible Bipartition | LeetCode 886 |
+| **Network Flow** | Maximum Flow | CSES |
+| | Maximum Number of Events That Can Be Attended II | LeetCode 1751 |
+| | Cut Edges in a Network | UVa 259 |
+| | Max Flow - Ford Fulkerson | GeeksForGeeks |
+| | Police Station | Codeforces 796E |
+| **Tree Algorithms** | Sum of Distances in Tree | LeetCode 834 |
+| | Binary Tree Cameras | LeetCode 968 |
+| | Tree Distances I | CSES |
+| | Centroid Decomposition | CSES |
+| | Tree Queries | Codeforces 1328E |
+| **Euler Path / Circuit** | Valid Arrangement of Pairs | LeetCode 2097 |
+| | Cracking the Safe | LeetCode 753 |
+| | Mail Delivery | CSES |
+| | Eulerian Path in Directed Graph | CP-Algorithms |
+| | Words | SPOJ] |
+| | Reconstruct Itinerary | LeetCode 332 |
 
 ---
 
@@ -2637,102 +1793,6 @@ void solveGrid(vector<string>& grid) {
 
 ---
 
-### The "Binary Search + BFS/DFS" Meta-Pattern
-
-> "Is there a path from S to T where [some constraint ≤ or ≥ threshold]?"
-> *If the answer is monotonic:* 1. Binary search threshold. 2. Use BFS/DFS to check feasibility.
-
-**Template:**
-
-```cpp
-int binarySearchBFS(vector<vector<int>>& grid) {
-    int n = grid.size(), lo = 0, hi = /* max possible */;
-    auto canReach = [&](int threshold) -> bool {
-        if (grid[0][0] > threshold) return false;
-        vector<vector<bool>> visited(n, vector<bool>(n, false));
-        queue<pair<int,int>> q;
-        visited[0][0] = true; q.push({0, 0});
-        int dirs[4][2] = {{0,1},{0,-1},{1,0},{-1,0}};
-        while (!q.empty()) {
-            auto [r, c] = q.front(); q.pop();
-            if (r == n-1 && c == n-1) return true;
-            for (auto& d : dirs) {
-                int nr = r+d[0], nc = c+d[1];
-                if (nr>=0 && nr<n && nc>=0 && nc<n && !visited[nr][nc] && grid[nr][nc] <= threshold) {
-                    visited[nr][nc] = true; q.push({nr, nc});
-                }
-            }
-        }
-        return false;
-    };
-    while (lo < hi) {
-        int mid = (lo + hi) / 2;
-        if (canReach(mid)) hi = mid;
-        else lo = mid + 1;
-    }
-    return lo;
-}
-
-```
-
----
-
-### The "DSU + Sort" Meta-Pattern
-
-1. Assign a value/score to each node/edge.
-2. Sort by value.
-3. Process in sorted order, unioning as you go.
-4. Stop when condition is met.
-
----
-
-### The "Modified Dijkstra" Meta-Pattern
-
-| Objective | Relaxation | Heap |
-| --- | --- | --- |
-| **Min-sum** | `dist[v] = min(dist[v], dist[u] + w)` | Min-heap |
-| **Max-min** | `dist[v] = max(dist[v], min(dist[u], w))` | Max-heap |
-| **Min-max** | `dist[v] = min(dist[v], max(dist[u], w))` | Min-heap |
-| **Max-product** | `dist[v] = max(dist[v], dist[u] * w)` | Max-heap |
-
-**Template (Max-Min Dijkstra e.g., LC 2812):**
-
-```cpp
-int maxMinDijkstra(vector<vector<int>>& safety, int n) {
-    vector<vector<int>> dist(n, vector<int>(n, 0));
-    dist[0][0] = safety[0][0];
-    priority_queue<tuple<int,int,int>> pq;
-    pq.push({safety[0][0], 0, 0});
-    int dirs[4][2] = {{0,1},{0,-1},{1,0},{-1,0}};
-    while (!pq.empty()) {
-        auto [d, r, c] = pq.top(); pq.pop();
-        if (r == n-1 && c == n-1) return d;
-        if (d < dist[r][c]) continue;
-        for (auto& dir : dirs) {
-            int nr = r+dir[0], nc = c+dir[1];
-            if (nr>=0 && nr<n && nc>=0 && nc<n) {
-                int newDist = min(d, safety[nr][nc]);
-                if (newDist > dist[nr][nc]) {
-                    dist[nr][nc] = newDist;
-                    pq.push({newDist, nr, nc});
-                }
-            }
-        }
-    }
-    return 0;
-}
-
-```
-
----
-
-### Multi-Source BFS
-
-* **Signal:** "Nearest X for every cell" or "Distance from multiple sources".
-* **Key Insight:** Initialize queue with ALL sources at distance 0 → single BFS.
-* **Common uses:** Nearest fire/thief, Voronoi partitioning, Walls and Gates (LC 286), Rotting Oranges (LC 994).
-
----
 
 ### Quick Decision Table: "I see X, I think Y"
 
