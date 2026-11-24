@@ -1,3 +1,5 @@
+# B+ Trees vs LSM Trees: Indexing and Storage Engine Trade-offs
+
 
 We are diving into a high-frequency SDE-2 system design topic: **Database Indexing Internals: B+ Trees vs. LSM-Trees & The RUM Conjecture.**
 

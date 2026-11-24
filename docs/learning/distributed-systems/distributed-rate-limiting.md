@@ -1,5 +1,5 @@
 ---
-title: Distributed Rate Limiting with Redis
+title: Distributed Rate Limiting with Redis and Lua Scripting
 ---
 # Distributed Rate Limiting with Redis and Lua Scripting
 

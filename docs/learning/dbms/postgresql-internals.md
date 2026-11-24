@@ -1,3 +1,5 @@
+# PostgreSQL Internals
+
 Here is a highly detailed, point-by-point breakdown of the internal PostgreSQL mechanics.
 
 ### 1. Storage Hierarchy: Files, Pages, and the Heap

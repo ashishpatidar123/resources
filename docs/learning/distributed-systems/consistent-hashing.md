@@ -1,5 +1,5 @@
 ---
-title: Consistent Hashing
+title: Consistent Hashing and Virtual Nodes
 ---
 # Consistent Hashing and Virtual Nodes
 

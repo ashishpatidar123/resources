@@ -1,8 +1,8 @@
 ---
-title : Lock-Free Concurrency
+title: Lock-Free Concurrency and the ABA Problem
 ---
 
-# Lock-Free Concurrency & The ABA Problem
+# Lock-Free Concurrency and the ABA Problem
 
 If you are building systems where every nanosecond counts—like High-Frequency Trading (HFT) platforms or super-fast message queues—standard operating system locks are just too slow. The solution is **Lock-Free programming**. However, if you aren't careful, you will run into the ABA problem, a silent bug that is notoriously hard to track down.
 

@@ -1,5 +1,5 @@
 ---
-title : Dual-Write and 2PC
+title: Microservices Data Consistency: Dual-Write, 2PC and the Transactional Outbox Pattern
 ---
 
 # Microservices Data Consistency: Dual-Write, 2PC and the Transactional Outbox Pattern

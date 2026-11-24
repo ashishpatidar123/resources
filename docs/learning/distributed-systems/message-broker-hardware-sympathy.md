@@ -1,5 +1,5 @@
 ---
-title : Message Broker Hardware Sympathy
+title: Message Broker Hardware Sympathy: Sequential I/O and Zero-Copy
 ---
 
 # Message Broker Hardware Sympathy: Sequential I/O and Zero-Copy

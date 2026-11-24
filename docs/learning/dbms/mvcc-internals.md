@@ -1,4 +1,4 @@
-# Multi-Version Concurrency Control (MVCC)
+# Multi-Version Concurrency Control (MVCC) Internals
 
 ## 1. Introduction
 

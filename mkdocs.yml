@@ -10,3 +10,31 @@ markdown_extensions:
 extra_javascript:
   - javascripts/mathjax.js
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+nav:
+  - Home: index.md
+  - Learning:
+      - DSA:
+          - Graph Algorithms: learning/dsa/graph-algorithms.md
+          - Rerooting DP on Trees: learning/dsa/rerooting-dp-on-trees.md
+          - Interview Practice Log: learning/dsa/practice-log.md
+      - DBMS:
+          - Multi-Level Indexing: learning/dbms/multi-level-indexing.md
+          - B+ Trees vs LSM Trees: learning/dbms/lsm-trees-vs-b-trees.md
+          - MVCC Internals: learning/dbms/mvcc-internals.md
+          - MVCC and Snapshot Isolation: learning/dbms/mvcc-and-snapshot-isolation.md
+          - PostgreSQL Internals: learning/dbms/postgresql-internals.md
+      - Distributed Systems:
+          - Consistent Hashing: learning/distributed-systems/consistent-hashing.md
+          - Distributed Rate Limiting: learning/distributed-systems/distributed-rate-limiting.md
+          - Data Consistency Patterns: learning/distributed-systems/transactional-outbox-and-dual-write.md
+          - Message Broker Hardware Sympathy: learning/distributed-systems/message-broker-hardware-sympathy.md
+      - OS & Networking:
+          - Hardware Mechanical Sympathy: learning/os-networking/hardware-mechanical-sympathy.md
+          - Lock-Free Concurrency: learning/os-networking/lock-free-concurrency.md
+      - System Design:
+          - System Design Concepts: learning/system-design/system-design-fundamentals.md
+          - Requirements Engineering: learning/system-design/requirements-engineering.md
+      - ML & AI:
+          - Probability Calibration: learning/ml-ai/probability-calibration.md
+      - Topic Tracker: learning/topic-tracker.md

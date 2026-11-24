@@ -1,3 +1,5 @@
+# Hardware Mechanical Sympathy: CPU Cache Coherence and False Sharing
+
 
 **Hardware Mechanical Sympathy**: specifically how CPU cache coherence protocols create invisible performance bottlenecks (False Sharing) and how ultra-low latency architectures (like the LMAX Disruptor) bypass these bottlenecks using Ring Buffers and Memory Fences.
 

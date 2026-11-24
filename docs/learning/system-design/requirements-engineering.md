@@ -1,4 +1,4 @@
-# Lesson 01 — Requirements Engineering: Understanding a Problem Before Designing a System
+# Requirements Engineering: Define the Problem Before Designing
 
 > **Subject:** Low-Level Design & High-Level Design
 > **Level:** Beginner to Intermediate
