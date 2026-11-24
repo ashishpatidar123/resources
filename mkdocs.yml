@@ -18,6 +18,11 @@ nav:
           - Graph Algorithms: learning/dsa/graph-algorithms.md
           - Rerooting DP on Trees: learning/dsa/rerooting-dp-on-trees.md
           - Interview Practice Log: learning/dsa/practice-log.md
+      - LeetCode Solutions:
+          - All Problems: learning/dsa/leetcode/index.md
+          - Easy: learning/dsa/leetcode/easy.md
+          - Medium: learning/dsa/leetcode/medium.md
+          - Hard: learning/dsa/leetcode/hard.md
       - DBMS:
           - Multi-Level Indexing: learning/dbms/multi-level-indexing.md
           - B+ Trees vs LSM Trees: learning/dbms/lsm-trees-vs-b-trees.md
