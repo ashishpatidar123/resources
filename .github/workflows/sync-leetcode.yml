@@ -2,6 +2,10 @@ name: Sync LeetCode Solutions
 
 on:
   workflow_dispatch:
+
+  repository_dispatch:
+    types: [leetcode_sync]
+
   schedule:
     # Daily at 02:00 UTC (07:30 IST)
     - cron: "0 2 * * *"
@@ -12,6 +16,7 @@ permissions:
 jobs:
   sync-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Resources
         uses: actions/checkout@v4
@@ -24,38 +29,21 @@ jobs:
           python-version: "3.x"
 
       - name: Clone LeetCode solutions repository
-        run: |
-          git clone --depth 1 https://github.com/ashishpatidar123/Coding-Questions-Solutions.git leetcode-source
+        run: git clone --depth 1 https://github.com/ashishpatidar123/Coding-Questions-Solutions.git leetcode-source
 
       - name: Generate website pages
         run: python scripts/sync_leetcode.py
 
       - name: Update MkDocs navigation
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          p = Path("mkdocs.yml")
-          text = p.read_text(encoding="utf-8")
-          nav_block = """      - LeetCode Solutions:
-          - All Problems: learning/dsa/leetcode/index.md
-          - Easy: learning/dsa/leetcode/easy.md
-          - Medium: learning/dsa/leetcode/medium.md
-          - Hard: learning/dsa/leetcode/hard.md
-"""
-          # Add the section under Learning, immediately after the DSA section.
-          marker = "      - DBMS:"
-          if "learning/dsa/leetcode/index.md" not in text:
-              if marker not in text:
-                  raise SystemExit("Could not find Learning > DBMS nav marker in mkdocs.yml")
-              text = text.replace(marker, nav_block + marker, 1)
-              p.write_text(text, encoding="utf-8")
-          PY
+        run: python scripts/update_nav.py
 
       - name: Commit generated pages (if changed)
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/learning/dsa/leetcode mkdocs.yml
+
+          git add docs/learning/dsa/leetcode mkdocs.yml scripts/update_nav.py
+
           if git diff --cached --quiet; then
             echo "No generated content changes."
           else
