@@ -9,6 +9,7 @@ Canonical deduplication log. Before preparing each lesson, check this tracker an
 | 2026-11-13 | Software Engineering | Secure CI/CD Architecture and Progressive Delivery | Previously reported as covered; file not located during repository inspection |
 | 2026-11-22 | DBMS | MVCC and Snapshot Isolation: How Databases Let Readers and Writers Coexist | [Lesson](dbms/2026-11-22-mvcc-and-snapshot-isolation.md) |
 | 2026-11-23 | ML/AI | Probability Calibration: Making ML Confidence Trustworthy | [Lesson](ml-ai/2026-11-23-probability-calibration.md) |
+| 2026-11-24 | DSA | Rerooting DP on Trees: Compute Answers for Every Root in Linear Time | [Lesson](dsa/2026-11-24-rerooting-dp-on-trees.md) |
 
 ## Weekly rotation
 
