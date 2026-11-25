@@ -1,4 +1,3 @@
-
 # Daily Engineering Learning — Topic Tracker
 
 Canonical deduplication log. Before preparing each lesson, check this tracker and repository files. Avoid repeating the same topic or substantially overlapping treatment; choose a fresh subtopic or deeper progression.
@@ -11,6 +10,7 @@ Canonical deduplication log. Before preparing each lesson, check this tracker an
 | 2026-11-22 | DBMS | MVCC and Snapshot Isolation: How Databases Let Readers and Writers Coexist | [Lesson](dbms/mvcc-and-snapshot-isolation.md) |
 | 2026-11-23 | ML/AI | Probability Calibration: Making ML Confidence Trustworthy | [Lesson](ml-ai/probability-calibration.md) |
 | 2026-11-24 | DSA | Rerooting DP on Trees: Compute Answers for Every Root in Linear Time | [Lesson](dsa/rerooting-dp-on-trees.md) |
+| 2026-11-25 | Distributed Systems | Leases, Failure Detection, and Fencing Tokens: Preventing Zombie Writers | [Lesson](distributed-systems/2026-11-25-leases-failure-detection-fencing-tokens.md) |
 
 ## Weekly rotation
 - Monday — ML/AI
