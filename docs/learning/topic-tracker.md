@@ -11,6 +11,7 @@ Canonical deduplication log. Before preparing each lesson, check this tracker an
 | 2026-11-23 | ML/AI | Probability Calibration: Making ML Confidence Trustworthy | [Lesson](ml-ai/probability-calibration.md) |
 | 2026-11-24 | DSA | Rerooting DP on Trees: Compute Answers for Every Root in Linear Time | [Lesson](dsa/rerooting-dp-on-trees.md) |
 | 2026-11-25 | Distributed Systems | Leases, Failure Detection, and Fencing Tokens: Preventing Zombie Writers | [Lesson](distributed-systems/2026-11-25-leases-failure-detection-fencing-tokens.md) |
+| 2026-11-26 | OS & Networking | TCP Listen Backlog: SYN Queue, Accept Queue, and Connection Overload | [Lesson](os-networking/2026-11-26-tcp-listen-backlog-syn-queue-accept-queue.md) |
 
 ## Weekly rotation
 - Monday — ML/AI
@@ -22,7 +23,7 @@ Canonical deduplication log. Before preparing each lesson, check this tracker an
 - Sunday — DBMS
 
 ## Publishing protocol
-- Use `docs/learning/<domain-slug>/<topic-slug>.md`; filenames are lowercase kebab-case and contain no dates.
+- Use `docs/learning/<domain-slug>/YYYY-MM-DD-<topic-slug>.md`; filenames are lowercase kebab-case and date-prefixed.
 - Domain folders: `ml-ai`, `dsa`, `distributed-systems`, `os-networking`, `software-engineering`, `system-design`, `dbms`.
 - Include date, domain, level, and prerequisites in lesson metadata/body.
 - Check this tracker and repository for duplicate topics before drafting.
