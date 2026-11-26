@@ -26,6 +26,7 @@ A structured, searchable knowledge base for continuous learning across software 
 ### Operating Systems & Networking
 - [Hardware Mechanical Sympathy](learning/os-networking/hardware-mechanical-sympathy.md)
 - [Lock-Free Concurrency](learning/os-networking/lock-free-concurrency.md)
+- [TCP Listen Backlog: SYN Queue & Accept Queue](learning/os-networking/2026-11-26-tcp-listen-backlog-syn-queue-accept-queue.md)
 
 ### System Design
 - [System Design Concepts](learning/system-design/system-design-fundamentals.md)
