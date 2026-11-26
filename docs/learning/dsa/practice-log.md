@@ -41,7 +41,7 @@ A compact, cumulative log for daily LeetCode interview practice. Keep only these
 ### Edit Distance
 - **Topic:** Dynamic Programming — string DP
 - **LeetCode:** https://leetcode.com/problems/edit-distance/
-- **Trick to solve:** To be recorded from the user's approach and coaching discussion.
+- **Trick to solve:** Define `dp(i,j)` for converting the remaining suffixes. If characters match, advance both; otherwise take 1 + min(insert, delete, replace). Memoize states; when one suffix is exhausted, the remaining length is the answer.
 - **Similar questions (2):**
   1. [Delete Operation for Two Strings](https://leetcode.com/problems/delete-operation-for-two-strings/) — related string transformation DP.
   2. [Minimum ASCII Delete Sum for Two Strings](https://leetcode.com/problems/minimum-ascii-delete-sum-for-two-strings/) — weighted deletion variant.
