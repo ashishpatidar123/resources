@@ -69,3 +69,12 @@ A compact, cumulative log for daily LeetCode interview practice. Keep only these
 - **Similar questions (2):**
   1. [Container With Most Water](https://leetcode.com/problems/container-with-most-water/) — two-pointer boundary reasoning.
   2. [Trapping Rain Water II](https://leetcode.com/problems/trapping-rain-water-ii/) — extend water trapping to a 2D elevation map.
+
+## 2026-11-27 — Carryover (no new assignments)
+
+All four problems from 2026-11-24 remain pending and are carried forward; no new problems were added to respect the four-problem daily cap.
+
+- [Edit Distance](https://leetcode.com/problems/edit-distance/) — Dynamic Programming — pending
+- [Is Graph Bipartite?](https://leetcode.com/problems/is-graph-bipartite/) — Graph — pending
+- [Jump Game II](https://leetcode.com/problems/jump-game-ii/) — Greedy — pending
+- [Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/) — Two Pointers / Monotonic Structures — pending
