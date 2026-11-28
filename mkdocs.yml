@@ -13,6 +13,9 @@ extra_javascript:
 
 nav:
   - Home: index.md
+  - Writing:
+      - Overview: writing/index.md
+      - Beyond Engineering: writing/beyond-engineering.md
   - Learning:
       - DSA:
           - Graph Algorithms: learning/dsa/graph-algorithms.md
