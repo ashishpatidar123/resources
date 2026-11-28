@@ -1,0 +1,1888 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>Leases, Failure Detection, and Fencing Tokens: Preventing Zombie Writers - Resources</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#leases-failure-detection-and-fencing-tokens-preventing-zombie-writers" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Resources" class="md-header__button md-logo" aria-label="Resources" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Resources
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Leases, Failure Detection, and Fencing Tokens: Preventing Zombie Writers
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Resources" class="md-nav__button md-logo" aria-label="Resources" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Resources
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Writing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Writing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../writing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../writing/beyond-engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Beyond Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DSA
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dsa/graph-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graph Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dsa/rerooting-dp-on-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rerooting DP on Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dsa/practice-log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interview Practice Log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LeetCode Solutions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    LeetCode Solutions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dsa/leetcode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    All Problems
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dsa/leetcode/easy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Easy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dsa/leetcode/medium/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Medium
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dsa/leetcode/hard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DBMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DBMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dbms/multi-level-indexing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Level Indexing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dbms/lsm-trees-vs-b-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    B+ Trees vs LSM Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dbms/mvcc-internals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MVCC Internals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dbms/mvcc-and-snapshot-isolation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MVCC and Snapshot Isolation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dbms/postgresql-internals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PostgreSQL Internals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Systems
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Distributed Systems
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../consistent-hashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Consistent Hashing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../distributed-rate-limiting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Rate Limiting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transactional-outbox-and-dual-write/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Consistency Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../message-broker-hardware-sympathy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message Broker Hardware Sympathy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OS & Networking
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OS & Networking
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../os-networking/hardware-mechanical-sympathy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware Mechanical Sympathy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../os-networking/lock-free-concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lock-Free Concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../os-networking/2026-11-26-tcp-listen-backlog-syn-queue-accept-queue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TCP Listen Backlog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    System Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system-design/system-design-fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design Concepts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system-design/requirements-engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Requirements Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML & AI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ML & AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-ai/probability-calibration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probability Calibration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../topic-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Topic Tracker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-why-this-matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Why this matters
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-lock-vs-lease-vs-fencing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Lock vs. lease vs. fencing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-stale-owner-failure-timeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The stale-owner failure timeline
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-fencing-token-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Fencing-token protocol
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Fencing-token protocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#granting-ownership" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Granting ownership
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validating-writes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validating writes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Worked example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-where-to-put-the-fence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Where to put the fence
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-leases-and-renewal-practical-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Leases and renewal: practical design
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-leases-are-not-clocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Leases are not clocks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-trade-offs-and-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Trade-offs and limitations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-implementation-sketch-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Implementation sketch (SQL)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-common-pitfalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Common pitfalls
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-interview-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Interview questions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. References
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaway" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key takeaway
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="leases-failure-detection-and-fencing-tokens-preventing-zombie-writers">Leases, Failure Detection, and Fencing Tokens: Preventing Zombie Writers</h1>
+<p><strong>Date:</strong> 2026-11-25<br />
+<strong>Domain:</strong> Distributed Systems<br />
+<strong>Level:</strong> Intermediate–Advanced<br />
+<strong>Prerequisites:</strong> Distributed failure modes, consensus basics, concurrency control, atomic writes</p>
+<h2 id="1-why-this-matters">1. Why this matters</h2>
+<p>A common design requirement is: <em>only one worker may update a resource at a time</em>. Examples include a scheduler running a job, a leader updating replicated metadata, a worker processing a customer's account, or a service rebuilding a cache.</p>
+<p>A distributed lock or lease seems to solve this. But it only coordinates what the lock service believes. It cannot forcibly stop a client that has paused, lost connectivity, or whose request is delayed. A process may wake up after ownership has changed and still send a write—the <strong>zombie/stale owner</strong> problem.</p>
+<p>This lesson develops a robust contract between a coordination service and the resource being protected.</p>
+<h2 id="2-lock-vs-lease-vs-fencing">2. Lock vs. lease vs. fencing</h2>
+<ul>
+<li><strong>Lock:</strong> an ownership grant intended to exclude competing actors. A distributed lock's guarantee depends on its protocol and assumptions.</li>
+<li><strong>Lease:</strong> ownership with a time-to-live (TTL). The coordinator expires it if renewals stop, improving recovery from crashed clients.</li>
+<li><strong>Failure detector:</strong> infers that a node may be unavailable from missing heartbeats/timeouts. In an asynchronous network, timeout is suspicion, not proof of death.</li>
+<li><strong>Fencing token:</strong> a monotonically increasing generation number attached to each ownership grant. The protected resource rejects operations from older generations.</li>
+</ul>
+<p>A lease is mainly a <strong>liveness/recovery mechanism</strong>. Fencing is a <strong>safety mechanism</strong> at the write boundary.</p>
+<h2 id="3-the-stale-owner-failure-timeline">3. The stale-owner failure timeline</h2>
+<p>Suppose worker A receives a 10-second lease and token 41.</p>
+<ol>
+<li>A reads a record and begins a calculation.</li>
+<li>A is paused for 15 seconds (GC, VM suspension, CPU starvation, or network delay).</li>
+<li>Its lease expires. The coordinator grants B a new lease with token 42.</li>
+<li>B writes a newer result.</li>
+<li>A resumes and sends its old write with token 41.</li>
+</ol>
+<p>Without resource-side validation, A's late write can overwrite B's result—even if the lock service never granted both leases simultaneously. The coordinator cannot revoke A's CPU or retract an in-flight packet.</p>
+<p>Checking the lease locally immediately before writing is insufficient: A may pause <em>after</em> the check. The check and protected write need an atomic enforcement point at the resource.</p>
+<h2 id="4-fencing-token-protocol">4. Fencing-token protocol</h2>
+<p>The invariant at the protected resource is:</p>
+<blockquote>
+<p>Once the resource has accepted token T, it must never accept a write carrying a token less than T.</p>
+</blockquote>
+<h3 id="granting-ownership">Granting ownership</h3>
+<p>The coordinator grants leases with increasing generations: 41, 42, 43, ...</p>
+<p>Tokens must be monotonic for the resource's ownership domain and must not reset after coordinator restart. Ideally, token allocation is tied to a linearizable/consensus-backed operation, or uses a durable generation/epoch.</p>
+<h3 id="validating-writes">Validating writes</h3>
+<p>The resource stores <code>highest_fence</code> (or a generation associated with the record). A write carries its token. The validation and update must be atomic:</p>
+<div class="highlight"><pre><span></span><code>write(resource, token, payload):
+  transaction:
+    if token &lt; resource.highest_fence:
+       reject STALE_OWNER
+    resource.highest_fence = max(resource.highest_fence, token)
+    resource.payload = payload
+    commit
+</code></pre></div>
+<p>Rejecting <code>token &lt; highest_fence</code> allows equal-token writes from the same owner. If the protocol requires exactly one operation or strict sequencing, add a request sequence number or compare-and-set version. For a fencing-only guarantee, tokens order ownership epochs, not operations within an epoch.</p>
+<p>A safe database implementation could lock the resource row and compare/update the fence in one transaction, or use a conditional update. Never read the fence, validate in application memory, and then write in a separate unprotected transaction.</p>
+<h2 id="5-worked-example">5. Worked example</h2>
+<p>A batch job writes the latest report for account 900.</p>
+<table>
+<thead>
+<tr>
+<th>Time</th>
+<th>Actor</th>
+<th>Action</th>
+<th style="text-align: right;">Fence</th>
+<th>Storage result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10:00:00</td>
+<td>A</td>
+<td>Lease acquired</td>
+<td style="text-align: right;">41</td>
+<td>—</td>
+</tr>
+<tr>
+<td>10:00:01</td>
+<td>A</td>
+<td>Begins calculation</td>
+<td style="text-align: right;">41</td>
+<td>—</td>
+</tr>
+<tr>
+<td>10:00:12</td>
+<td>B</td>
+<td>Lease acquired after A expires</td>
+<td style="text-align: right;">42</td>
+<td>—</td>
+</tr>
+<tr>
+<td>10:00:13</td>
+<td>B</td>
+<td>Writes report</td>
+<td style="text-align: right;">42</td>
+<td>Accept; highest=42</td>
+</tr>
+<tr>
+<td>10:00:16</td>
+<td>A</td>
+<td>Resumes and writes stale report</td>
+<td style="text-align: right;">41</td>
+<td>Reject (41 &lt; 42)</td>
+</tr>
+</tbody>
+</table>
+<p>The token makes the order of ownership visible to storage. It does not rely on the old client noticing that its lease expired.</p>
+<h2 id="6-where-to-put-the-fence">6. Where to put the fence</h2>
+<p>The check must live at the <strong>actual side-effect boundary</strong>:</p>
+<ul>
+<li>Database: include fence comparison and write in one transaction/conditional statement.</li>
+<li>Object storage: use a conditional write/version mechanism if available; otherwise route writes through a service that can enforce fencing.</li>
+<li>Message processing: include the generation in messages and validate it at the consumer or state store.</li>
+<li>External APIs: if the provider cannot check tokens, use idempotency keys, conditional requests, or a single controlled gateway; fencing alone cannot protect an uncooperative system.</li>
+<li>Multiple resources: all protected resources must enforce the token. A leader that fences its database writes but sends unguarded emails or payments can still create stale side effects.</li>
+</ul>
+<h2 id="7-leases-and-renewal-practical-design">7. Leases and renewal: practical design</h2>
+<p>A worker periodically renews its lease. If renewal fails or the worker cannot establish that it still owns the lease, it should stop initiating new protected work and fail closed. However, client-side step-down is defense in depth—not the correctness mechanism.</p>
+<p>A rough configuration example:
+- TTL: 15 seconds
+- Renew every 5 seconds
+- On renewal failure: immediately stop work; don't assume the lease remains valid
+- Add jitter to renewal to avoid synchronized bursts
+- Ensure the coordinator's clock/TTL implementation and client timeout assumptions are understood</p>
+<p>Short TTLs speed recovery but increase false expiry during pauses or transient network trouble. Long TTLs reduce churn but delay takeover after a crash. Fencing prevents stale writes when ownership changes; it does not remove the need to choose TTLs carefully.</p>
+<h2 id="8-leases-are-not-clocks">8. Leases are not clocks</h2>
+<p>Do not use wall-clock timestamps as fencing generations. Clock drift, NTP adjustments, pauses, and different clock domains can make timestamps go backward or overlap. A fencing token represents <strong>ordering</strong>, not elapsed time.</p>
+<p>A monotonically increasing counter, consensus term, or resource-scoped epoch is more appropriate. If the resource accepts only the latest token, a delayed old request becomes harmless after a newer owner has made its first accepted write. Be aware: before the new owner reaches the resource, an old token may still be accepted. If immediate invalidation on takeover is required, the new owner must establish a fencing barrier at the resource before acting (e.g., write/advance the generation first).</p>
+<h2 id="9-trade-offs-and-limitations">9. Trade-offs and limitations</h2>
+<p><strong>Advantages</strong>
+- Protects against paused/zombie clients and delayed requests.
+- Makes ownership transitions explicit at the data boundary.
+- Can be implemented as a small, testable invariant.</p>
+<p><strong>Costs</strong>
+- Requires protected storage to participate.
+- Token generation and validation need durable, well-defined ordering.
+- Tokens must be propagated through asynchronous work and retries.
+- Every write path must be fenced; bypasses create holes.
+- Does not deduplicate repeated requests from the same token; idempotency/sequence checks are separate.</p>
+<p><strong>When a plain lock may be enough:</strong> If lock loss only causes duplicate work (cache warming, redundant computation) and results are harmless, a lock may be an optimization. If stale writes can corrupt state, oversell inventory, or trigger irreversible actions, design the resource-side guard.</p>
+<h2 id="10-implementation-sketch-sql">10. Implementation sketch (SQL)</h2>
+<p>Assume a row stores <code>highest_fence</code>. In a database supporting atomic conditional updates, a write can be expressed conceptually as:</p>
+<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">report</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">payload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">:</span><span class="n">payload</span><span class="p">,</span>
+<span class="w">    </span><span class="n">highest_fence</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">:</span><span class="n">fence</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">:</span><span class="n">id</span>
+<span class="w">  </span><span class="k">AND</span><span class="w"> </span><span class="n">highest_fence</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="p">:</span><span class="n">fence</span><span class="p">;</span>
+</code></pre></div>
+<p>Check the affected-row count. Zero rows means stale or missing resource. The statement is atomic, but ensure the schema initializes <code>highest_fence</code>, concurrent semantics are correct for your DB, and equal-token concurrent writes are acceptable (or add a version/request sequence).</p>
+<p>A stronger ownership transition can first advance the fence, even before the new leader's business write. That establishes a barrier so the resource rejects all earlier generations immediately.</p>
+<h2 id="11-common-pitfalls">11. Common pitfalls</h2>
+<ol>
+<li><strong>"The TTL expired, so the old process is dead."</strong> It may merely be paused or partitioned.</li>
+<li><strong>Client-only validation.</strong> A pause can occur between validation and write.</li>
+<li><strong>Non-monotonic token source.</strong> Random UUIDs identify grants but cannot order them; timestamps are unsafe unless the ordering authority guarantees monotonicity.</li>
+<li><strong>Non-atomic check then write.</strong> A race can slip between the two operations.</li>
+<li><strong>Fence only one path.</strong> Background jobs, admin scripts, retries, or alternate APIs may bypass it.</li>
+<li><strong>Fence and idempotency conflated.</strong> Token 42 may be valid for many operations; duplicate operation IDs still need deduplication.</li>
+<li><strong>Fail-open renewal.</strong> Continuing work after uncertain lease state increases stale-owner risk.</li>
+<li><strong>No takeover barrier.</strong> If new ownership is granted but storage hasn't observed the new token, a late old-token write may still pass. Advance the fence at the resource before new-owner side effects when strict takeover semantics are needed.</li>
+</ol>
+<h2 id="12-interview-questions">12. Interview questions</h2>
+<ol>
+<li>Why doesn't a distributed lock with TTL guarantee that only one client can write?</li>
+<li>Why is checking lease validity immediately before the write not sufficient?</li>
+<li>What is a fencing token? Where must it be validated?</li>
+<li>How would you generate fencing tokens if the coordinator is replicated?</li>
+<li>Does fencing solve duplicate requests? Why or why not?</li>
+<li>What if the protected system is a third-party API that cannot validate tokens?</li>
+<li>How would you test a stale-owner bug deterministically?</li>
+<li>Compare short and long lease TTLs. What are the safety and availability implications?</li>
+</ol>
+<h2 id="13-exercise">13. Exercise</h2>
+<p>Implement a toy <code>LeaseCoordinator</code> and <code>FencedStore</code> in Java, C++, or Python.</p>
+<p>Requirements:
+- <code>acquire(resource, worker)</code> grants a lease and returns a monotonically increasing token.
+- <code>renew(token)</code> fails if the lease is no longer current.
+- <code>write(resource, token, value)</code> atomically rejects stale tokens.
+- Simulate worker A pausing past expiry, worker B acquiring and writing, then A resuming.
+- Add a test for delayed messages and another for two concurrent writes with the same token.
+- Stretch: make takeover advance the storage fence before B's business write; explain what this changes.</p>
+<p>The critical test should assert that after storage has accepted token 42, a write with token 41 cannot change the stored value.</p>
+<h2 id="14-references">14. References</h2>
+<ul>
+<li><a href="https://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html">Martin Kleppmann — How to do distributed locking</a> — the stale-client failure and fencing-token argument.</li>
+<li><a href="https://etcd.io/docs/v3.5/learning/api/">etcd — Lease API documentation</a> — TTL, keep-alives, and lease behavior.</li>
+<li><a href="https://github.com/etcd-io/etcd/tree/main/contrib/lock">etcd — Locking example with fencing</a> — runnable example demonstrating expired lease holders and token validation.</li>
+<li><a href="https://engineeringfoundry.dev/system-design/patterns/leases-and-fencing-tokens">Engineering Foundry — Leases &amp; Fencing Tokens</a> — practical failure timeline and design trade-offs.</li>
+<li><a href="https://www.youtube.com/watch?v=9V45TIXtYGI">Video: When a Lease Expires, Fencing Stops the Stale Write</a> — visual explanation of the stale-worker scenario.</li>
+</ul>
+<h2 id="key-takeaway">Key takeaway</h2>
+<p>A lease can tell the coordinator that it is time to replace an owner. It cannot stop the old owner from waking up. <strong>Correctness lives at the protected resource: attach an ordered fencing token to every write and atomically reject stale generations.</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

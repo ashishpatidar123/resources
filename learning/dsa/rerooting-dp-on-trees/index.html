@@ -1,0 +1,2860 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../graph-algorithms/">
+      
+      
+        <link rel="next" href="../practice-log/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>Rerooting DP on Trees - Resources</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#rerooting-dp-on-trees-compute-answers-for-every-root-in-linear-time" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Resources" class="md-header__button md-logo" aria-label="Resources" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Resources
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Rerooting DP on Trees
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Resources" class="md-nav__button md-logo" aria-label="Resources" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Resources
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Writing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Writing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../writing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../writing/beyond-engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Beyond Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DSA
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graph Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rerooting DP on Trees
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rerooting DP on Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-problem-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The problem pattern
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-start-with-the-easiest-rerooting-transition-sum-of-distances" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Start with the easiest rerooting transition: sum of distances
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Start with the easiest rerooting transition: sum of distances">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-fix-one-temporary-root" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Fix one temporary root
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-derive-the-transition-instead-of-memorizing-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Derive the transition instead of memorizing it
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Worked example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-what-this-example-teachesand-what-it-does-not" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 What this example teaches—and what it does not
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-general-rerooting-inside-and-outside-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. General rerooting: inside and outside information
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. General rerooting: inside and outside information">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-the-three-operations-to-define" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 The three operations to define
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-why-prefix-and-suffix-aggregates-matter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Why prefix and suffix aggregates matter
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-a-full-example-count-connected-black-subsets-containing-each-vertex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. A full example: count connected black subsets containing each vertex
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. A full example: count connected black subsets containing each vertex">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-define-the-state-precisely" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Define the state precisely
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-bottom-up-transition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Bottom-up transition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-top-down-transition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Top-down transition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-sanity-check-on-a-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 Sanity check on a path
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-c17-implementation-iterative-two-pass-rerooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. C++17 implementation: iterative two-pass rerooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. C++17 implementation: iterative two-pass rerooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#complexity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complexity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-details-worth-noticing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation details worth noticing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-how-to-recognize-and-design-rerooting-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. How to recognize and design rerooting problems
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-common-mistakes-and-trade-offs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Common mistakes and trade-offs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Common mistakes and trade-offs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#confusing-the-two-directions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Confusing the two directions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recomputing-sibling-contributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recomputing sibling contributions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dividing-modulo-m" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dividing modulo M
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-wrong-traversal-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using the wrong traversal order
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recursive-dfs-on-a-deep-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recursive DFS on a deep tree
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assuming-every-tree-dp-can-be-rerooted-in-on" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assuming every tree DP can be rerooted in O(N)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overgeneralizing-a-special-transition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overgeneralizing a special transition
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-engineering-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Engineering applications
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-interview-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Interview questions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-practice-exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Practice exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Key takeaways
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references-and-further-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References and further learning
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practice-log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interview Practice Log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LeetCode Solutions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    LeetCode Solutions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../leetcode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    All Problems
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../leetcode/easy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Easy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../leetcode/medium/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Medium
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../leetcode/hard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DBMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DBMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dbms/multi-level-indexing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Level Indexing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dbms/lsm-trees-vs-b-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    B+ Trees vs LSM Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dbms/mvcc-internals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MVCC Internals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dbms/mvcc-and-snapshot-isolation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MVCC and Snapshot Isolation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dbms/postgresql-internals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PostgreSQL Internals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Systems
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Distributed Systems
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed-systems/consistent-hashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Consistent Hashing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed-systems/distributed-rate-limiting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Rate Limiting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed-systems/transactional-outbox-and-dual-write/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Consistency Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed-systems/message-broker-hardware-sympathy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message Broker Hardware Sympathy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OS & Networking
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OS & Networking
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../os-networking/hardware-mechanical-sympathy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware Mechanical Sympathy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../os-networking/lock-free-concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lock-Free Concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../os-networking/2026-11-26-tcp-listen-backlog-syn-queue-accept-queue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TCP Listen Backlog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    System Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system-design/system-design-fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design Concepts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system-design/requirements-engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Requirements Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML & AI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ML & AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-ai/probability-calibration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probability Calibration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../topic-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Topic Tracker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-problem-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The problem pattern
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-start-with-the-easiest-rerooting-transition-sum-of-distances" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Start with the easiest rerooting transition: sum of distances
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Start with the easiest rerooting transition: sum of distances">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-fix-one-temporary-root" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Fix one temporary root
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-derive-the-transition-instead-of-memorizing-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Derive the transition instead of memorizing it
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Worked example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-what-this-example-teachesand-what-it-does-not" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 What this example teaches—and what it does not
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-general-rerooting-inside-and-outside-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. General rerooting: inside and outside information
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. General rerooting: inside and outside information">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-the-three-operations-to-define" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 The three operations to define
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-why-prefix-and-suffix-aggregates-matter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Why prefix and suffix aggregates matter
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-a-full-example-count-connected-black-subsets-containing-each-vertex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. A full example: count connected black subsets containing each vertex
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. A full example: count connected black subsets containing each vertex">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-define-the-state-precisely" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Define the state precisely
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-bottom-up-transition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Bottom-up transition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-top-down-transition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Top-down transition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-sanity-check-on-a-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 Sanity check on a path
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-c17-implementation-iterative-two-pass-rerooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. C++17 implementation: iterative two-pass rerooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. C++17 implementation: iterative two-pass rerooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#complexity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complexity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-details-worth-noticing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation details worth noticing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-how-to-recognize-and-design-rerooting-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. How to recognize and design rerooting problems
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-common-mistakes-and-trade-offs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Common mistakes and trade-offs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Common mistakes and trade-offs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#confusing-the-two-directions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Confusing the two directions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recomputing-sibling-contributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recomputing sibling contributions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dividing-modulo-m" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dividing modulo M
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-wrong-traversal-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using the wrong traversal order
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recursive-dfs-on-a-deep-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recursive DFS on a deep tree
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assuming-every-tree-dp-can-be-rerooted-in-on" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assuming every tree DP can be rerooted in O(N)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overgeneralizing-a-special-transition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overgeneralizing a special transition
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-engineering-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Engineering applications
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-interview-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Interview questions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-practice-exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Practice exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Key takeaways
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references-and-further-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References and further learning
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="rerooting-dp-on-trees-compute-answers-for-every-root-in-linear-time">Rerooting DP on Trees: Compute Answers for Every Root in Linear Time</h1>
+<p><strong>Domain:</strong> Data Structures &amp; Algorithms<br />
+<strong>Level:</strong> Intermediate → Advanced<br />
+<strong>Prerequisites:</strong> DFS/BFS, rooted trees, subtree sizes, bottom-up tree DP, prefix/suffix aggregates<br />
+<strong>Estimated study time:</strong> 60–90 minutes</p>
+<h2 id="learning-objectives">Learning objectives</h2>
+<p>By the end, you should be able to:</p>
+<ul>
+<li>Recognize problems that ask for a tree-DP answer at every vertex, not just one fixed root.</li>
+<li>Derive the effect of moving a root across one edge.</li>
+<li>Implement the two-pass rerooting pattern iteratively in C++.</li>
+<li>Use prefix/suffix aggregates to exclude one child without division.</li>
+<li>Explain when rerooting is linear and when the state-combination cost makes it more expensive.</li>
+</ul>
+<hr />
+<h2 id="1-the-problem-pattern">1. The problem pattern</h2>
+<p>A normal tree-DP solution temporarily chooses a root and computes information from leaves toward that root. This works when the question asks for one answer, such as:</p>
+<ul>
+<li>the size or sum of a subtree;</li>
+<li>the maximum independent set of the tree;</li>
+<li>the longest path passing through a vertex;</li>
+<li>a value associated with one chosen root.</li>
+</ul>
+<p>Rerooting DP is useful when the question changes to:</p>
+<blockquote>
+<p>For every vertex u, what would the answer be if u were the root?</p>
+</blockquote>
+<p>A brute-force approach is to run the ordinary tree DP once for each possible root. If one run costs O(N), doing it for all N roots costs O(N²). That is too slow for a tree with N = 2 × 10^5.</p>
+<p>The key observation is that two neighboring roots describe almost the same tree. When the root moves across one edge, the tree splits into two components. We can reuse the information already computed for those components instead of recomputing the entire tree.</p>
+<p>A tree has N - 1 edges, so a constant amount of work per edge gives an O(N) algorithm.</p>
+<h2 id="2-start-with-the-easiest-rerooting-transition-sum-of-distances">2. Start with the easiest rerooting transition: sum of distances</h2>
+<p>Consider this problem:</p>
+<blockquote>
+<p>For every vertex u, calculate the sum of its distances to all other vertices.</p>
+</blockquote>
+<p>Running BFS from every vertex takes O(N²) on a tree. Instead, derive how the answer changes when moving from a parent p to its child c.</p>
+<h3 id="21-fix-one-temporary-root">2.1 Fix one temporary root</h3>
+<p>Choose any root, say vertex 0. This root is only a bookkeeping device; it is not necessarily the final answer.</p>
+<p>Compute:</p>
+<ul>
+<li>parent[u]: parent of u in this temporary rooting;</li>
+<li>depth[u]: distance from the temporary root;</li>
+<li>size[u]: number of vertices in u's subtree;</li>
+<li>ans[u]: sum of distances from u to all vertices.</li>
+</ul>
+<p>The first answer is easy:</p>
+<pre><code>ans[root] = sum(depth[u])
+</code></pre>
+<p>Then compute subtree sizes in post-order:</p>
+<pre><code>size[u] = 1 + sum(size[child])
+</code></pre>
+<p>A reverse traversal order is enough: if parents are visited before children, reversing that order ensures children are processed before their parents.</p>
+<h3 id="22-derive-the-transition-instead-of-memorizing-it">2.2 Derive the transition instead of memorizing it</h3>
+<p>Suppose c is a child of p. Remove edge (p, c).</p>
+<p>The tree is now split into:</p>
+<ul>
+<li>the component on c's side, containing size[c] vertices;</li>
+<li>the component on p's side, containing N - size[c] vertices.</li>
+</ul>
+<p>Move the reference point from p to c:</p>
+<ul>
+<li>Every vertex in c's component becomes <strong>one edge closer</strong>.</li>
+<li>Every vertex in the other component becomes <strong>one edge farther</strong>.</li>
+</ul>
+<p>Therefore:</p>
+<pre><code>ans[c] = ans[p] - size[c] + (N - size[c])
+</code></pre>
+<p>So:</p>
+<pre><code>ans[c] = ans[p] + N - 2 * size[c]
+</code></pre>
+<p>That is the entire transition. Once ans[p] and size[c] are known, the answer for c is available in constant time.</p>
+<p>For an edge of weight w, every distance in the two components changes by w rather than 1:</p>
+<pre><code>ans[c] = ans[p] + w * (N - 2 * size[c])
+</code></pre>
+<p>Use long long for distance sums. If input bounds can make the product exceed 64-bit range, use __int128 for intermediate arithmetic.</p>
+<h3 id="23-worked-example">2.3 Worked example</h3>
+<p>Take this tree:</p>
+<div class="highlight"><pre><span></span><code>        1
+       / \
+      2   3
+     / \   \
+    4   5   6
+</code></pre></div>
+<p>Root it at 1.</p>
+<table>
+<thead>
+<tr>
+<th>Vertex</th>
+<th style="text-align: right;">Subtree size</th>
+<th style="text-align: right;">Sum of distances</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr>
+<td>2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr>
+<td>3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr>
+<td>4</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr>
+<td>5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr>
+<td>6</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">14</td>
+</tr>
+</tbody>
+</table>
+<p>From vertex 1, the distances are 0, 1, 1, 2, 2, 2, so ans[1] = 8.</p>
+<p>For vertex 2, its subtree has three vertices:</p>
+<pre><code>ans[2] = 8 + 6 - 2 × 3 = 8
+</code></pre>
+<p>For vertex 3, its subtree has two vertices:</p>
+<pre><code>ans[3] = 8 + 6 - 2 × 2 = 10
+</code></pre>
+<p>The same transition gives the remaining answers. We have replaced six traversals with two linear passes.</p>
+<h3 id="24-what-this-example-teachesand-what-it-does-not">2.4 What this example teaches—and what it does not</h3>
+<p>The formula ans[child] = ans[parent] + N - 2 × size[child] is specific to the sum-of-distances problem. Do not copy it into an unrelated tree-DP problem.</p>
+<p>The reusable idea is broader:</p>
+<ol>
+<li>Compute the contribution from a node's own subtree.</li>
+<li>Compute the contribution coming from outside that subtree.</li>
+<li>Move the outside contribution from a parent to a child.</li>
+<li>Reuse sibling information instead of recomputing it.</li>
+</ol>
+<p>That leads to general rerooting DP.</p>
+<hr />
+<h2 id="3-general-rerooting-inside-and-outside-information">3. General rerooting: inside and outside information</h2>
+<p>For a fixed root, ordinary tree DP naturally flows upward:</p>
+<ul>
+<li>children send information to their parent;</li>
+<li>the parent combines the children's contributions;</li>
+<li>the root produces the final answer.</li>
+</ul>
+<p>For all-root answers, we also need information to flow downward. A child must learn what the rest of the tree contributes when viewed from that child.</p>
+<p>A useful mental model is to cut an edge (u, v). The cut creates two components. Define a <strong>directed message</strong> for each direction:</p>
+<ul>
+<li>message[u -&gt; v]: the information contributed by the component on u's side, as seen by v;</li>
+<li>message[v -&gt; u]: the information contributed by the other component, as seen by u.</li>
+</ul>
+<p>The two directions are not interchangeable. Their meanings depend on which side of the cut they summarize.</p>
+<p>At a vertex u, combine the messages from all its neighbors to obtain the answer for u. To send a message from u to one neighbor v, combine every incoming contribution at u <strong>except</strong> the one from v, then transform that aggregate across edge (u, v).</p>
+<p>This is the general pattern:</p>
+<div class="highlight"><pre><span></span><code>                parent side
+                    |
+                    v
+child side ---&gt; [ vertex u ] &lt;--- sibling side
+                    |
+                    v
+               another child
+
+First pass: children -&gt; parent
+Second pass: parent/siblings -&gt; child
+</code></pre></div>
+<h3 id="31-the-three-operations-to-define">3.1 The three operations to define</h3>
+<p>Before writing code, explicitly define:</p>
+<ol>
+<li><strong>State:</strong> What exactly does one message represent?</li>
+<li><strong>Merge:</strong> How are independent neighbor contributions combined?</li>
+<li><strong>Transfer:</strong> How does the merged state change when it crosses an edge or includes the current vertex?</li>
+</ol>
+<p>If the merge operation is associative, prefix/suffix aggregates can efficiently exclude one neighbor. If the merge is not associative, the order and grouping of contributions need more careful handling.</p>
+<h2 id="4-why-prefix-and-suffix-aggregates-matter">4. Why prefix and suffix aggregates matter</h2>
+<p>Suppose a vertex has children c[0 ... k-1]. Let each child's contribution be factor[i].</p>
+<p>For child i, we need the aggregate of every sibling except child i.</p>
+<p>If we recompute the aggregate for every child by scanning all siblings, a star-shaped tree can take O(N²) time: the center has N - 1 children.</p>
+<p>If the merge is multiplication, define:</p>
+<ul>
+<li>prefix[i]: product of factors before i;</li>
+<li>suffix[i]: product of factors from i onward.</li>
+</ul>
+<p>Then:</p>
+<pre><code>product of all factors except i = prefix[i] * suffix[i + 1]
+</code></pre>
+<p>Both arrays are built in O(k), and each exclusion query takes O(1). Across the entire tree, the sum of all child counts is N - 1, so the total work remains O(N).</p>
+<p>For a generic associative operation, replace multiplication with that operation and use its identity element. Examples:</p>
+<table>
+<thead>
+<tr>
+<th>Aggregate</th>
+<th>Identity</th>
+<th>Excluding one child</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sum</td>
+<td>0</td>
+<td>prefix sum + suffix sum</td>
+</tr>
+<tr>
+<td>Product</td>
+<td>1</td>
+<td>prefix product × suffix product</td>
+</tr>
+<tr>
+<td>Minimum</td>
+<td>+infinity</td>
+<td>prefix minimum combined with suffix minimum</td>
+</tr>
+<tr>
+<td>Maximum</td>
+<td>-infinity</td>
+<td>prefix maximum combined with suffix maximum</td>
+</tr>
+</tbody>
+</table>
+<p>For maximum-based transitions, keeping the largest two contributions is another common way to exclude one child in constant time.</p>
+<p><strong>Do not use division as a shortcut unless the algebra and modulus guarantee it is safe.</strong> A modular value may have no multiplicative inverse. Prefix/suffix products work even when the modulus is composite or a factor is zero modulo the modulus.</p>
+<hr />
+<h2 id="5-a-full-example-count-connected-black-subsets-containing-each-vertex">5. A full example: count connected black subsets containing each vertex</h2>
+<p>This is the core idea behind AtCoder Educational DP Contest, problem V — Subtree.</p>
+<p>Given a tree, color each vertex either black or white. Count, for every vertex u, the number of colorings such that:</p>
+<ul>
+<li>u is black;</li>
+<li>all black vertices form one connected set.</li>
+</ul>
+<p>Return each answer modulo M.</p>
+<h3 id="51-define-the-state-precisely">5.1 Define the state precisely</h3>
+<p>Temporarily root the tree at 0.</p>
+<p>Let:</p>
+<ul>
+<li>down[u] = number of valid choices inside u's rooted subtree, assuming u is black and all selected black vertices in that subtree connect to u;</li>
+<li>outside[u] = number of compatible choices outside u's subtree, given that u is black.</li>
+</ul>
+<p>The root has no outside component, so:</p>
+<pre><code>outside[root] = 1
+</code></pre>
+<p>For a child c of u, the final answer is:</p>
+<pre><code>answer[u] = down[u] * outside[u] mod M
+</code></pre>
+<p>The two regions are disjoint. Once u is black, a valid choice in the subtree and a valid choice outside the subtree can be combined independently.</p>
+<h3 id="52-bottom-up-transition">5.2 Bottom-up transition</h3>
+<p>Consider a child c of u.</p>
+<p>There are two possibilities for the branch rooted at c:</p>
+<ol>
+<li>Make every vertex in that branch white. There is exactly one such choice.</li>
+<li>Choose a connected black set containing c. There are down[c] choices.</li>
+</ol>
+<p>Because u is black, any black vertices selected in a child branch must connect through that child. Different child branches are independent.</p>
+<p>Therefore:</p>
+<pre><code>down[u] = product over children c of (1 + down[c]) mod M
+</code></pre>
+<p>A leaf has no children, so its empty product is 1.</p>
+<h3 id="53-top-down-transition">5.3 Top-down transition</h3>
+<p>Now calculate outside[c] for a child c of u.</p>
+<p>There are two cases:</p>
+<p><strong>Case A — u is white.</strong><br />
+Since c is black and all black vertices must form one connected component, every vertex outside c's subtree must be white. There is exactly one choice.</p>
+<p><strong>Case B — u is black.</strong><br />
+The parent-side region contributes outside[u] choices. Every sibling branch s of c contributes either all white or a connected black set containing s, giving 1 + down[s] choices.</p>
+<p>Thus:</p>
+<pre><code>outside[c] = 1 + outside[u] * product over siblings s != c of (1 + down[s])
+</code></pre>
+<p>Take the result modulo M.</p>
+<p>The sibling product is exactly the exclusion query from the previous section. Build prefix and suffix products over the children of u to calculate all child transitions in linear time.</p>
+<h3 id="54-sanity-check-on-a-path">5.4 Sanity check on a path</h3>
+<p>For path 1 — 2 — 3, root at 1:</p>
+<ul>
+<li>down[3] = 1</li>
+<li>down[2] = 1 + down[3] = 2</li>
+<li>down[1] = 1 + down[2] = 3</li>
+</ul>
+<p>Outside values:</p>
+<ul>
+<li>outside[1] = 1</li>
+<li>outside[2] = 1 + outside[1] = 2</li>
+<li>outside[3] = 1 + outside[2] = 3</li>
+</ul>
+<p>Therefore:</p>
+<ul>
+<li>answer[1] = 3 × 1 = 3</li>
+<li>answer[2] = 2 × 2 = 4</li>
+<li>answer[3] = 1 × 3 = 3</li>
+</ul>
+<p>The result is 3, 4, 3, matching the sample.</p>
+<p>For a star with one center and three leaves, the center's answer is 2 × 2 × 2 = 8. Each leaf's answer is 1 + 2 × 2 = 5.</p>
+<hr />
+<h2 id="6-c17-implementation-iterative-two-pass-rerooting">6. C++17 implementation: iterative two-pass rerooting</h2>
+<p>This implementation solves the connected-black-subsets problem above. It uses an iterative traversal so a path-shaped tree with N vertices cannot overflow the call stack.</p>
+<p>Input:</p>
+<ul>
+<li>N M</li>
+<li>N - 1 undirected edges, using 1-based vertex labels</li>
+</ul>
+<p>Output: one answer per vertex, in input label order.</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;bits/stdc++.h&gt;</span>
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ios</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+<span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">mod</span><span class="p">;</span>
+<span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">mod</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">graph</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">;</span>
+<span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">v</span><span class="p">;</span>
+<span class="w">        </span><span class="o">--</span><span class="n">u</span><span class="p">;</span>
+<span class="w">        </span><span class="o">--</span><span class="n">v</span><span class="p">;</span>
+<span class="w">        </span><span class="n">graph</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+<span class="w">        </span><span class="n">graph</span><span class="p">[</span><span class="n">v</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Build a parent-before-child traversal order.</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">parent</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">);</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">order</span><span class="p">;</span>
+<span class="w">    </span><span class="n">order</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+<span class="w">    </span><span class="n">order</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">order</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">order</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">graph</span><span class="p">[</span><span class="n">u</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">v</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">parent</span><span class="p">[</span><span class="n">u</span><span class="p">])</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span>
+
+<span class="w">            </span><span class="n">parent</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u</span><span class="p">;</span>
+<span class="w">            </span><span class="n">order</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="o">&gt;</span><span class="w"> </span><span class="n">down</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="o">&gt;</span><span class="w"> </span><span class="n">outside</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="o">&gt;</span><span class="w"> </span><span class="n">answer</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Pass 1: children -&gt; parent.</span>
+<span class="w">    </span><span class="c1">// Reverse order guarantees every child's down[] is ready.</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="o">--</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">order</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">graph</span><span class="p">[</span><span class="n">u</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">parent</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">u</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">down</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">down</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">down</span><span class="p">[</span><span class="n">v</span><span class="p">])</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">mod</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// The root has an empty outside component.</span>
+<span class="w">    </span><span class="n">outside</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">mod</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Pass 2: parent -&gt; children.</span>
+<span class="w">    </span><span class="c1">// A parent's outside[] is ready before processing its children.</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">order</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">children</span><span class="p">;</span>
+
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">graph</span><span class="p">[</span><span class="n">u</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">parent</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">u</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">children</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">children</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+
+<span class="w">        </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="o">&gt;</span><span class="w"> </span><span class="n">prefix</span><span class="p">(</span><span class="n">k</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">mod</span><span class="p">);</span>
+<span class="w">        </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="o">&gt;</span><span class="w"> </span><span class="n">suffix</span><span class="p">(</span><span class="n">k</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">mod</span><span class="p">);</span>
+
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">k</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">factor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">down</span><span class="p">[</span><span class="n">children</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">mod</span><span class="p">;</span>
+<span class="w">            </span><span class="n">prefix</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">prefix</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">factor</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">mod</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="o">--</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">factor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">down</span><span class="p">[</span><span class="n">children</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">mod</span><span class="p">;</span>
+<span class="w">            </span><span class="n">suffix</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">factor</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">suffix</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">mod</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="n">answer</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">down</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">outside</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">mod</span><span class="p">;</span>
+
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">k</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">children</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+
+<span class="w">            </span><span class="c1">// Product of all sibling factors, excluding child i.</span>
+<span class="w">            </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">siblings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">prefix</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">suffix</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">mod</span><span class="p">;</span>
+
+<span class="w">            </span><span class="n">outside</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">outside</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">siblings</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">mod</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">u</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">answer</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">'\n'</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="complexity">Complexity</h3>
+<ul>
+<li>Building the parent/order arrays: O(N).</li>
+<li>Bottom-up pass: each edge is inspected a constant number of times, O(N).</li>
+<li>Top-down pass: each child contributes to one prefix and one suffix computation, O(N) total.</li>
+<li>Auxiliary memory: O(N) for the graph, traversal arrays, and DP states. The temporary prefix/suffix arrays use O(degree(u)) memory for the current vertex.</li>
+</ul>
+<p>Overall: <strong>O(N) time and O(N) space.</strong></p>
+<h3 id="implementation-details-worth-noticing">Implementation details worth noticing</h3>
+<ul>
+<li>The first pass uses reverse order; the second uses forward order.</li>
+<li>outside[u] is an outside-region factor, not the same thing as down[u]. Naming and documenting state semantics prevents many rerooting bugs.</li>
+<li>No modular division is used. This matters because M is not guaranteed to be prime.</li>
+<li>The implementation assumes the input is a valid connected tree with N - 1 edges.</li>
+<li>For N = 1, the answer is 1: the only valid coloring with the single vertex black is the one containing that vertex.</li>
+</ul>
+<hr />
+<h2 id="7-how-to-recognize-and-design-rerooting-problems">7. How to recognize and design rerooting problems</h2>
+<p>Look for statements containing phrases such as:</p>
+<ul>
+<li>“For every vertex, find…”</li>
+<li>“If the tree were rooted at vertex u…”</li>
+<li>“For each node, calculate its contribution to all other nodes…”</li>
+<li>“What is the best value if we choose this vertex as the root?”</li>
+<li>“For each vertex, count connected configurations containing it…”</li>
+</ul>
+<p>Then ask:</p>
+<ol>
+<li>Can I solve the problem for one fixed root using tree DP?</li>
+<li>What information does a child need from the part of the tree outside its subtree?</li>
+<li>If I cross one edge, which component changes and which remains reusable?</li>
+<li>Can I combine all sibling contributions efficiently?</li>
+<li>Is the merge associative? Can prefix/suffix or top-two values exclude one child?</li>
+<li>Is each message and transfer operation constant time?</li>
+</ol>
+<p>If the answers support constant-time work per directed edge, an O(N) rerooting solution is likely.</p>
+<h2 id="8-common-mistakes-and-trade-offs">8. Common mistakes and trade-offs</h2>
+<h3 id="confusing-the-two-directions">Confusing the two directions</h3>
+<p>A child-to-parent message and a parent-to-child message often have different meanings. Write the exact state definition before deriving either transition.</p>
+<h3 id="recomputing-sibling-contributions">Recomputing sibling contributions</h3>
+<p>A nested loop over every child and every sibling can degrade to O(N²) on a star. Use prefix/suffix aggregates, or maintain the best two values for max-based transitions.</p>
+<h3 id="dividing-modulo-m">Dividing modulo M</h3>
+<p>Computing total / factor modulo M is not generally valid. Modular division requires an inverse, which may not exist. Prefix/suffix avoids the issue.</p>
+<h3 id="using-the-wrong-traversal-order">Using the wrong traversal order</h3>
+<p>Bottom-up states require children to be processed first. Outside states require the parent to be processed first. A single parent-before-child order and its reverse are usually enough.</p>
+<h3 id="recursive-dfs-on-a-deep-tree">Recursive DFS on a deep tree</h3>
+<p>A path can have depth N - 1. In C++, recursion may overflow the process stack. Use an iterative parent/order traversal when constraints are large.</p>
+<h3 id="assuming-every-tree-dp-can-be-rerooted-in-on">Assuming every tree DP can be rerooted in O(N)</h3>
+<p>The two-pass structure is reusable, but the state merge may not be cheap. If merging child states costs O(k), the total may be larger than linear. Analyze the sum of merge costs, not just the number of DFS visits.</p>
+<h3 id="overgeneralizing-a-special-transition">Overgeneralizing a special transition</h3>
+<p>The distance-sum formula is not a universal rerooting formula. Each problem needs its own state, merge, and transfer derivation.</p>
+<hr />
+<h2 id="9-engineering-applications">9. Engineering applications</h2>
+<ul>
+<li><strong>Tree-shaped network placement:</strong> Find the node minimizing total weighted distance to all machines or sites. The weighted distance-sum transition gives every candidate in linear time.</li>
+<li><strong>Hierarchy analysis:</strong> Calculate a score for every possible root of an organizational or dependency tree without rebuilding the hierarchy each time.</li>
+<li><strong>Connected cluster counting:</strong> Count connected selections containing each node, as in the AtCoder Subtree problem.</li>
+<li><strong>Tree-based optimization:</strong> Compute eccentricities, best paths through each vertex, or the effect of excluding one neighboring branch.</li>
+</ul>
+<p>The algorithm is especially valuable when the input is genuinely a tree. For general graphs with cycles, cutting one edge does not split the graph into two independent components, so the same reasoning does not apply directly.</p>
+<h2 id="10-interview-questions">10. Interview questions</h2>
+<ol>
+<li>
+<p><strong>Why does running DFS from every vertex cost O(N²) on a tree?</strong><br />
+   One traversal costs O(N) and there are N possible roots.</p>
+</li>
+<li>
+<p><strong>Derive the distance-sum transition when moving from parent p to child c.</strong><br />
+   size[c] vertices become one unit closer and N - size[c] become one unit farther, giving ans[c] = ans[p] + N - 2 × size[c].</p>
+</li>
+<li>
+<p><strong>How does the transition change for a weighted edge?</strong><br />
+   Multiply the net change by the edge weight: w × (N - 2 × size[c]).</p>
+</li>
+<li>
+<p><strong>Why are prefix/suffix arrays useful in general rerooting?</strong><br />
+   They combine all neighbor contributions except one in constant time after linear preprocessing.</p>
+</li>
+<li>
+<p><strong>Why is modular division unsafe in the AtCoder Subtree problem?</strong><br />
+   The modulus need not be prime, and a factor may not have a multiplicative inverse.</p>
+</li>
+<li>
+<p><strong>What is the difference between down[u] and outside[u] in the implementation?</strong><br />
+   down[u] summarizes valid configurations inside the rooted subtree; outside[u] summarizes compatible choices in the complement.</p>
+</li>
+<li>
+<p><strong>When might rerooting fail to be linear?</strong><br />
+   When the state merge or transfer is expensive, or when excluding one neighbor cannot be done efficiently.</p>
+</li>
+</ol>
+<h2 id="11-practice-exercise">11. Practice exercise</h2>
+<p>Implement rerooting for <strong>Tree Distances II</strong>:</p>
+<blockquote>
+<p>Given a tree, output the sum of distances from every vertex to all other vertices.</p>
+</blockquote>
+<p>Constraints reach N = 2 × 10^5.</p>
+<p>Try it in this order:</p>
+<ol>
+<li>Write the brute-force solution using BFS from every vertex for small trees.</li>
+<li>Build parent, depth, and order from root 0.</li>
+<li>Compute ans[0] from the depths.</li>
+<li>Compute subtree sizes in reverse order.</li>
+<li>Propagate ans[child] = ans[parent] + N - 2 × size[child].</li>
+<li>Compare the optimized result with brute force on randomly generated small trees.</li>
+</ol>
+<p><strong>Extension:</strong> Add positive edge weights and derive the weighted transition. Then solve for the vertex with minimum total weighted distance.</p>
+<p>For a more challenging follow-up, solve AtCoder DP Contest V — Subtree using the connected-black-subsets recurrence from this lesson.</p>
+<h2 id="12-key-takeaways">12. Key takeaways</h2>
+<ul>
+<li>Rerooting DP computes a related answer for every possible root by reusing information across edges.</li>
+<li>The common structure is a bottom-up pass for subtree information and a top-down pass for outside information.</li>
+<li>The simple distance-sum transition is one special case; general rerooting needs explicit message semantics and transfer rules.</li>
+<li>Prefix/suffix aggregates make “all contributions except this child” efficient and avoid unsafe modular division.</li>
+<li>Iterative traversal is safer for deep trees.</li>
+<li>Always prove the state and transition before coding; the template does not replace problem-specific reasoning.</li>
+</ul>
+<h2 id="references-and-further-learning">References and further learning</h2>
+<ol>
+<li><a href="https://cpp-academy.com/lessons/rerooting-dp">Rerooting DP in C++ — cppAcademy</a> — A guided tutorial with the distance-sum derivation, C++ implementation, and common pitfalls.</li>
+<li><a href="https://codeforces.com/blog/entry/96651">Tree Rerooting DP — Codeforces tutorial post</a> — A competitive-programming discussion focused on recognizing rerooting problems and implementing the technique.</li>
+<li><a href="https://www.youtube.com/watch?v=7_huTWwl5jM">Tree Rerooting DP — video by codemastercpp</a> — Video linked from the Codeforces tutorial; useful for seeing the pattern explained visually.</li>
+<li><a href="https://cses.fi/problemset/task/1133/">CSES: Tree Distances II</a> — A practical problem for the distance-sum transition.</li>
+<li><a href="https://atcoder.jp/contests/dp/tasks/dp_v">AtCoder Educational DP Contest V — Subtree</a> — A more advanced problem that requires the general rerooting and sibling-exclusion technique.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

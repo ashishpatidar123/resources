@@ -1,0 +1,2201 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>Designing a Feature Flag Platform: Evaluation, Rollouts, and Safe Operations - Resources</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#designing-a-feature-flag-platform-evaluation-rollouts-and-safe-operations" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Resources" class="md-header__button md-logo" aria-label="Resources" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Resources
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Designing a Feature Flag Platform: Evaluation, Rollouts, and Safe Operations
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Resources" class="md-nav__button md-logo" aria-label="Resources" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Resources
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Writing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Writing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../writing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../writing/beyond-engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Beyond Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DSA
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dsa/graph-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graph Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dsa/rerooting-dp-on-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rerooting DP on Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dsa/practice-log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interview Practice Log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LeetCode Solutions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    LeetCode Solutions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dsa/leetcode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    All Problems
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dsa/leetcode/easy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Easy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dsa/leetcode/medium/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Medium
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dsa/leetcode/hard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DBMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DBMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dbms/multi-level-indexing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Level Indexing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dbms/lsm-trees-vs-b-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    B+ Trees vs LSM Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dbms/mvcc-internals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MVCC Internals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dbms/mvcc-and-snapshot-isolation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MVCC and Snapshot Isolation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dbms/postgresql-internals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PostgreSQL Internals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Systems
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Distributed Systems
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed-systems/consistent-hashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Consistent Hashing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed-systems/distributed-rate-limiting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Rate Limiting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed-systems/transactional-outbox-and-dual-write/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Consistency Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed-systems/message-broker-hardware-sympathy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message Broker Hardware Sympathy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OS & Networking
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OS & Networking
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../os-networking/hardware-mechanical-sympathy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware Mechanical Sympathy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../os-networking/lock-free-concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lock-Free Concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../os-networking/2026-11-26-tcp-listen-backlog-syn-queue-accept-queue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TCP Listen Backlog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    System Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../system-design-fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design Concepts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../requirements-engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Requirements Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML & AI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ML & AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-ai/probability-calibration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probability Calibration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../topic-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Topic Tracker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-why-feature-flags-are-more-than-if-statements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Why feature flags are more than if statements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-separate-the-kinds-of-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Separate the kinds of flags
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-requirements-for-a-production-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Requirements for a production design
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Requirements for a production design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functional
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-functional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Non-functional
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-high-level-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. High-level architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. High-level architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#control-plane" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Control plane
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-plane" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data plane
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-data-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Data model
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-evaluation-algorithm-precedence-must-be-explicit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Evaluation algorithm: precedence must be explicit
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Evaluation algorithm: precedence must be explicit">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deterministic-percentage-assignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deterministic percentage assignment
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-worked-example-new-checkout-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Worked example: new checkout flow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-operational-rollout-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Operational rollout workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-consistency-caching-and-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Consistency, caching, and failure modes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Consistency, caching, and failure modes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#push-vs-poll" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Push vs. poll
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#failure-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Failure policy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-lld-an-evaluator-that-is-testable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. LLD: an evaluator that is testable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-testing-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Testing strategy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Testing strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#evaluator-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluator tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sdkconfig-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SDK/config tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integration-and-release-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration and release tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-trade-offs-and-design-choices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Trade-offs and design choices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-common-pitfalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Common pitfalls
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-interview-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Interview questions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="designing-a-feature-flag-platform-evaluation-rollouts-and-safe-operations">Designing a Feature Flag Platform: Evaluation, Rollouts, and Safe Operations</h1>
+<p><strong>Domain:</strong> LLD/HLD · <strong>Level:</strong> Intermediate–Advanced · <strong>Date:</strong> 2026-11-28</p>
+<h2 id="1-why-feature-flags-are-more-than-if-statements">1. Why feature flags are more than <code>if</code> statements</h2>
+<p>A feature flag lets a deployed application decide at runtime which behavior to expose. This separates <strong>deployment</strong> (put code in production) from <strong>release</strong> (make behavior available to a chosen audience).</p>
+<p>That distinction unlocks several workflows:</p>
+<ul>
+<li><strong>Progressive rollout:</strong> expose a change to 1%, 5%, 25%, then 100% of users while observing metrics.</li>
+<li><strong>Kill switch:</strong> disable an expensive or unhealthy feature without waiting for a new deployment.</li>
+<li><strong>Early access:</strong> enable a feature for employees, beta users, or selected tenants.</li>
+<li><strong>Experimentation:</strong> assign users to stable variants and compare outcomes.</li>
+<li><strong>Migration:</strong> route traffic between old and new implementations while both coexist.</li>
+</ul>
+<p>A flag also introduces a second source of runtime behavior. Every flag has a carrying cost: branches, tests, monitoring, configuration, and eventually cleanup. The goal is not to flag every small code change; it is to use flags where independent release control is valuable.</p>
+<h2 id="2-separate-the-kinds-of-flags">2. Separate the kinds of flags</h2>
+<p>Flag categories have different lifetimes and operational needs.</p>
+<table>
+<thead>
+<tr>
+<th>Kind</th>
+<th>Typical lifetime</th>
+<th>Main use</th>
+<th>Cleanup expectation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Release</td>
+<td>Days/weeks</td>
+<td>Hide incomplete code or decouple deploy from release</td>
+<td>Remove after rollout</td>
+</tr>
+<tr>
+<td>Experiment</td>
+<td>Until experiment concludes</td>
+<td>Stable cohort assignment and variants</td>
+<td>Remove after decision</td>
+</tr>
+<tr>
+<td>Operational</td>
+<td>Short or long-lived</td>
+<td>Degrade/disable risky functionality</td>
+<td>Keep only intentional controls</td>
+</tr>
+<tr>
+<td>Entitlement</td>
+<td>Long-lived</td>
+<td>Product/plan access</td>
+<td>Treat as product policy</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Do not use a feature flag as an authorization boundary.</strong> Entitlement flags may shape the product experience, but permission checks must still be enforced by trusted authorization logic. Never put secrets or credentials in flag configuration.</p>
+<h2 id="3-requirements-for-a-production-design">3. Requirements for a production design</h2>
+<h3 id="functional">Functional</h3>
+<ol>
+<li>Create flags with typed values (boolean, string, number, or small structured variants).</li>
+<li>Configure flags independently for development, staging, and production.</li>
+<li>Target contexts using attributes, explicit allow/deny lists, segments, and percentage rollouts.</li>
+<li>Evaluate locally in the application with a safe default.</li>
+<li>Publish configuration changes and expose audit history.</li>
+<li>Preview rule outcomes and rollouts before publishing.</li>
+<li>Disable a flag quickly and roll back configuration.</li>
+</ol>
+<h3 id="non-functional">Non-functional</h3>
+<ul>
+<li>Flag evaluation should be local, predictable, and low-latency—typically no network round-trip per request.</li>
+<li>The SDK should continue operating during control-plane outages using a last-known-good configuration.</li>
+<li>Config changes should propagate within a bounded time, with a clear stale-data policy.</li>
+<li>Rule evaluation must be deterministic for a given flag version and context.</li>
+<li>Admin operations need authentication, authorization, validation, auditability, and rate limiting.</li>
+<li>The platform must avoid sending unnecessary personal data to the flag service.</li>
+</ul>
+<h2 id="4-high-level-architecture">4. High-level architecture</h2>
+<div class="highlight"><pre><span></span><code>                    CONTROL PLANE
+ Admin UI / CLI
+      |
+      v
+ API + Auth/RBAC + Validation
+      |                    \\----&gt; Audit log
+      v
+ Configuration DB
+      |
+      v
+ Publish / Version service -----&gt; Stream or polling endpoint
+                                      |
+                                      v
+                                  SDK clients
+                                  (local snapshot)
+                                      |
+ Request context --------------------&gt;|
+                                      v
+                              Local evaluator
+                                      |
+                           flag value + reason
+</code></pre></div>
+<h3 id="control-plane">Control plane</h3>
+<p>The control plane handles changes, not every application request:</p>
+<ul>
+<li><strong>Admin API:</strong> create/update flags, targeting rules, rollout percentage, environment.</li>
+<li><strong>Validation:</strong> type-check variations, validate operators and attributes, reject invalid or contradictory rules.</li>
+<li><strong>Persistence:</strong> store the canonical configuration and version it.</li>
+<li><strong>Audit:</strong> record who changed what, before/after values, timestamp, environment, and reason.</li>
+<li><strong>Distribution:</strong> notify SDKs that a new version exists (streaming/SSE/WebSocket) or let them poll.</li>
+</ul>
+<h3 id="data-plane">Data plane</h3>
+<p>Each SDK maintains a local, immutable configuration snapshot:</p>
+<ol>
+<li>Start with an embedded safe fallback or bootstrap configuration.</li>
+<li>Fetch the latest snapshot and wait for the provider to become ready (or explicitly accept defaults).</li>
+<li>Subscribe to change events or poll periodically.</li>
+<li>Validate a received snapshot.</li>
+<li>Atomically swap the active snapshot.</li>
+<li>Evaluate flags in memory; do not call the control plane for each evaluation.</li>
+</ol>
+<p>A snapshot is better than mutating individual rules in place: readers see either the old complete version or the new complete version, never a partially updated configuration.</p>
+<h2 id="5-data-model">5. Data model</h2>
+<p>A practical model separates a flag definition from environment-specific state.</p>
+<div class="highlight"><pre><span></span><code>Flag
+- key: string (stable, unique)
+- type: BOOLEAN | STRING | NUMBER | JSON
+- variations: [typed values]
+- owner/team
+- category: RELEASE | EXPERIMENT | OPS | ENTITLEMENT
+- created_at, expires_at (optional)
+
+EnvironmentFlag
+- flag_key
+- environment
+- enabled
+- default_variation
+- rules: ordered list
+- rollout: optional
+- config_version
+
+Rule
+- id
+- priority/order
+- conditions: AND of clauses
+- result: variation OR rollout
+
+Clause
+- attribute_path
+- operator: EQ, IN, GT, CONTAINS, EXISTS, ...
+- operand
+
+Rollout
+- targeting_key
+- salt / allocation_key
+- percentage per variation
+</code></pre></div>
+<p>Keep the rule language deliberately small. Arbitrary code in rules creates security, portability, debugging, and performance problems. Validate attribute types and support explicit behavior for missing/null attributes.</p>
+<h2 id="6-evaluation-algorithm-precedence-must-be-explicit">6. Evaluation algorithm: precedence must be explicit</h2>
+<p>For a boolean flag, one defensible evaluation order is:</p>
+<ol>
+<li><strong>Flag disabled in this environment?</strong> Return its configured off/default variation.</li>
+<li><strong>Explicit exclusion?</strong> Return off (or a designated safe variation).</li>
+<li><strong>Explicit inclusion?</strong> Return the included variation.</li>
+<li><strong>Evaluate ordered rules:</strong> the first matching rule wins.</li>
+<li><strong>Rule's percentage rollout:</strong> choose a stable variation using the context's targeting key.</li>
+<li><strong>Fallthrough:</strong> return the environment's default variation.</li>
+</ol>
+<p>The actual order is a product decision, but it must be documented, consistent across SDKs, and testable. Explicit exclusions commonly override inclusion/rollout to make emergency controls unambiguous.</p>
+<h3 id="deterministic-percentage-assignment">Deterministic percentage assignment</h3>
+<p>Do <strong>not</strong> randomly select a user on every request. That would make one person alternate between old and new code and contaminate experiments.</p>
+<p>Instead compute a stable bucket:</p>
+<div class="highlight"><pre><span></span><code>bucket = HASH(flag_key + ":" + targeting_key + ":" + allocation_salt)
+         mod 10,000
+
+enabled if bucket &lt; percentage * 100
+</code></pre></div>
+<p>For a 7.5% rollout, buckets 0–749 are enabled. The same flag and targeting key map to the same bucket on every evaluation.</p>
+<ul>
+<li>The <strong>targeting key</strong> should identify the subject consistently: user ID, account/tenant ID, or another chosen unit.</li>
+<li>Include a flag-specific salt/key so different flags usually select different cohorts.</li>
+<li>If related flags need the same cohort, deliberately share an allocation key.</li>
+<li>Use a stable, specified hash algorithm. Changing the algorithm or salt can reshuffle users.</li>
+<li>As a percentage increases, threshold-based buckets preserve the earlier cohort (e.g., 10% remains included when moving to 30%).</li>
+</ul>
+<p>For multi-variation experiments, map the bucket to weighted ranges. Validate that weights sum to 100%, or define an explicit remainder policy.</p>
+<h2 id="7-worked-example-new-checkout-flow">7. Worked example: new checkout flow</h2>
+<p>Suppose we are rolling out <code>checkout-v2</code>:</p>
+<ul>
+<li>Default: <code>false</code></li>
+<li>Environment: production</li>
+<li>Rule 1: internal employee cohort → <code>true</code></li>
+<li>Rule 2: enterprise accounts in region <code>IN</code> → 100% <code>true</code></li>
+<li>Fallthrough: 5% rollout → <code>true</code>, otherwise <code>false</code></li>
+</ul>
+<p>For a request with context:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"targetingKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user-8472"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"accountTier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"standard"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"isEmployee"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The employee rule doesn't match. The enterprise rule doesn't match. We evaluate the percentage rollout. Assume the deterministic bucket for <code>checkout-v2:user-8472</code> is 3,412. Since 5% corresponds to buckets 0–499, the flag is false for this user.</p>
+<p>If the rollout increases to 20%, the bucket range becomes 0–1,999. This user remains off. Another user whose bucket is 1,234 changes to on and will consistently receive the new checkout on subsequent requests.</p>
+<p>The key is that rollout percentage is a <strong>cohort boundary</strong>, not a fresh random decision.</p>
+<h2 id="8-operational-rollout-workflow">8. Operational rollout workflow</h2>
+<p>A flag should have an owner, category, creation date, and (for temporary flags) an expiry/removal issue.</p>
+<p>A safer release sequence:</p>
+<ol>
+<li><strong>Deploy dark:</strong> code is present but flag is off for everyone. Verify both code paths and rollback safety.</li>
+<li><strong>Internal cohort:</strong> turn on for employees/test accounts.</li>
+<li><strong>Small stable cohort:</strong> 1% or a carefully chosen low-risk group.</li>
+<li><strong>Observe:</strong> compare error rate, conversion, latency, resource usage, and dependency health against baseline.</li>
+<li><strong>Ramp:</strong> 5% → 25% → 50% → 100%, pausing at each step when metrics warrant.</li>
+<li><strong>Rollback:</strong> disable the flag or reduce rollout; confirm propagation and that the old path is still safe.</li>
+<li><strong>Cleanup:</strong> after full release and confidence, remove the old branch, flag config, tests that only cover the temporary toggle, and stale targeting.</li>
+</ol>
+<p>For experiments, use a fixed assignment during the experiment and avoid changing the cohort allocation midway unless the experiment plan accounts for it.</p>
+<h2 id="9-consistency-caching-and-failure-modes">9. Consistency, caching, and failure modes</h2>
+<h3 id="push-vs-poll">Push vs. poll</h3>
+<table>
+<thead>
+<tr>
+<th>Approach</th>
+<th>Advantages</th>
+<th>Costs / risks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Polling</td>
+<td>Simple, easy to recover after missed events</td>
+<td>Change propagation bounded by poll interval; repeated requests</td>
+</tr>
+<tr>
+<td>Push/stream</td>
+<td>Faster updates, less polling traffic</td>
+<td>Connections, reconnects, missed events, operational complexity</td>
+</tr>
+<tr>
+<td>Hybrid</td>
+<td>Push invalidation + periodic full snapshot</td>
+<td>More moving parts, often a practical balance</td>
+</tr>
+</tbody>
+</table>
+<p>A push event should generally carry a version or tell the SDK to fetch the latest snapshot. The client must not apply an older version after a newer one.</p>
+<h3 id="failure-policy">Failure policy</h3>
+<ul>
+<li><strong>Control-plane outage:</strong> continue using the last known good snapshot.</li>
+<li><strong>SDK not initialized:</strong> return a code-level default and expose a readiness/error signal. Do not silently pretend configuration is ready.</li>
+<li><strong>Malformed update:</strong> reject the whole snapshot; keep the previous valid one.</li>
+<li><strong>Stale snapshot:</strong> monitor age and decide per flag whether stale evaluation is acceptable. Most release flags can tolerate short staleness; a critical operational kill switch needs tighter propagation and an explicit mitigation path.</li>
+<li><strong>Network partitions:</strong> no system can guarantee instant global propagation. Define the target (e.g., 99% of connected SDKs within a chosen interval) and alert when it is violated.</li>
+</ul>
+<p>For a kill switch, consider whether SDKs should receive push updates, use a shorter poll interval, and/or have a separate emergency control path. Measure the time from operator action to effective disablement.</p>
+<h2 id="10-lld-an-evaluator-that-is-testable">10. LLD: an evaluator that is testable</h2>
+<p>Keep the evaluator pure: it receives a validated snapshot, flag key, and context; it returns a value plus reason. It should not fetch data or mutate state.</p>
+<div class="highlight"><pre><span></span><code>evaluate(flag, context):
+    if flag.disabled:
+        return result(flag.offVariation, DISABLED)
+
+    if matches(flag.exclusions, context):
+        return result(flag.offVariation, EXCLUDED)
+
+    if matches(flag.inclusions, context):
+        return result(flag.includedVariation, TARGETED)
+
+    for rule in flag.rules in priority_order:
+        if rule.matches(context):
+            if rule.rollout exists:
+                variation = deterministicBucket(rule.rollout, context.targetingKey)
+                return result(variation, RULE_ROLLOUT, rule.id)
+            return result(rule.variation, RULE_MATCH, rule.id)
+
+    return result(flag.fallthrough, FALLTHROUGH)
+</code></pre></div>
+<p>A production result should include metadata such as flag key, config version, reason code, matched rule ID, and provider status. Avoid logging full targeting context or sensitive attributes.</p>
+<p>Useful LLD abstractions:</p>
+<ul>
+<li><code>FlagProvider</code>: obtains/updates snapshots and reports readiness.</li>
+<li><code>SnapshotStore</code>: atomic read/swap of immutable configuration.</li>
+<li><code>Evaluator</code>: pure rule and rollout evaluation.</li>
+<li><code>Context</code>: typed attributes + targeting key.</li>
+<li><code>EvaluationResult</code>: typed value + reason + version.</li>
+<li><code>FlagAdminService</code>: validation, persistence, authorization, audit, publish.</li>
+</ul>
+<p>Don't over-engineer a generic rule engine at first. Add operators only when real use cases require them.</p>
+<h2 id="11-testing-strategy">11. Testing strategy</h2>
+<p>Test the evaluator and distribution system separately.</p>
+<h3 id="evaluator-tests">Evaluator tests</h3>
+<ul>
+<li>disabled flag beats every targeting rule;</li>
+<li>exclusion beats inclusion/rollout;</li>
+<li>rule ordering is stable and first-match semantics work;</li>
+<li>missing or null attributes behave as documented;</li>
+<li>typed variation mismatches are rejected;</li>
+<li>same flag + key yields same bucket;</li>
+<li>different flags produce different cohorts unless allocation is shared;</li>
+<li>increasing percentage is monotonic;</li>
+<li>0% and 100% boundaries are exact;</li>
+<li>invalid weights/config fail validation.</li>
+</ul>
+<h3 id="sdkconfig-tests">SDK/config tests</h3>
+<ul>
+<li>startup fallback and readiness behavior;</li>
+<li>snapshot update is atomic;</li>
+<li>out-of-order versions are ignored;</li>
+<li>reconnect fetches the latest full snapshot;</li>
+<li>malformed config leaves last-known-good snapshot intact;</li>
+<li>timeout/stale snapshot policy is followed;</li>
+<li>kill-switch propagation is measured;</li>
+<li>evaluation emits reason/version without PII.</li>
+</ul>
+<h3 id="integration-and-release-tests">Integration and release tests</h3>
+<p>Use contract tests for the admin API and provider. Simulate a flag update while application instances are running. Test both code paths and rollback—not just the enabled path. Verify that a flag doesn't accidentally expose a client-side-only secret or bypass authorization.</p>
+<h2 id="12-trade-offs-and-design-choices">12. Trade-offs and design choices</h2>
+<ul>
+<li><strong>Local vs remote evaluation:</strong> local is fast and resilient but requires config distribution and snapshot consistency; remote centralizes evaluation but adds latency, dependency failure, and per-request cost.</li>
+<li><strong>Polling vs streaming:</strong> polling is simpler and more robust; streaming gives quicker changes but needs reconnect/version handling.</li>
+<li><strong>Simple booleans vs typed variations:</strong> booleans are easy; variants support experiments but increase validation and code complexity.</li>
+<li><strong>Static vs dynamic targeting:</strong> attribute/segment rules scale better than enormous per-user lists; direct targeting is useful for small exceptions but can become stale flag debt.</li>
+<li><strong>Fail-open vs fail-closed:</strong> feature defaults should protect service availability, but the correct fallback is feature-specific. Neither is universally correct.</li>
+<li><strong>Control plane centralization:</strong> one source of truth improves governance; regional replicas and local snapshots reduce latency and blast radius but complicate propagation.</li>
+</ul>
+<h2 id="13-common-pitfalls">13. Common pitfalls</h2>
+<ol>
+<li>Random assignment on every request—users flicker between variants.</li>
+<li>Targeting key missing or unstable—rollout cohort changes between sessions.</li>
+<li>Rules with unclear precedence—contradictory targeting becomes difficult to debug.</li>
+<li>Calling the flag service in the request path—availability and latency become coupled to the control plane.</li>
+<li>Treating a flag as authorization—client-controlled or stale flag values can expose protected actions.</li>
+<li>Sending PII in targeting context—privacy, compliance, and data retention risks.</li>
+<li>Never removing flags—permanent branches multiply test combinations and confuse future changes.</li>
+<li>No owner/expiry—nobody knows whether a flag is safe to delete.</li>
+<li>Testing only the new branch—rollback path may be broken.</li>
+<li>Assuming instant propagation—SDKs can be disconnected; measure and define the bound.</li>
+</ol>
+<h2 id="14-interview-questions">14. Interview questions</h2>
+<ol>
+<li>Why should feature-flag evaluation usually be local rather than a network call?</li>
+<li>How do you guarantee stable cohort assignment across requests?</li>
+<li>What changes if the targeting key is a tenant instead of a user?</li>
+<li>How do you handle a control-plane outage or invalid config update?</li>
+<li>How would you design a kill switch whose propagation must be very fast?</li>
+<li>Why is feature-flag state not an authorization mechanism?</li>
+<li>How do you avoid all flags selecting the same 5% cohort?</li>
+<li>What metrics would you watch during a rollout?</li>
+<li>What are the consistency implications of a push-based config channel?</li>
+<li>How would you reduce flag debt and avoid testing every combination of N flags?</li>
+</ol>
+<h2 id="15-exercise">15. Exercise</h2>
+<p>Design a feature-flag platform for an e-commerce service with 5 million daily users and 300 backend instances.</p>
+<p>Requirements:
+- An operator can disable recommendations within 10 seconds.
+- Rollout is stable by user ID.
+- Rules support country, account tier, and employee targeting.
+- SDK evaluations add less than 1 ms in the hot path.
+- A flag-service outage must not break checkout.
+- Configuration changes are audited.</p>
+<p>Deliver:
+1. A component diagram and the control-plane/data-plane boundary.
+2. The flag schema and rule precedence.
+3. Your hash/bucket strategy and how you preserve cohorts during a ramp.
+4. Polling/streaming choice, reconnect strategy, and version handling.
+5. Fallback behavior for checkout vs. recommendations.
+6. A rollout plan with the metrics and rollback thresholds you would choose.
+7. Tests for the 10-second kill-switch objective and failure scenarios.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://martinfowler.com/articles/feature-toggles.html">Martin Fowler — Feature Toggles (aka Feature Flags)</a> — toggle categories, implementation and flag debt.</li>
+<li><a href="https://openfeature.dev/docs/reference/concepts/provider/">OpenFeature — Providers</a> — provider abstraction between application SDKs and flag systems.</li>
+<li><a href="https://openfeature.dev/docs/reference/concepts/evaluation-context/">OpenFeature — Evaluation Context</a> — context layering, targeting keys and PII considerations.</li>
+<li><a href="https://openfeature.dev/specification/sections/flag-evaluation/">OpenFeature Specification — Flag Evaluation API</a> — typed evaluation and defaults.</li>
+<li><a href="https://github.com/launchdarkly/LaunchDarkly-Docs/blob/main/src/content/topics/sdk/concepts/flag-evaluation-rules.mdx">LaunchDarkly — Flag Evaluation Rules</a> — ordered rule matching and fallthrough behavior.</li>
+<li><a href="https://launchdarkly.com/docs/guides/flags/targeting-recommendations">LaunchDarkly — Deciding between flag targeting strategies</a> — scalable attribute/segment targeting vs. individual targets.</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

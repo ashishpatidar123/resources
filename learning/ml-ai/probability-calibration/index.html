@@ -1,0 +1,2522 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../system-design/requirements-engineering/">
+      
+      
+        <link rel="next" href="../../topic-tracker/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>Probability Calibration - Resources</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#probability-calibration-making-ml-confidence-trustworthy" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Resources" class="md-header__button md-logo" aria-label="Resources" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Resources
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Probability Calibration
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Resources" class="md-nav__button md-logo" aria-label="Resources" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Resources
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Writing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Writing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../writing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../writing/beyond-engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Beyond Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DSA
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dsa/graph-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graph Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dsa/rerooting-dp-on-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rerooting DP on Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dsa/practice-log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interview Practice Log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LeetCode Solutions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    LeetCode Solutions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dsa/leetcode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    All Problems
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dsa/leetcode/easy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Easy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dsa/leetcode/medium/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Medium
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dsa/leetcode/hard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DBMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DBMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dbms/multi-level-indexing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Level Indexing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dbms/lsm-trees-vs-b-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    B+ Trees vs LSM Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dbms/mvcc-internals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MVCC Internals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dbms/mvcc-and-snapshot-isolation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MVCC and Snapshot Isolation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dbms/postgresql-internals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PostgreSQL Internals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Systems
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Distributed Systems
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed-systems/consistent-hashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Consistent Hashing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed-systems/distributed-rate-limiting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Rate Limiting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed-systems/transactional-outbox-and-dual-write/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Consistency Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed-systems/message-broker-hardware-sympathy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message Broker Hardware Sympathy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OS & Networking
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OS & Networking
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../os-networking/hardware-mechanical-sympathy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware Mechanical Sympathy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../os-networking/lock-free-concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lock-Free Concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../os-networking/2026-11-26-tcp-listen-backlog-syn-queue-accept-queue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TCP Listen Backlog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    System Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system-design/system-design-fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design Concepts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system-design/requirements-engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Requirements Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML & AI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ML & AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probability Calibration
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probability Calibration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-a-score-is-not-automatically-a-probability-you-can-trust" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. A score is not automatically a probability you can trust
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. A score is not automatically a probability you can trust">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-this-matters-in-engineering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why this matters in engineering
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-formal-definition-and-intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Formal definition and intuition
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Formal definition and intuition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#calibration-versus-accuracy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Calibration versus accuracy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calibration-is-not-an-individual-guarantee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Calibration is not an individual guarantee
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-diagnosing-calibration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Diagnosing calibration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Diagnosing calibration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-reliability-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Reliability diagram
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-expected-calibration-error-ece" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Expected Calibration Error (ECE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-proper-scoring-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Proper scoring rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-calibration-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Calibration methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Calibration methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-temperature-scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Temperature scaling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-sigmoid-platt-calibration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Sigmoid (Platt) calibration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-isotonic-regression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Isotonic regression
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-worked-example-80-confidence-is-not-80" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Worked example: “80% confidence” is not 80%
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-leakage-safe-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Leakage-safe workflow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Leakage-safe workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#binary-sklearn-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Binary sklearn example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#temperature-scaling-for-multiclass-logits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Temperature scaling for multiclass logits
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-multi-class-and-subgroup-calibration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Multi-class and subgroup calibration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-production-architecture-and-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Production architecture and monitoring
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-common-pitfalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Common pitfalls
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-interview-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Interview questions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Takeaways
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../topic-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Topic Tracker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-a-score-is-not-automatically-a-probability-you-can-trust" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. A score is not automatically a probability you can trust
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. A score is not automatically a probability you can trust">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-this-matters-in-engineering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why this matters in engineering
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-formal-definition-and-intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Formal definition and intuition
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Formal definition and intuition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#calibration-versus-accuracy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Calibration versus accuracy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calibration-is-not-an-individual-guarantee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Calibration is not an individual guarantee
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-diagnosing-calibration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Diagnosing calibration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Diagnosing calibration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-reliability-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Reliability diagram
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-expected-calibration-error-ece" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Expected Calibration Error (ECE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-proper-scoring-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Proper scoring rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-calibration-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Calibration methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Calibration methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-temperature-scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Temperature scaling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-sigmoid-platt-calibration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Sigmoid (Platt) calibration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-isotonic-regression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Isotonic regression
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-worked-example-80-confidence-is-not-80" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Worked example: “80% confidence” is not 80%
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-leakage-safe-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Leakage-safe workflow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Leakage-safe workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#binary-sklearn-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Binary sklearn example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#temperature-scaling-for-multiclass-logits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Temperature scaling for multiclass logits
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-multi-class-and-subgroup-calibration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Multi-class and subgroup calibration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-production-architecture-and-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Production architecture and monitoring
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-common-pitfalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Common pitfalls
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-interview-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Interview questions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Takeaways
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="probability-calibration-making-ml-confidence-trustworthy">Probability Calibration: Making ML Confidence Trustworthy</h1>
+<p><strong>Date:</strong> 2026-11-23<br />
+<strong>Domain:</strong> ML/AI<br />
+<strong>Level:</strong> Intermediate → Advanced</p>
+<h2 id="learning-objectives">Learning objectives</h2>
+<ul>
+<li>Distinguish calibration from accuracy, discrimination, ranking, and uncertainty estimation.</li>
+<li>Diagnose miscalibration with reliability diagrams and proper scoring rules.</li>
+<li>Choose and fit a post-hoc calibrator without data leakage.</li>
+<li>Understand temperature scaling, sigmoid calibration, and isotonic regression.</li>
+<li>Use calibrated probabilities in cost-sensitive decisions and production monitoring.</li>
+</ul>
+<h2 id="1-a-score-is-not-automatically-a-probability-you-can-trust">1. A score is not automatically a probability you can trust</h2>
+<p>A classifier may output <span class="arithmatex">\(\hat p(y\mid x)=[0.02,0.08,0.90]\)</span>. Softmax or sigmoid ensures values lie in [0,1] and may make them sum to one. That does <strong>not</strong> guarantee the numbers correspond to real-world frequencies.</p>
+<p>If a model says “90% confidence” for 1,000 comparable predictions, we'd expect roughly 900 to be correct. A model that is right 90% overall can still be badly calibrated: perhaps it is correct 99% on one segment and only 60% on another, averaging to 90%.</p>
+<p><strong>Calibration</strong> asks whether predicted probabilities agree with observed outcomes. <strong>Discrimination</strong> asks whether the model ranks positive cases above negative cases. They are different properties.</p>
+<h3 id="why-this-matters-in-engineering">Why this matters in engineering</h3>
+<p>Probabilities are consumed downstream—not merely converted into a class label:</p>
+<ul>
+<li>Fraud systems block, review, or allow transactions.</li>
+<li>Credit and risk systems estimate expected loss.</li>
+<li>Search/recommendation systems combine confidence with value.</li>
+<li>Triage systems choose actions at risk thresholds.</li>
+<li>Forecasts aggregate probabilities across events.</li>
+<li>An automated system may abstain or request human review.</li>
+</ul>
+<p>If decisions use probabilities, calibration can matter more than a small change in top-1 accuracy.</p>
+<h2 id="2-formal-definition-and-intuition">2. Formal definition and intuition</h2>
+<p>For binary outcome <span class="arithmatex">\(Y\in\{0,1\}\)</span>, predicted probability <span class="arithmatex">\(P\)</span> is calibrated if:</p>
+<div class="arithmatex">\[
+\Pr(Y=1\mid P=p)=p.
+\]</div>
+<p>Exact p-values are rare in finite datasets, so estimate this relationship over bins or neighborhoods. Among predictions close to 0.7, approximately 70% should be positive. This is a population statement; finite samples fluctuate.</p>
+<h3 id="calibration-versus-accuracy">Calibration versus accuracy</h3>
+<ul>
+<li><strong>Model A</strong> predicts 0.51 for nearly everything. It may be calibrated near the overall event rate but provides little separation.</li>
+<li><strong>Model B</strong> predicts 0.05 for most negatives and 0.95 for most positives. It may rank examples well but be overconfident.</li>
+</ul>
+<p>A calibrated model can be uninformative; a highly discriminative model can be miscalibrated.</p>
+<h3 id="calibration-is-not-an-individual-guarantee">Calibration is not an individual guarantee</h3>
+<p>“0.8 calibrated” does not mean we know this one event will happen with 80% certainty. It means that across a sufficiently comparable collection assigned that probability, the empirical frequency should approach 80%.</p>
+<p>Nor does calibration imply the model knows when it is outside its training distribution. Calibration on yesterday's population may fail tomorrow.</p>
+<h2 id="3-diagnosing-calibration">3. Diagnosing calibration</h2>
+<h3 id="31-reliability-diagram">3.1 Reliability diagram</h3>
+<ol>
+<li>Obtain predictions on data not used to fit the model or calibrator.</li>
+<li>Partition predicted probabilities into bins.</li>
+<li>For each bin calculate average prediction <span class="arithmatex">\(\bar p_b\)</span>, observed positive rate <span class="arithmatex">\(\bar y_b\)</span>, and count <span class="arithmatex">\(n_b\)</span>.</li>
+<li>Plot <span class="arithmatex">\(\bar y_b\)</span> against <span class="arithmatex">\(\bar p_b\)</span>; the ideal line is <span class="arithmatex">\(y=x\)</span>.</li>
+</ol>
+<p>Points below the diagonal indicate overconfidence; points above indicate underconfidence. Display bin counts or a histogram: 12 samples are much less informative than 12,000.</p>
+<p><strong>Bin choices matter.</strong> Equal-width bins are intuitive but may be sparse near 0 and 1. Quantile bins stabilize counts but have unequal widths. Confidence intervals or bootstrap bands help avoid over-reading noise.</p>
+<h3 id="32-expected-calibration-error-ece">3.2 Expected Calibration Error (ECE)</h3>
+<p>A common summary:</p>
+<div class="arithmatex">\[
+\operatorname{ECE}=\sum_{b=1}^{B}\frac{n_b}{N}
+\left|\operatorname{acc}(b)-\operatorname{conf}(b)\right|.
+\]</div>
+<p>For binary classification, acc(b) here is the observed positive fraction and conf(b) is the average predicted probability.</p>
+<p>ECE is useful but not universal:
+- Depends on bin boundaries and bin count.
+- Can hide subgroup or classwise miscalibration.
+- Is not a proper scoring rule; particular implementations can be gamed.
+- Doesn't directly measure decision utility.</p>
+<p>Report a diagram and ECE with binning protocol—not ECE alone.</p>
+<h3 id="33-proper-scoring-rules">3.3 Proper scoring rules</h3>
+<p><strong>Log loss / cross-entropy</strong> severely penalizes assigning tiny probability to the true outcome:</p>
+<div class="arithmatex">\[
+L_{\log}=-\frac{1}{N}\sum_i
+[y_i\log p_i+(1-y_i)\log(1-p_i)].
+\]</div>
+<p><strong>Brier score</strong> for binary outcomes:</p>
+<div class="arithmatex">\[
+L_{\text{Brier}}=\frac{1}{N}\sum_i(p_i-y_i)^2.
+\]</div>
+<p>Both reward honest probability forecasts. They assess multiple properties, including calibration and discrimination/resolution; lower Brier alone does not prove calibration improved. Compare curves, scores, and decision utility.</p>
+<p>For rare events, log loss can be dominated by a few extreme mistakes. Brier is bounded but may appear deceptively good with overwhelming negatives. Compare against a baseline forecast such as event prevalence.</p>
+<h2 id="4-calibration-methods">4. Calibration methods</h2>
+<p>Calibration is usually a second-stage mapping from base-model score/probability to a probability. Fit it on predictions independent of base-model training.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Idea</th>
+<th>Strengths</th>
+<th>Limitations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sigmoid / Platt</td>
+<td><span class="arithmatex">\(\sigma(as+b)\)</span> on score/logit</td>
+<td>Low variance; corrects global bias and slope</td>
+<td>Assumes sigmoid-shaped distortion</td>
+</tr>
+<tr>
+<td>Isotonic regression</td>
+<td>Learned monotonic piecewise mapping</td>
+<td>Flexible; no sigmoid assumption</td>
+<td>Needs more calibration data; may overfit</td>
+</tr>
+<tr>
+<td>Temperature scaling</td>
+<td><span class="arithmatex">\(\operatorname{softmax}(z/T)\)</span></td>
+<td>One parameter; preserves argmax/ranking; effective for many neural nets</td>
+<td>Only adjusts global sharpness</td>
+</tr>
+<tr>
+<td>Beta / Dirichlet</td>
+<td>Richer transforms, including multiclass</td>
+<td>Can correct more complex distortions</td>
+<td>More parameters and data; overfit risk</td>
+</tr>
+</tbody>
+</table>
+<h3 id="41-temperature-scaling">4.1 Temperature scaling</h3>
+<p>A classifier emits logits <span class="arithmatex">\(z_1,\dots,z_K\)</span>; softmax is:</p>
+<div class="arithmatex">\[
+p_k=\frac{e^{z_k}}{\sum_j e^{z_j}}.
+\]</div>
+<p>Temperature scaling uses <span class="arithmatex">\(T&gt;0\)</span>:</p>
+<div class="arithmatex">\[
+p_k^{(T)}=\frac{e^{z_k/T}}{\sum_j e^{z_j/T}}.
+\]</div>
+<ul>
+<li><span class="arithmatex">\(T&gt;1\)</span>: probabilities become softer.</li>
+<li><span class="arithmatex">\(0&lt;T&lt;1\)</span>: probabilities become sharper.</li>
+<li><span class="arithmatex">\(T=1\)</span>: original output.</li>
+</ul>
+<p>Fit <span class="arithmatex">\(T\)</span> by minimizing calibration-set negative log-likelihood. It is a cheap one-dimensional optimization. Dividing logits by a common positive constant preserves their ordering and argmax, so top-1 predictions and ranking metrics generally remain unchanged while probability metrics can improve.</p>
+<h3 id="42-sigmoid-platt-calibration">4.2 Sigmoid (Platt) calibration</h3>
+<p>Map score <span class="arithmatex">\(s\)</span> to:</p>
+<div class="arithmatex">\[
+p_{\text{cal}}=\sigma(as+b)=\frac{1}{1+e^{-(as+b)}}.
+\]</div>
+<p>The parameters correct slope and offset. It is a useful low-variance baseline, particularly with smaller calibration sets.</p>
+<h3 id="43-isotonic-regression">4.3 Isotonic regression</h3>
+<p>Learn a non-decreasing function <span class="arithmatex">\(g\)</span> minimizing:</p>
+<div class="arithmatex">\[
+\min_g \sum_i (g(s_i)-y_i)^2
+\quad\text{subject to }g(s_i)\le g(s_j)\text{ if }s_i\le s_j.
+\]</div>
+<p>It can model non-sigmoid distortions but needs enough independent examples. With small data it may create step functions that generalize poorly.</p>
+<h2 id="5-worked-example-80-confidence-is-not-80">5. Worked example: “80% confidence” is not 80%</h2>
+<p>Suppose a fraud model scores 100 transactions between 0.75 and 0.85. Mean prediction is 0.80, but only 64 are fraudulent.</p>
+<table>
+<thead>
+<tr>
+<th>Quantity</th>
+<th style="text-align: right;">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Samples in bin</td>
+<td style="text-align: right;">100</td>
+</tr>
+<tr>
+<td>Mean prediction</td>
+<td style="text-align: right;">0.80</td>
+</tr>
+<tr>
+<td>Observed fraud rate</td>
+<td style="text-align: right;">0.64</td>
+</tr>
+<tr>
+<td>Calibration gap</td>
+<td style="text-align: right;">−0.16</td>
+</tr>
+</tbody>
+</table>
+<p>The bin is overconfident. If this pattern holds more broadly, calibration may move scores near 0.80 toward 0.64.</p>
+<p>Decision thresholds should come from costs, not a default 0.5. Suppose blocking a legitimate payment costs ₹500 and allowing fraud costs ₹5,000. Given calibrated fraud probability <span class="arithmatex">\(p\)</span>:</p>
+<ul>
+<li>Allow expected loss: <span class="arithmatex">\(p\times₹5{,}000\)</span></li>
+<li>Block expected loss: <span class="arithmatex">\((1-p)\times₹500\)</span></li>
+</ul>
+<p>Block when:</p>
+<div class="arithmatex">\[
+p\times5{,}000&gt;(1-p)\times500
+\Rightarrow p&gt;\frac{500}{5{,}500}\approx0.0909.
+\]</div>
+<p>Threshold is about 9.1%. Calibrated probabilities support expected-loss calculations; miscalibration makes them unreliable. A third action—manual review—has its own cost, latency, and capacity, turning this into a decision optimization rather than merely a classification metric.</p>
+<h2 id="6-leakage-safe-workflow">6. Leakage-safe workflow</h2>
+<p>Use separate data roles:</p>
+<ol>
+<li><strong>Train:</strong> fit model parameters.</li>
+<li><strong>Validation/calibration:</strong> select hyperparameters and/or fit calibration mapping. If doing both, use cross-validation or nested splits to avoid contaminating calibration.</li>
+<li><strong>Test:</strong> final unbiased evaluation, used once.</li>
+<li><strong>Production:</strong> collect delayed labels and evaluate over time.</li>
+</ol>
+<p>For temporal data, split chronologically. For grouped entities (customers, devices, patients), keep groups separated when leakage across group members would make evaluation unrealistic. Avoid random splits when deployment predicts the future.</p>
+<h3 id="binary-sklearn-example">Binary sklearn example</h3>
+<p>This example uses scikit-learn 1.6+ and its FrozenEstimator API. The model is trained on one split, the calibrator on another, and evaluation on a third.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_classification</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.calibration</span><span class="w"> </span><span class="kn">import</span> <span class="n">CalibratedClassifierCV</span><span class="p">,</span> <span class="n">CalibrationDisplay</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.frozen</span><span class="w"> </span><span class="kn">import</span> <span class="n">FrozenEstimator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">log_loss</span><span class="p">,</span> <span class="n">brier_score_loss</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span>
+    <span class="n">n_samples</span><span class="o">=</span><span class="mi">20_000</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">],</span>
+    <span class="n">class_sep</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">7</span>
+<span class="p">)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_tmp</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_tmp</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.40</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">7</span>
+<span class="p">)</span>
+<span class="n">X_cal</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_cal</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X_tmp</span><span class="p">,</span> <span class="n">y_tmp</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.50</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y_tmp</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">7</span>
+<span class="p">)</span>
+
+<span class="n">base</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">2_000</span><span class="p">)</span>
+<span class="n">base</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="n">calibrated</span> <span class="o">=</span> <span class="n">CalibratedClassifierCV</span><span class="p">(</span>
+    <span class="n">estimator</span><span class="o">=</span><span class="n">FrozenEstimator</span><span class="p">(</span><span class="n">base</span><span class="p">),</span> <span class="n">method</span><span class="o">=</span><span class="s2">"sigmoid"</span>
+<span class="p">)</span>
+<span class="n">calibrated</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_cal</span><span class="p">,</span> <span class="n">y_cal</span><span class="p">)</span>  <span class="c1"># fits calibrator, not base model</span>
+
+<span class="n">p_raw</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">p_cal</span> <span class="o">=</span> <span class="n">calibrated</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Raw log loss:"</span><span class="p">,</span> <span class="n">log_loss</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">p_raw</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Calibrated log loss:"</span><span class="p">,</span> <span class="n">log_loss</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">p_cal</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Raw Brier:"</span><span class="p">,</span> <span class="n">brier_score_loss</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">p_raw</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Calibrated Brier:"</span><span class="p">,</span> <span class="n">brier_score_loss</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">p_cal</span><span class="p">))</span>
+
+<span class="n">CalibrationDisplay</span><span class="o">.</span><span class="n">from_estimator</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">CalibrationDisplay</span><span class="o">.</span><span class="n">from_estimator</span><span class="p">(</span><span class="n">calibrated</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p>Notes:
+- The test split is only for evaluation—not fitting the calibrator or selecting its method.
+- Compare sigmoid with isotonic using the same calibration split or a validation protocol.
+- Older sklearn releases have different frozen/prefit APIs; check versioned docs and never reuse test labels to calibrate.</p>
+<h3 id="temperature-scaling-for-multiclass-logits">Temperature scaling for multiclass logits</h3>
+<p>If a neural network exposes logits, fit a scalar temperature with calibration data:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">minimize_scalar</span>
+
+<span class="c1"># logits_cal: (n_calibration, n_classes)</span>
+<span class="c1"># y_cal: integer labels in [0, n_classes)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">nll_for_log_temperature</span><span class="p">(</span><span class="n">log_t</span><span class="p">):</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_t</span><span class="p">)</span>  <span class="c1"># enforce positivity</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">logits_cal</span> <span class="o">/</span> <span class="n">T</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">z</span> <span class="o">-</span> <span class="n">z</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># stable softmax</span>
+    <span class="n">log_probs</span> <span class="o">=</span> <span class="n">z</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">log_probs</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y_cal</span><span class="p">)),</span> <span class="n">y_cal</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">minimize_scalar</span><span class="p">(</span>
+    <span class="n">nll_for_log_temperature</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">method</span><span class="o">=</span><span class="s2">"bounded"</span>
+<span class="p">)</span>
+<span class="n">temperature</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">x</span><span class="p">))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">calibrated_probabilities</span><span class="p">(</span><span class="n">logits</span><span class="p">):</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">logits</span> <span class="o">/</span> <span class="n">temperature</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">z</span> <span class="o">-</span> <span class="n">z</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">exp_z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">exp_z</span> <span class="o">/</span> <span class="n">exp_z</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+<p>Fit T using calibration logits and labels only. Freeze it with the model artifact; do not re-optimize on test or production labels.</p>
+<h2 id="7-multi-class-and-subgroup-calibration">7. Multi-class and subgroup calibration</h2>
+<ul>
+<li><strong>Top-label calibration:</strong> confidence in the predicted class matches empirical accuracy among predictions with that confidence.</li>
+<li><strong>Classwise calibration:</strong> each class's predicted probability matches that class's observed frequency at probability levels.</li>
+<li><strong>Full-vector calibration:</strong> a stronger condition based on the whole probability vector; difficult to estimate robustly.</li>
+</ul>
+<p>One-vs-rest sigmoid/isotonic methods may calibrate each class separately and renormalize. Renormalization can affect calibration. Temperature scaling acts on the entire logit vector but cannot correct every class-specific distortion.</p>
+<p>Measure calibration by meaningful operational cohorts (region, device, product, acquisition channel, etc.). Aggregate calibration can hide opposite errors in subgroups. Too many slices create noisy estimates; include sample sizes and uncertainty.</p>
+<h2 id="8-production-architecture-and-monitoring">8. Production architecture and monitoring</h2>
+<div class="highlight"><pre><span></span><code>features
+  -&gt; versioned model
+  -&gt; raw scores/logits
+  -&gt; versioned calibrator
+  -&gt; calibrated probabilities
+  -&gt; decision policy (threshold / review / abstain)
+  -&gt; action
+</code></pre></div>
+<p>Version the model and calibrator together. A calibrator for model A is not automatically valid for model B.</p>
+<p>Monitor:
+- Reliability diagram, ECE with fixed documented bins, log loss, Brier score.
+- Event prevalence and score distribution.
+- Counts and confidence intervals per bin and segment.
+- Label freshness and label-definition changes.
+- Outcomes: false-positive/false-negative cost, review volume, realized loss.
+- Feature, score, and population drift.</p>
+<p><strong>Retraining vs recalibration:</strong> if ranking remains healthy but confidence is shifted, recalibration may be a cheap correction. If ranking, feature relationships, or the concept degrades, calibration alone cannot repair it. Calibration under covariate or concept shift may not transfer.</p>
+<p>Use rolling/time-based windows, guardrails, and rollback. Feedback may be biased: decisions change which labels are observed.</p>
+<h2 id="9-common-pitfalls">9. Common pitfalls</h2>
+<ol>
+<li>Calibrating on training predictions: optimistic and biased.</li>
+<li>Selecting the calibrator using test data: leakage.</li>
+<li>Optimizing ECE alone: bin-dependent and not necessarily decision-relevant.</li>
+<li>Ignoring rare classes: aggregate calibration can conceal failure.</li>
+<li>Isotonic on too little data: flexible mapping overfits.</li>
+<li>Assuming temperature scaling fixes everything: it only adjusts global sharpness.</li>
+<li>Assuming calibration survives drift: event rates and relationships change.</li>
+<li>Treating confidence as epistemic uncertainty: calibration is not an OOD detector.</li>
+<li>Using a default threshold: optimal thresholds depend on costs and constraints.</li>
+<li>Forgetting to recalibrate after model, data, or target-definition changes.</li>
+</ol>
+<h2 id="10-interview-questions">10. Interview questions</h2>
+<p><strong>Q1. Can a model have 95% accuracy and poor calibration?</strong><br />
+Yes. Accuracy evaluates class decisions at a threshold; calibration evaluates probability reliability. A model can be correct 95% and output 0.999 for almost every prediction, thus overconfident.</p>
+<p><strong>Q2. Does temperature scaling change accuracy or ROC-AUC?</strong><br />
+For positive T it preserves logit ordering and argmax, so top-1 and rank-based metrics generally remain unchanged (except ties/numerical effects), while probability metrics can change.</p>
+<p><strong>Q3. Why fit calibration separately from training?</strong><br />
+Training predictions are optimistic. The calibrator learns a relationship that won't generalize. Use held-out or out-of-fold predictions.</p>
+<p><strong>Q4. Sigmoid vs isotonic?</strong><br />
+Start with sigmoid for a smaller calibration set and low variance. Try isotonic when enough data and diagnostics suggest a non-sigmoid distortion. Compare log loss, Brier, curves, and downstream cost—not just ECE.</p>
+<p><strong>Q5. Why can Brier improve without calibration improving?</strong><br />
+Brier combines reliability, resolution, and uncertainty; one component can outweigh another. Inspect calibration diagnostics or decomposition.</p>
+<p><strong>Q6. Is calibration enough for safe ML?</strong><br />
+No. It does not guarantee robustness, fairness, causal validity, or correct labels. Decisions still require cost analysis, safeguards, and monitoring.</p>
+<h2 id="11-exercise">11. Exercise</h2>
+<p>Build a calibrated fraud-classifier experiment:</p>
+<ol>
+<li>Train a baseline and record ROC-AUC, log loss, and Brier.</li>
+<li>Make a chronological train/calibration/test split.</li>
+<li>Fit sigmoid and isotonic using calibration data only.</li>
+<li>Draw reliability diagrams with bin counts. Calculate ECE with 10 fixed-width bins and 10 quantile bins; compare.</li>
+<li>Derive a threshold from costs (block legitimate ₹500, allow fraud ₹5,000, review ₹100 with limited capacity) and simulate expected test cost.</li>
+<li>Simulate a prevalence shift; observe calibration and decision cost.</li>
+<li>Recommend a calibrator and state evidence plus triggers for recalibration/retraining.</li>
+</ol>
+<p><strong>Stretch:</strong> compare top-label and classwise calibration for three classes. Bootstrap test data for reliability-curve uncertainty bands.</p>
+<h2 id="12-takeaways">12. Takeaways</h2>
+<ul>
+<li>Probability outputs are not automatically trustworthy probabilities.</li>
+<li>Calibration means predicted confidence matches empirical frequency among comparable predictions.</li>
+<li>Reliability diagrams, proper scores, and subgroup diagnostics complement each other.</li>
+<li>Fit calibrators on independent or cross-fitted data; preserve an untouched test set.</li>
+<li>Temperature scaling is a strong low-cost baseline for many neural classifiers; sigmoid and isotonic are useful alternatives.</li>
+<li>Probabilities feed cost-aware policy, and model plus calibrator must be monitored for drift.</li>
+</ul>
+<h2 id="references">References</h2>
+<ol>
+<li><a href="https://arxiv.org/abs/1706.04599">Guo et al., <em>On Calibration of Modern Neural Networks</em> (ICML 2017)</a> — temperature scaling and neural-network calibration.</li>
+<li><a href="https://scikit-learn.org/stable/modules/calibration">scikit-learn: Probability calibration user guide</a> — curves, methods, and API guidance.</li>
+<li><a href="https://scikit-learn.org/stable/auto_examples/calibration/plot_calibration_curve.html">scikit-learn: Calibration curves example</a> — reliability-diagram comparison.</li>
+<li><a href="https://arxiv.org/abs/1910.12656">Kull et al., <em>Beyond Temperature Scaling: Obtaining Well-Calibrated Multiclass Probabilities with Dirichlet Calibration</em></a> — multiclass calibration.</li>
+<li><a href="https://arxiv.org/abs/2008.03033">Dimitriadis, Gneiting &amp; Jordan, <em>Evaluating probabilistic classifiers: Reliability diagrams and score decompositions revisited</em></a> — diagnostics and reliability diagrams.</li>
+<li><a href="https://d1.awsstatic.com/APG/quantifying-uncertainty-in-deep-learning-systems.pdf">AWS Prescriptive Guidance: Quantifying uncertainty in deep learning systems</a> — applied temperature scaling and uncertainty.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2614 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lock-free-concurrency/">
+      
+      
+        <link rel="next" href="../../system-design/system-design-fundamentals/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>TCP Listen Backlog - Resources</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tcp-listen-backlog-syn-queue-accept-queue-and-connection-overload" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Resources" class="md-header__button md-logo" aria-label="Resources" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Resources
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              TCP Listen Backlog
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Resources" class="md-nav__button md-logo" aria-label="Resources" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Resources
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Writing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Writing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../writing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../writing/beyond-engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Beyond Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSA
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DSA
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dsa/graph-algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graph Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dsa/rerooting-dp-on-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rerooting DP on Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dsa/practice-log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interview Practice Log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LeetCode Solutions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    LeetCode Solutions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dsa/leetcode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    All Problems
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dsa/leetcode/easy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Easy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dsa/leetcode/medium/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Medium
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dsa/leetcode/hard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DBMS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DBMS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dbms/multi-level-indexing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Level Indexing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dbms/lsm-trees-vs-b-trees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    B+ Trees vs LSM Trees
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dbms/mvcc-internals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MVCC Internals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dbms/mvcc-and-snapshot-isolation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MVCC and Snapshot Isolation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dbms/postgresql-internals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PostgreSQL Internals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Systems
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Distributed Systems
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed-systems/consistent-hashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Consistent Hashing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed-systems/distributed-rate-limiting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Rate Limiting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed-systems/transactional-outbox-and-dual-write/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Consistency Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distributed-systems/message-broker-hardware-sympathy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message Broker Hardware Sympathy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OS & Networking
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OS & Networking
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware-mechanical-sympathy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware Mechanical Sympathy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lock-free-concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lock-Free Concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TCP Listen Backlog
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TCP Listen Backlog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-why-a-server-can-complete-tcp-handshakes-but-still-be-overloaded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Why a server can complete TCP handshakes but still be overloaded
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-lifecycle-of-an-inbound-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The lifecycle of an inbound connection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. The lifecycle of an inbound connection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#three-way-handshake-and-kernel-queues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Three-way handshake and kernel queues
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conceptual-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptual flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-two-queuesand-what-they-mean" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The two queues—and what they mean
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. The two queues—and what they mean">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#syn-queue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SYN queue
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accept-queue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Accept queue
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-what-does-the-backlog-parameter-actually-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. What does the backlog parameter actually control?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. What does the backlog parameter actually control?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#queueing-intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Queueing intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-what-happens-when-the-queues-fill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. What happens when the queues fill?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. What happens when the queues fill?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#accept-queue-full" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Accept queue full
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#syn-queue-pressure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SYN queue pressure
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-a-worked-production-incident" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. A worked production incident
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. A worked production incident">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#root-cause-investigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Root-cause investigation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-observe-it-on-linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Observe it on Linux
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Observe it on Linux">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#listener-queue-snapshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Listener queue snapshot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#incomplete-handshakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Incomplete handshakes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overflow-counters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overflow counters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-practical-tuning-and-architecture-choices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Practical tuning and architecture choices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Practical tuning and architecture choices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-ensure-the-apps-backlog-is-intentional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Ensure the app's backlog is intentional
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-tune-somaxconn-for-burst-tolerance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Tune somaxconn for burst tolerance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-tune-syn-backlog-separately" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Tune SYN backlog separately
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-improve-accept-throughput-and-reduce-connection-churn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Improve accept throughput and reduce connection churn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-size-queues-from-burst-characteristics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Size queues from burst characteristics
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-syn-cookies-what-they-solve-and-what-they-dont" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. SYN cookies: what they solve and what they don't
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-trade-offs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Trade-offs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-common-pitfalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Common pitfalls
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-interview-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Interview questions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-exercise-reproduce-and-diagnose-queue-saturation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Exercise: reproduce and diagnose queue saturation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. References
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaway" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key takeaway
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    System Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system-design/system-design-fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design Concepts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system-design/requirements-engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Requirements Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML & AI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ML & AI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-ai/probability-calibration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probability Calibration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../topic-tracker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Topic Tracker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-why-a-server-can-complete-tcp-handshakes-but-still-be-overloaded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Why a server can complete TCP handshakes but still be overloaded
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-lifecycle-of-an-inbound-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The lifecycle of an inbound connection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. The lifecycle of an inbound connection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#three-way-handshake-and-kernel-queues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Three-way handshake and kernel queues
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conceptual-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptual flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-two-queuesand-what-they-mean" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The two queues—and what they mean
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. The two queues—and what they mean">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#syn-queue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SYN queue
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accept-queue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Accept queue
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-what-does-the-backlog-parameter-actually-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. What does the backlog parameter actually control?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. What does the backlog parameter actually control?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#queueing-intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Queueing intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-what-happens-when-the-queues-fill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. What happens when the queues fill?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. What happens when the queues fill?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#accept-queue-full" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Accept queue full
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#syn-queue-pressure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SYN queue pressure
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-a-worked-production-incident" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. A worked production incident
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. A worked production incident">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#root-cause-investigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Root-cause investigation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-observe-it-on-linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Observe it on Linux
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Observe it on Linux">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#listener-queue-snapshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Listener queue snapshot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#incomplete-handshakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Incomplete handshakes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overflow-counters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overflow counters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-practical-tuning-and-architecture-choices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Practical tuning and architecture choices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Practical tuning and architecture choices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-ensure-the-apps-backlog-is-intentional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Ensure the app's backlog is intentional
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-tune-somaxconn-for-burst-tolerance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Tune somaxconn for burst tolerance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-tune-syn-backlog-separately" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Tune SYN backlog separately
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-improve-accept-throughput-and-reduce-connection-churn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Improve accept throughput and reduce connection churn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-size-queues-from-burst-characteristics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Size queues from burst characteristics
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-syn-cookies-what-they-solve-and-what-they-dont" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. SYN cookies: what they solve and what they don't
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-trade-offs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Trade-offs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-common-pitfalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Common pitfalls
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-interview-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Interview questions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-exercise-reproduce-and-diagnose-queue-saturation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Exercise: reproduce and diagnose queue saturation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. References
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaway" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key takeaway
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="tcp-listen-backlog-syn-queue-accept-queue-and-connection-overload">TCP Listen Backlog: SYN Queue, Accept Queue, and Connection Overload</h1>
+<p><strong>Date:</strong> 2026-11-26<br />
+<strong>Domain:</strong> Operating Systems &amp; Computer Networks<br />
+<strong>Level:</strong> Intermediate–Advanced<br />
+<strong>Prerequisites:</strong> TCP three-way handshake, sockets, Linux process scheduling, basic networking</p>
+<hr />
+<h2 id="1-why-a-server-can-complete-tcp-handshakes-but-still-be-overloaded">1. Why a server can complete TCP handshakes but still be overloaded</h2>
+<p>A TCP server does not receive a connection directly into application code the moment a client sends a SYN. The kernel participates in the three-way handshake and stages connections until the application calls <code>accept()</code>.</p>
+<p>That staging area is a <strong>listen backlog</strong>. It is easy to misunderstand because Linux has distinct populations of connections waiting at different stages:</p>
+<ul>
+<li><strong>SYN queue (incomplete connections):</strong> requests that have received a SYN and usually a SYN-ACK, but whose handshake has not yet been completed by the final ACK.</li>
+<li><strong>Accept queue (completed connections):</strong> handshakes that are complete, but the application has not yet dequeued them with <code>accept()</code>.</li>
+</ul>
+<p>These queues protect the application from short bursts, but they are not extra processing capacity. If the application cannot accept connections as fast as they arrive over a sustained period, queues fill, and clients may experience delayed connects, timeouts, or resets.</p>
+<p>This is especially relevant for web servers, API gateways, RPC services, reverse proxies, database servers, and any service with a high rate of short-lived connections.</p>
+<hr />
+<h2 id="2-the-lifecycle-of-an-inbound-connection">2. The lifecycle of an inbound connection</h2>
+<p>Assume client C connects to server S on port 8080.</p>
+<h3 id="three-way-handshake-and-kernel-queues">Three-way handshake and kernel queues</h3>
+<ol>
+<li>C sends <strong>SYN</strong>.</li>
+<li>S's kernel creates a lightweight request state and sends <strong>SYN-ACK</strong>. The request is tracked as incomplete (commonly observed as <code>SYN-RECV</code>).</li>
+<li>C sends the final <strong>ACK</strong>.</li>
+<li>The kernel completes the connection and makes it eligible for the accept queue.</li>
+<li>The server process calls <code>accept()</code>; the kernel removes one completed connection from the queue and returns a new file descriptor.</li>
+</ol>
+<p>The listening file descriptor remains in <code>LISTEN</code> state. Each accepted client receives a separate connected socket/file descriptor.</p>
+<h3 id="conceptual-flow">Conceptual flow</h3>
+<pre><code>Client                   Linux kernel                     Application
+  | SYN -----------------&gt;|                                  |
+  |                       | create request state              |
+  |&lt;---------------- SYN-ACK                                  |
+  | ACK ----------------&gt;| complete handshake                |
+  |                       | queue established socket          |
+  |                       |                                  |
+  |                       |&lt;------------- accept() ------------|
+  |                       | dequeue socket                    |
+  |                       |-------------- new fd ------------&gt;|
+  |                       |                                  |
+</code></pre>
+<p>The important point: the application is not involved in each handshake packet. It becomes involved when it accepts the completed connection.</p>
+<hr />
+<h2 id="3-the-two-queuesand-what-they-mean">3. The two queues—and what they mean</h2>
+<h3 id="syn-queue">SYN queue</h3>
+<p>Contains incomplete handshakes. Entries consume kernel resources while waiting for the final ACK. Legitimate clients with high RTTs, packet loss, or delayed ACKs can occupy entries for longer. Spoofed-source SYN floods deliberately exploit this by causing SYN-ACKs to be sent to clients that never respond.</p>
+<h3 id="accept-queue">Accept queue</h3>
+<p>Contains fully established sockets waiting for userspace to call <code>accept()</code>. A process can be delayed by CPU starvation, a long stop-the-world pause, overload, a blocked event loop, or an accept loop that is not scheduled often enough.</p>
+<p>On Linux, since the 2.2 change, the <code>listen(fd, backlog)</code> argument primarily limits the completed-connection queue—not the incomplete SYN queue. The accept-queue limit is capped by <code>net.core.somaxconn</code>. The SYN queue has a separate system control, <code>net.ipv4.tcp_max_syn_backlog</code>, though exact behavior is kernel-version/configuration dependent and SYN cookies can change how state is retained.</p>
+<p><strong>Don't assume every OS uses Linux's queue model.</strong> BSD-derived stacks and other implementations may count backlog differently. Treat the syscall's documented semantics and the OS version as the source of truth.</p>
+<hr />
+<h2 id="4-what-does-the-backlog-parameter-actually-control">4. What does the backlog parameter actually control?</h2>
+<p>Example:</p>
+<pre><code>listen(server_fd, 512);
+</code></pre>
+<p>This requests a queue limit of 512 completed connections waiting for <code>accept()</code>. Linux silently caps the requested value at <code>net.core.somaxconn</code>. For example, if the app requests 8,192 but the host has <code>somaxconn=1,024</code>, the effective accept backlog is capped at 1,024.</p>
+<p>The backlog is a <strong>burst buffer</strong>. It buys time for the application to catch up; it does not raise the sustainable accept rate.</p>
+<h3 id="queueing-intuition">Queueing intuition</h3>
+<p>Let:</p>
+<ul>
+<li><code>λ</code> = rate at which completed connections arrive at the accept queue (connections/sec)</li>
+<li><code>μ</code> = rate at which the application accepts connections (connections/sec)</li>
+<li><code>B</code> = available queue capacity</li>
+</ul>
+<p>When <code>λ &gt; μ</code> for sustained time, the queue grows at approximately <code>λ - μ</code>. A rough fill time is:</p>
+<div class="arithmatex">\[
+t_{fill} \approx \frac{B}{\lambda-\mu}
+\]</div>
+<p>Example: completed connections arrive at 2,000/s; the service can accept 1,500/s; effective backlog capacity is 4,000.</p>
+<div class="arithmatex">\[
+t_{fill} = \frac{4000}{2000-1500}=8\text{ seconds}
+\]</div>
+<p>So a larger backlog can absorb an 8-second burst in this scenario, but if the imbalance continues it will still overflow. The real fix is to increase accept capacity, reduce connection churn, or shed traffic upstream—not endlessly enlarge queues.</p>
+<hr />
+<h2 id="5-what-happens-when-the-queues-fill">5. What happens when the queues fill?</h2>
+<h3 id="accept-queue-full">Accept queue full</h3>
+<p>The application is not draining established sockets quickly enough. Linux may drop an incoming SYN when the accept queue is already full. If a final ACK arrives for a handshake whose completed socket cannot be queued, the behavior depends on kernel settings and path; with the usual non-abort behavior, the server can defer completion and retransmit SYN-ACK, making the client retry. The optional <code>net.ipv4.tcp_abort_on_overflow</code> setting changes overflow behavior, but should not be changed casually.</p>
+<p>Symptoms can be deceptive:</p>
+<ul>
+<li>The client may report <code>connect()</code> latency of roughly 1, 3, or 7 seconds—retransmission backoff can make delays appear in these steps.</li>
+<li>Some connection attempts time out even though the service is alive.</li>
+<li>The server may show no application-level error because the connection never reached the process.</li>
+<li>A momentary accept-loop stall can overflow a queue even if a later snapshot shows it empty.</li>
+</ul>
+<h3 id="syn-queue-pressure">SYN queue pressure</h3>
+<p>If incomplete requests accumulate, the kernel can drop requests or use SYN cookies when configured. SYN cookies encode enough information in the SYN-ACK sequence number to validate the final ACK without keeping ordinary per-request state.</p>
+<p>Cookies are a defensive fallback against SYN floods, <strong>not a general capacity tuning mechanism</strong>. The Linux documentation warns that cookies have protocol trade-offs and should not be used as a way to mask a legitimately overloaded server.</p>
+<hr />
+<h2 id="6-a-worked-production-incident">6. A worked production incident</h2>
+<p>Imagine an API server normally handles 600 new TCP connections/s. A deployment causes a CPU spike and the event loop is paused for 1.5 seconds. Clients continue to arrive at 1,000 connections/s.</p>
+<p>During the pause:</p>
+<ul>
+<li>Completed handshakes accumulate in the accept queue.</li>
+<li>At a 512-connection effective backlog, the queue can fill in roughly 0.512 seconds if the full 1,000/s arrival rate reaches it.</li>
+<li>Further attempts are delayed or dropped; clients retry.</li>
+<li>After the event loop resumes, it drains the queue, but the retry wave adds load and can create a second spike.</li>
+</ul>
+<p>The team sees elevated p99 connection-establishment latency and sporadic connect timeouts, but HTTP request metrics look normal for connections that made it into the application.</p>
+<h3 id="root-cause-investigation">Root-cause investigation</h3>
+<ol>
+<li>Check whether the listener's accept queue is full or near full.</li>
+<li>Correlate overflow/drop counters with incident timestamps.</li>
+<li>Inspect CPU saturation, event-loop stalls, thread scheduling, GC pauses, and accept-loop throughput.</li>
+<li>Check whether the client uses connection pooling. If every request opens a new connection, connection churn amplifies accept pressure.</li>
+<li>Fix the bottleneck; then tune backlog for the expected burst duration.</li>
+</ol>
+<p>A larger backlog may reduce the symptom during short pauses, but it can also let a queue of stale connections build up and increase latency before failure.</p>
+<hr />
+<h2 id="7-observe-it-on-linux">7. Observe it on Linux</h2>
+<h3 id="listener-queue-snapshot">Listener queue snapshot</h3>
+<pre><code>ss -lnt
+</code></pre>
+<p>For a specific port:</p>
+<pre><code>ss -lnt 'sport = :8080'
+</code></pre>
+<p>On a LISTEN row, the columns are generally:</p>
+<ul>
+<li><strong>Recv-Q:</strong> current completed connections waiting to be accepted.</li>
+<li><strong>Send-Q:</strong> configured backlog limit for that listening socket.</li>
+</ul>
+<p>Example:</p>
+<pre><code>State   Recv-Q Send-Q Local Address:Port
+LISTEN  480    512    0.0.0.0:8080
+</code></pre>
+<p>This listener is close to its requested/effective backlog limit. Confirm whether it is a persistent pattern or just a snapshot.</p>
+<h3 id="incomplete-handshakes">Incomplete handshakes</h3>
+<pre><code>ss -nt state syn-recv 'sport = :8080'
+</code></pre>
+<p>This shows sockets in SYN-RECV state, useful for inspecting incomplete handshakes (but not a perfect direct measure of queue internals across kernel versions).</p>
+<h3 id="overflow-counters">Overflow counters</h3>
+<pre><code>nstat -az TcpExtListenOverflows TcpExtListenDrops
+</code></pre>
+<p>These counters are generally host/network-stack-wide, not necessarily per listener. Compare deltas over time and correlate with socket-level evidence.</p>
+<h3 id="configuration">Configuration</h3>
+<pre><code>sysctl net.core.somaxconn
+sysctl net.ipv4.tcp_max_syn_backlog
+sysctl net.ipv4.tcp_syncookies
+sysctl net.ipv4.tcp_abort_on_overflow
+</code></pre>
+<p>Also inspect the application’s actual backlog setting (e.g. server framework, Nginx, Java server, Go runtime, or container proxy). Increasing a kernel limit alone may not help if the application requests a smaller backlog.</p>
+<hr />
+<h2 id="8-practical-tuning-and-architecture-choices">8. Practical tuning and architecture choices</h2>
+<h3 id="1-ensure-the-apps-backlog-is-intentional">1. Ensure the app's backlog is intentional</h3>
+<p>Framework defaults vary. Verify what is passed to <code>listen()</code> instead of assuming a large system setting is effective.</p>
+<h3 id="2-tune-somaxconn-for-burst-tolerance">2. Tune <code>somaxconn</code> for burst tolerance</h3>
+<p>Raise it only after evidence of accept-queue overflow and after estimating memory and queueing-latency consequences. The application backlog and kernel cap must both allow the intended value.</p>
+<h3 id="3-tune-syn-backlog-separately">3. Tune SYN backlog separately</h3>
+<p>If incomplete handshake pressure is the issue, investigate <code>tcp_max_syn_backlog</code>, SYN-ACK retry behavior, traffic patterns, and SYN cookies. Do not confuse this with accept-queue saturation.</p>
+<h3 id="4-improve-accept-throughput-and-reduce-connection-churn">4. Improve accept throughput and reduce connection churn</h3>
+<ul>
+<li>Keep the accept path short; hand off accepted sockets quickly.</li>
+<li>Use a suitable event-driven or worker architecture.</li>
+<li>Avoid doing expensive initialization synchronously before accepting more connections.</li>
+<li>Reuse connections (HTTP keep-alive, HTTP/2 multiplexing, connection pools) when appropriate.</li>
+<li>Use load balancing and admission control to shed overload rather than allowing unbounded queues.</li>
+</ul>
+<h3 id="5-size-queues-from-burst-characteristics">5. Size queues from burst characteristics</h3>
+<p>A rough backlog estimate:</p>
+<div class="arithmatex">\[
+B \ge (\lambda_{peak}-\mu)\times T_{burst}
+\]</div>
+<p>This is only an approximation. It assumes the accept service rate is stable and ignores retransmission feedback, per-connection resource cost, and queueing latency. Load-test under realistic bursts and pauses.</p>
+<hr />
+<h2 id="9-syn-cookies-what-they-solve-and-what-they-dont">9. SYN cookies: what they solve and what they don't</h2>
+<p>A SYN flood aims to exhaust state associated with incomplete handshakes. With SYN cookies, the server can encode connection information into a cryptographically derived sequence number and defer allocation of ordinary request state until the final ACK returns.</p>
+<p><strong>They help:</strong> preserving the ability to complete new handshakes during SYN-queue pressure.</p>
+<p><strong>They do not help:</strong> a slow application that cannot call <code>accept()</code>. Completed connections still need an accept queue slot and userspace processing. A SYN-cookie warning can also indicate legitimate overload; inspect evidence before treating it as an attack.</p>
+<hr />
+<h2 id="10-trade-offs">10. Trade-offs</h2>
+<table>
+<thead>
+<tr>
+<th>Choice</th>
+<th>Benefit</th>
+<th>Cost / risk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Larger accept backlog</td>
+<td>Absorbs short accept stalls</td>
+<td>More queued sockets; delays visible failure; not more throughput</td>
+</tr>
+<tr>
+<td>Larger SYN backlog</td>
+<td>More incomplete handshakes can wait</td>
+<td>More kernel state/memory during pressure</td>
+</tr>
+<tr>
+<td>SYN cookies</td>
+<td>Reduce state held for half-open requests</td>
+<td>Protocol-option trade-offs; not an overload fix</td>
+</tr>
+<tr>
+<td>Faster accept loop</td>
+<td>Reduces queue buildup</td>
+<td>May require architecture changes and careful handoff</td>
+</tr>
+<tr>
+<td>Connection reuse</td>
+<td>Fewer handshakes and accepts per request</td>
+<td>Long-lived connections consume resources; load distribution can change</td>
+</tr>
+<tr>
+<td>Aggressive reset on overflow</td>
+<td>Fail quickly</td>
+<td>Can turn transient overload into immediate client-visible failure</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="11-common-pitfalls">11. Common pitfalls</h2>
+<ol>
+<li><strong>Assuming <code>listen(backlog)</code> is the SYN queue size.</strong> Linux semantics changed; it primarily describes completed connections waiting for accept.</li>
+<li><strong>Assuming backlog = throughput.</strong> It is capacity to absorb a temporary mismatch, not processing speed.</li>
+<li><strong>Tuning <code>somaxconn</code> without checking the application's requested backlog.</strong> The smaller effective limit wins.</li>
+<li><strong>Using SYN cookies to solve accept-queue overload.</strong> Cookies protect incomplete-handshake state, not userspace's ability to accept.</li>
+<li><strong>Reading one <code>ss</code> snapshot as definitive.</strong> Queue spikes can be brief; use metrics/counters and time-series sampling.</li>
+<li><strong>Treating global counters as listener-specific.</strong> <code>ListenDrops</code> and <code>ListenOverflows</code> need correlation with per-socket evidence.</li>
+<li><strong>Ignoring client retries.</strong> Queue drops create retry storms that amplify load.</li>
+<li><strong>Increasing backlog without measuring latency.</strong> Bigger queues may turn a fast rejection into long waiting and timeout behavior.</li>
+</ol>
+<hr />
+<h2 id="12-interview-questions">12. Interview questions</h2>
+<ol>
+<li>What exactly happens between a TCP SYN and the application's <code>accept()</code> call?</li>
+<li>What is the difference between the SYN queue and accept queue?</li>
+<li>On modern Linux, what does <code>listen(fd, backlog)</code> control? What caps it?</li>
+<li>Can a client's <code>connect()</code> return successfully before the server calls <code>accept()</code>? Explain.</li>
+<li>What symptoms might a full accept queue cause at the client?</li>
+<li>Why doesn't raising backlog solve sustained overload?</li>
+<li>How do SYN cookies help, and why are they not a performance tuning tool?</li>
+<li>Which commands and counters would you use to diagnose listen-queue overflow?</li>
+<li>Why can a connection spike after a pause create a retry storm?</li>
+<li>How would HTTP keep-alive or HTTP/2 change accept pressure?</li>
+</ol>
+<hr />
+<h2 id="13-exercise-reproduce-and-diagnose-queue-saturation">13. Exercise: reproduce and diagnose queue saturation</h2>
+<p>In a disposable Linux VM or network namespace—not on a production host—build a small TCP listener that calls <code>listen(fd, 5)</code> and deliberately delays calling <code>accept()</code>.</p>
+<ol>
+<li>Launch several clients that attempt to connect concurrently.</li>
+<li>Observe <code>ss -lnt</code> while the listener is paused.</li>
+<li>Resume the accept loop and observe the queue drain.</li>
+<li>Record connect latency and compare it with <code>TcpExtListenOverflows</code> / <code>TcpExtListenDrops</code> deltas.</li>
+<li>Increase the backlog, repeat, and explain why the experiment only delays overflow if accept capacity remains lower than arrival rate.</li>
+<li>Add client-side connection reuse and compare new connections per second.</li>
+</ol>
+<p><strong>Safety:</strong> use a local lab or isolated namespace and modest client counts. Do not run a SYN-flood experiment against shared, public, or production infrastructure.</p>
+<hr />
+<h2 id="14-references">14. References</h2>
+<ul>
+<li><a href="https://man7.org/linux/man-pages/man2/listen.2.html">Linux man-pages: <code>listen(2)</code></a> — authoritative backlog semantics, <code>somaxconn</code> cap, and Linux history.</li>
+<li><a href="https://man7.org/linux/man-pages/man7/tcp.7.html">Linux man-pages: <code>tcp(7)</code></a> — SYN backlog, SYN retries, and SYN-cookie behavior.</li>
+<li><a href="https://docs.kernel.org/networking/ip-sysctl.html">Linux Kernel Documentation: IP sysctls</a> — current kernel guidance for <code>tcp_syncookies</code> and related tuning.</li>
+<li><a href="https://blog.cloudflare.com/syn-packet-handling-in-the-wild/">Cloudflare: SYN packet handling in the wild</a> — practical two-queue model, <code>ss</code> and <code>nstat</code> diagnostics, and queue overflow behavior.</li>
+<li><a href="https://arthurchiao.art/blog/tcp-listen-a-tale-of-two-queues/">TCP Socket Listen: A Tale of Two Queues — Arthur Chiao</a> — detailed explanation of TCP listen queues and implementation differences.</li>
+<li><a href="https://www.youtube.com/watch?v=ck4WvYM9V4c">Video: Linux Networking — How The Kernel Handles A TCP Connection</a> — kernel-level packet and connection handling walkthrough.</li>
+</ul>
+<hr />
+<h2 id="key-takeaway">Key takeaway</h2>
+<p><strong>The listen backlog is a queue between the TCP stack and your application—not a throughput knob.</strong> Understand which queue is filling, verify the effective limits, and improve the accept path or reduce connection churn. Use larger queues to absorb measured bursts, not to hide a sustained capacity problem.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
