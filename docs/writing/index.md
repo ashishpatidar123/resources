@@ -6,7 +6,7 @@ A place for longer-form writing about things I learn, build, read, and think abo
 
 Technical notes and deep dives on backend engineering, distributed systems, system design, databases, reliability, and computer science.
 
-[Browse engineering notes and learning articles](../learning/topic-tracker.md)
+[Browse engineering notes and learning articles](../index.md)
 
 ## Beyond Engineering
 
