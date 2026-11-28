@@ -79,7 +79,13 @@ def main():
                         chunks += [f"### `{cpp.name}`", "", f"[View source on GitHub]({source_url})", "", "```cpp", code.rstrip(), "```", ""]
                 else:
                     chunks += ["_No C++ solution file found._", ""]
-                chunks += ["---", "", f"[← Back to {difficulty}]({difficulty.lower()}.md) · [All problems](index.md)", ""]
+                chunks += [
+                    "---",
+                    "",
+                    f"[← Back to {difficulty} Problems](../{difficulty.lower()}.md) · "
+                    "[All LeetCode Problems](../index.md)",
+                    "",
+                ]
                 page.write_text("\n".join(chunks), encoding="utf-8")
                 entry = (slug, title)
                 entries.append(entry)
