@@ -66,4 +66,4 @@ public:
 
 ---
 
-[← Back to Easy](easy.md) · [All problems](index.md)
+[← Back to Easy Problems](../easy.md) · [All LeetCode Problems](../index.md)

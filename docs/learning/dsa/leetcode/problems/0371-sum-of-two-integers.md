@@ -43,4 +43,4 @@ public:
 
 ---
 
-[← Back to Medium](medium.md) · [All problems](index.md)
+[← Back to Medium Problems](../medium.md) · [All LeetCode Problems](../index.md)

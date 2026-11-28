@@ -75,4 +75,4 @@ public:
 
 ---
 
-[← Back to Hard](hard.md) · [All problems](index.md)
+[← Back to Hard Problems](../hard.md) · [All LeetCode Problems](../index.md)
