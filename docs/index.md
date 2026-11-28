@@ -1,6 +1,14 @@
 
 # Learning Resources
 
+## Writing
+
+I also write about books, personal reflections, travel, and ideas outside engineering.
+
+- [Writing overview](writing/index.md)
+- [Beyond Engineering](writing/beyond-engineering.md)
+
+
 A structured, searchable knowledge base for continuous learning across software engineering and computer science.
 
 ## Learning paths
